@@ -7,12 +7,12 @@ function display_current_post( $paged ): void {
 
 	$content_field_value = get_the_content();
 	$bordered = osetin_get_field( 'show_featured_recipes_slider' ) ? false : true;
-	$layout_type_for_index = osetin_get_settings_field( 'layout_type_for_index' );
+	$layout_type_for_index = 'full_width'; // Hard-coded value
 	$sticky_posts = get_sticky_posts( $paged );
 	$osetin_recipes_query = get_recipes_index_query( $paged ); 
 
 	if ( osetin_get_field( 'content_location' ) == 'as_header' ) {
-		display_content_located_as_header( $content_field_value );
+//		display_content_located_as_header( $content_field_value );
 	}
 ?>
 	<div class="os-container">
