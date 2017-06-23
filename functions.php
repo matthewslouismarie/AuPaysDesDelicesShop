@@ -3,6 +3,7 @@
 $functions = get_stylesheet_directory() . '/functions/';
 
 function get_logo_image_url() {
+    return get_stylesheet_directory_uri() . '/img/logo.png';
     if ( is_home() ) {
         return get_stylesheet_directory_uri() . '/img/logo-index.jpg';
     }
