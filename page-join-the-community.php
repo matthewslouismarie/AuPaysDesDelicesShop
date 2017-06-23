@@ -2,8 +2,6 @@
 /**
  * The template for displaying all pages.
  * 
-* Template Name: Join the Community
- *
  * @package Au_Pays_Des_Delices_Shop
  * @since 1.0.0
  */
