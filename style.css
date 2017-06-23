@@ -11,3 +11,33 @@ License URI:
 Tags:
 Text Domain: neptune-by-osetin-child
 */
+
+.join-the-community-button-container {
+    text-align: center;
+}
+
+.join-the-community-button {
+    display: inline-block;
+    padding: 2rem;
+    margin: 1rem;
+    background: #8e0000;
+    color: white;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 4rem;
+    border: 0.5rem solid rgba(0, 0, 0, 0);
+}
+
+.join-the-community-button:hover {
+    background: #6d0000;
+    text-shadow: 0.3rem 0.3rem 0.3rem #000000;
+}
+
+.join-the-community-button:focus {
+    border-style: dashed;
+    border-color: #000000;
+}
+
+.join-the-community-button:active {
+    border-style: dotted;
+    border-color: #000000;
+}
