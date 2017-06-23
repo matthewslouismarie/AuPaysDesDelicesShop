@@ -168,7 +168,7 @@ $mobile_logo_image_width = osetin_get_field('mobile_logo_image_width', 'option',
           <div class="fixed-header-i">
             <div class="fixed-logo-w" style="width: <?php echo $fixed_menu_logo_image_width; ?>px;">
               <a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-                <img src="<?php echo $fixed_menu_logo_image_url; ?>" alt="">
+                <img src="<?php echo get_logo_image_url(); ?>" alt="">
               </a>
             </div>
             <?php wp_nav_menu( array( 'theme_location' => 'header', 'menu_id' => 'fixed-header-menu', 'container_class' => 'fixed-top-menu-w menu-activated-on-hover', 'fallback_cb' => false ) ); ?>
