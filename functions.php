@@ -1,5 +1,7 @@
 <?php // Opening PHP tag - nothing should be before this, not even whitespace
 
+$functions = get_stylesheet_directory() . '/functions/';
+
 function get_logo_image_url() {
     if ( is_home() ) {
         return get_stylesheet_directory_uri() . '/img/logo-index.jpg';
