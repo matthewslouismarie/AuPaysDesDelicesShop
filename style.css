@@ -45,3 +45,7 @@ Text Domain: neptune-by-osetin-child
 .top-profile-links-box {
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+.fixed-logo-w {
+    padding: 0px 50px;
+}
