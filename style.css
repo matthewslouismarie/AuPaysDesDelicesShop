@@ -49,3 +49,12 @@ Text Domain: neptune-by-osetin-child
 .fixed-logo-w {
     padding: 0px 50px;
 }
+
+.apdd-comment-in-list {
+    margin-bottom: 3rem;
+}
+
+.apdd-comment-in-list-details {
+    border-left: 1rem #c1c1c1 solid;
+    padding-left: 1rem;
+}

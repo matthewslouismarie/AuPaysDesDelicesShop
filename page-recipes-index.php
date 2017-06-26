@@ -5,7 +5,7 @@ require_once( 'functions/get_sticky_posts.php' );
 require_once( 'functions/get_recipes_index_query.php' );
 require_once( 'functions/display_current_post.php' );
 
-/*
+/**
  * 
  * Template Name: Recipe Index (modified by Louis-Marie Matthews)
  *
