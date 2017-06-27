@@ -6,7 +6,7 @@
  * @since 1.0.0
  */
 
-require_once( $functions . 'display_top_bar.php' );
+require_once( $functions . 'display-top-bar.php' );
 require_once( $functions . 'get-page-w-additional-classes.php' );
 require_once( $functions . 'is-regular-header.php' );
 require_once( $functions . 'display-regular-header.php' );
