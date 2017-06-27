@@ -1,6 +1,7 @@
 <?php
 
-require_once( $functions . 'get-page-url-by-slug.php' );
+require_once( get_stylesheet_directory() . '/functions/get-page-url-by-slug.php' );
+
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
