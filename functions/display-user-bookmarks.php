@@ -7,6 +7,11 @@
  */
 
 /**
+ * Needs the definition of display_post_in_list().
+ */
+require_once( $functions . 'display-post-in-list.php' );
+
+/**
  * Displays the bookmarks of the currently logged-in user.
  * 
  * @since 1.0.0
@@ -16,14 +21,17 @@
 function display_user_bookmarks(): void {
 	global $userpro_fav;
 	$bookmarks = $userpro_fav->get_bookmarks( get_current_user_id() );
-	echo '<ul>';
-	foreach ( $bookmarks as $id => $useless ) {
-		if ( $id == 0 ) {
-			continue;
+	?>
+	<ul>
+		<?php
+		foreach ( $bookmarks as $id => $useless_variable ) {
+			if ( $id == 0 ) {
+				continue;
+			} else {
+				display_post_in_list( $id );
+			}
 		}
-		
-		$post = get_post( $id );
-		echo '<li><a href="' . get_permalink( $id ) . '">' . $post->post_title . '</a></li>';
-	}
-	echo '</ul>';
+		?>
+	</ul>
+	<?php
 }
