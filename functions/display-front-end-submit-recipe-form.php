@@ -40,11 +40,7 @@ function display_front_end_submit_recipe_form( array $usp_options ): void {
 				<?php esc_html_e( 'Please complete the required fields.', 'usp' ); ?>
 			</div>
 			<?php echo usp_error_message();
-			
-			if (isset($_GET['success']) && $_GET['success'] == '1') :
-				echo '<div id="usp-success-message">'. $usp_options['success-message'] .'</div>';
-			else :
-			
+
 			if (($usp_options['usp_name'] == 'show' || $usp_options['usp_name'] == 'optn') && ($usp_display_name)) { ?>
 			
 			<fieldset class="usp-name">
@@ -177,8 +173,6 @@ function display_front_end_submit_recipe_form( array $usp_options ): void {
 				<?php wp_nonce_field('usp-nonce', 'usp-nonce', false); ?>
 				
 			</div>
-			<?php endif; ?>
-
 		</form>
 	</div>
 	<script>(function(){var e = document.getElementById('coldform_verify'); if(e) e.parentNode.removeChild(e);})();</script>
