@@ -3,10 +3,7 @@
 function display_front_end_submit_recipe_form() {
 
 	global $usp_options;
-
-	if (!defined('ABSPATH')) die();
-
-
+	
 	if ($usp_options['logged_in_users'] && !is_user_logged_in()) : 
 
 		echo usp_login_required_message();
