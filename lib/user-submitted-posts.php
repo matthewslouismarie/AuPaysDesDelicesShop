@@ -70,18 +70,28 @@ function usp_get_ip_address() {
 	return $ip_address;
 }
 
+function usp_is_submission_post_request(): bool {
+	return isset( $_POST['user-submitted-post'], $_POST['usp-nonce'] ) && ! empty( $_POST['user-submitted-post'] ) && wp_verify_nonce( $_POST['usp-nonce'], 'usp-nonce' );
+}
+
+function usp_get_title_from_post_request( arary $post ): string {
+
+	$post_request_contains_a_title = isset( $post['user-submitted-title'] );
+	$title_option_is_on = USP_OPTIONS['usp_title'] == 'show' || USP_OPTIONS['usp_title'] == 'optn';
+	
+	if ( $post_request_contains_a_title && $title_option_is_on ) {
+		$title = sanitize_text_field( $post['user-submitted-title'] );
+	}
+}
+
 function usp_check_for_public_submission() {
 
 	if ( ! is_user_logged_in() ) {
 		return;
 	}
 	
-	if ( isset( $_POST['user-submitted-post'], $_POST['usp-nonce'] ) && ! empty( $_POST['user-submitted-post'] ) && wp_verify_nonce( $_POST['usp-nonce'], 'usp-nonce' ) ) {
-		$title = usp_get_default_title();
-		
-		if ( isset( $_POST['user-submitted-title'] ) && ( USP_OPTIONS['usp_title'] == 'show' || USP_OPTIONS['usp_title'] == 'optn' ) ) {
-			$title = sanitize_text_field($_POST['user-submitted-title']);
-		}
+	if ( usp_is_submission_post_request() ) {
+		$title = usp_get_title_from_post_request( $_POST );
 		
 		$ip = sanitize_text_field( usp_get_ip_address() );
 		
@@ -327,7 +337,7 @@ function usp_create_public_submission( $title, $files, $ip, $author, $url, $emai
 		
 		wp_set_post_categories( $post_id, array( $category ) );
 		
-		usp_send_mail_alert( $post_id, $title );
+		// usp_send_mail_alert( $post_id, $title );
 		
 		do_action( 'usp_files_before', $files );
 		
