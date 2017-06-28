@@ -13,9 +13,9 @@ require( $functions . 'user-submitted-posts/form.php' );
  * 
  * @since 1.0.0
  */
-function display_front_end_submit_recipe_form( array $usp_options ): void {
+function display_front_end_submit_recipe_form(): void {
 
-	if ( $usp_options['disable_required'] ) {
+	if ( USP_OPTIONS['disable_required'] ) {
 		$usp_required = ''; 
 		$usp_captcha  = '';
 		$usp_files    = '';

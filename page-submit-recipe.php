@@ -20,7 +20,7 @@ if ( ! is_user_logged_in() ) {
 } elseif ( usp_is_successful_submission() ) {
 	usp_display_successful_submission();
 } else {
-	display_front_end_submit_recipe_form( $usp_options );
+	display_front_end_submit_recipe_form();
 }
 
 display_main_container_closing_tags();

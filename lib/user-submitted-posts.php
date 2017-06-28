@@ -1,6 +1,6 @@
 <?php
 
-$usp_options = array(
+define( 'USP_OPTIONS', array(
 'author' => get_current_user_id(),
 'categories' => 
 array (
@@ -40,7 +40,7 @@ array (
 'titles_unique' => 0,
 'email_alert_subject' => '',
 'email_alert_message' => '',
-);
+));
 
 function usp_get_default_title() {
 	$time = date_i18n( 'Ymd', current_time( 'timestamp' ) ) . '-' . date_i18n( 'His', current_time( 'timestamp' ) );
@@ -72,8 +72,6 @@ function usp_get_ip_address() {
 
 function usp_check_for_public_submission() {
 
-	global $usp_options;
-
 	if ( ! is_user_logged_in() ) {
 		return;
 	}
@@ -81,7 +79,7 @@ function usp_check_for_public_submission() {
 	if ( isset( $_POST['user-submitted-post'], $_POST['usp-nonce'] ) && ! empty( $_POST['user-submitted-post'] ) && wp_verify_nonce( $_POST['usp-nonce'], 'usp-nonce' ) ) {
 		$title = usp_get_default_title();
 		
-		if ( isset( $_POST['user-submitted-title'] ) && ( $usp_options['usp_title'] == 'show' || $usp_options['usp_title'] == 'optn' ) ) {
+		if ( isset( $_POST['user-submitted-title'] ) && ( USP_OPTIONS['usp_title'] == 'show' || USP_OPTIONS['usp_title'] == 'optn' ) ) {
 			$title = sanitize_text_field($_POST['user-submitted-title']);
 		}
 		
@@ -148,10 +146,8 @@ add_action( 'parse_request', 'usp_check_for_public_submission', 1 );
 
 function usp_error_message() {
 	
-	global $usp_options;
-	
-	$min = $usp_options['min-images'];
-	$max = $usp_options['max-images'];
+	$min = USP_OPTIONS['min-images'];
+	$max = USP_OPTIONS['max-images'];
 	
 	if ( (int) $min > 1 ) {
 		$min = ' (' . $min . esc_html__( ' files required', 'usp' ) . ')';
@@ -165,13 +161,13 @@ function usp_error_message() {
 		$max = ' (limit: ' . $max . esc_html__(' file', 'usp') . ')';
 	}
 	
-	$min_width  = ' (' . $usp_options['min-image-width']  . esc_html__(' pixels', 'usp') . ')';
-	$max_width  = ' (' . $usp_options['max-image-width']  . esc_html__(' pixels', 'usp') . ')';
-	$min_height = ' (' . $usp_options['min-image-height'] . esc_html__(' pixels', 'usp') . ')';
-	$max_height = ' (' . $usp_options['max-image-height'] . esc_html__(' pixels', 'usp') . ')';
+	$min_width  = ' (' . USP_OPTIONS['min-image-width']  . esc_html__(' pixels', 'usp') . ')';
+	$max_width  = ' (' . USP_OPTIONS['max-image-width']  . esc_html__(' pixels', 'usp') . ')';
+	$min_height = ' (' . USP_OPTIONS['min-image-height'] . esc_html__(' pixels', 'usp') . ')';
+	$max_height = ' (' . USP_OPTIONS['max-image-height'] . esc_html__(' pixels', 'usp') . ')';
 	
-	if ( ! empty( $usp_options['error-message'] ) ) {
-		$general_error = $usp_options['error-message'];
+	if ( ! empty( USP_OPTIONS['error-message'] ) ) {
+		$general_error = USP_OPTIONS['error-message'];
 	} else {
 		$general_error = esc_html__( 'An error occurred. Please go back and try again.', 'usp' );
 	}
@@ -236,9 +232,7 @@ function usp_error_message() {
 
 function usp_check_required( $field ) {
 	
-	global $usp_options;
-	
-	if ( $usp_options[$field] === 'show' ) {
+	if ( USP_OPTIONS[$field] === 'show' ) {
 		return true;
 	} else {
 		return false;
@@ -266,9 +260,7 @@ function usp_sanitize_content( $content ) {
 }
 
 function usp_create_public_submission( $title, $files, $ip, $author, $url, $email, $tags, $captcha, $verify, $content, $category ) {
-	
-	global $usp_options;
-	
+
 	// check errors
 	$new_post = array( 'id' => false, 'error' => false );
 	
@@ -281,31 +273,31 @@ function usp_create_public_submission( $title, $files, $ip, $author, $url, $emai
 	$file_count         = $file_data['file_count'];
 	$new_post['error']   = array_unique( array_merge( $file_data['error'], $new_post['error'] ) );
 	
-	if ( isset( $usp_options['usp_title'] ) && $usp_options['usp_title']  == 'show' && empty( $title ) ) {
+	if ( isset( USP_OPTIONS['usp_title'] ) && USP_OPTIONS['usp_title']  == 'show' && empty( $title ) ) {
 		$new_post['error'][] = 'required-title';
 	}
 
-	if ( isset( $usp_options['usp_url'] ) && $usp_options['usp_url'] == 'show' && empty( $url ) ) {
+	if ( isset( USP_OPTIONS['usp_url'] ) && USP_OPTIONS['usp_url'] == 'show' && empty( $url ) ) {
 		$new_post['error'][] = 'required-url';
 	}
 
-	if ( isset( $usp_options['usp_tags'] ) && $usp_options['usp_tags'] == 'show' && empty( $tags ) ) {
+	if ( isset( USP_OPTIONS['usp_tags'] ) && USP_OPTIONS['usp_tags'] == 'show' && empty( $tags ) ) {
 		$new_post['error'][] = 'required-tags';
 	}
 
-	if ( isset( $usp_options['usp_category'] ) && $usp_options['usp_category'] == 'show' && empty ($category ) ) {
+	if ( isset( USP_OPTIONS['usp_category'] ) && USP_OPTIONS['usp_category'] == 'show' && empty ($category ) ) {
 		$new_post['error'][] = 'required-category';
 	}
 
-	if ( isset( $usp_options['usp_content'] ) && $usp_options['usp_content'] == 'show' && empty( $content ) ) {
+	if ( isset( USP_OPTIONS['usp_content'] ) && USP_OPTIONS['usp_content'] == 'show' && empty( $content ) ) {
 		$new_post['error'][] = 'required-content';
 	}
 
-	if ( isset( $usp_options['usp_email'] ) && $usp_options['usp_email'] != 'hide' && !usp_validateEmail( $email ) ) {
+	if ( isset( USP_OPTIONS['usp_email'] ) && USP_OPTIONS['usp_email'] != 'hide' && !usp_validateEmail( $email ) ) {
 		$new_post['error'][] = 'required-email';
 	}
 	
-	if ( isset( $usp_options['titles_unique']) && $usp_options['titles_unique'] && ! usp_check_duplicates( $title ) ) {
+	if ( isset( USP_OPTIONS['titles_unique']) && USP_OPTIONS['titles_unique'] && ! usp_check_duplicates( $title ) ) {
 		$new_post['error'][] = 'duplicate-title';
 	}
 
@@ -386,7 +378,7 @@ function usp_create_public_submission( $title, $files, $ip, $author, $url, $emai
 			update_post_meta( $post_id, 'user_submit_url', $url );
 		}
 		
-		if ( ! empty( $ip ) && ! $usp_options['disable_ip_tracking'] ) {
+		if ( ! empty( $ip ) && ! USP_OPTIONS['disable_ip_tracking'] ) {
 			update_post_meta( $post_id, 'user_submit_ip', $ip );
 		}
 	} else {
@@ -398,15 +390,13 @@ function usp_create_public_submission( $title, $files, $ip, $author, $url, $emai
 
 function usp_get_author( $author ) {
 	
-	global $usp_options;
-	
 	$error = false;
 	
-	$author_id = $usp_options['author'];
+	$author_id = USP_OPTIONS['author'];
 	
 	if ( ! empty( $author ) ) {
 		
-		if ( $usp_options['usp_use_author'] ) {
+		if ( USP_OPTIONS['usp_use_author'] ) {
 			
 			$author_info = get_user_by( 'login', $author );
 			
@@ -417,7 +407,7 @@ function usp_get_author( $author ) {
 			}
 		}
 	} else {
-		if ( $usp_options['usp_name'] == 'show' ) {
+		if ( USP_OPTIONS['usp_name'] == 'show' ) {
 			
 			$error = 'required-name';
 		} else {
@@ -436,8 +426,6 @@ function usp_get_author( $author ) {
 }
 
 function usp_check_images( $files, $new_post ) {
-	
-	global $usp_options;
 	
 	$temp = false;
 	$errr = false;
@@ -462,13 +450,13 @@ function usp_check_images( $files, $new_post ) {
 		}
 	}
 	
-	if ( $usp_options['usp_images'] == 'show' ) {
+	if ( USP_OPTIONS['usp_images'] == 'show' ) {
 		
-		if ( $file_count < $usp_options['min-images'] ) {
+		if ( $file_count < USP_OPTIONS['min-images'] ) {
 			$error[] = 'file-min';
 		}
 
-		if ( $file_count > $usp_options['max-images'] ) {
+		if ( $file_count > USP_OPTIONS['max-images'] ) {
 			$error[] = 'file-max';
 		}
 		
@@ -536,15 +524,13 @@ function usp_check_images( $files, $new_post ) {
 
 function usp_prepare_post( $title, $content, $author_id, $author, $ip ) {
 	
-	global $usp_options;
-	
 	$post_data = array();
 	$post_data['post_title']   = $title;
 	$post_data['post_content'] = $content;
 	$post_data['post_author']  = $author_id;
 	$post_data['post_status']  = apply_filters('usp_post_status', 'pending');
 	
-	$numberApproved = $usp_options['number-approved'];
+	$numberApproved = USP_OPTIONS['number-approved'];
 	
 	if ( $numberApproved == 0 ) {
 		
@@ -585,9 +571,7 @@ function usp_prepare_post( $title, $content, $author_id, $author, $ip ) {
 
 function usp_send_mail_alert( $post_id, $title ) {
 	
-	global $usp_options;
-	
-	if ( $usp_options['usp_email_alerts'] == true ) {
+	if ( USP_OPTIONS['usp_email_alerts'] == true ) {
 		
 		$blog_url   = get_bloginfo( 'url' );     // %%blog_url%%
 		$blog_name  = get_bloginfo( 'name' );    // %%blog_name%%
@@ -612,24 +596,24 @@ function usp_send_mail_alert( $post_id, $title ) {
 		//
 		
 		$subject_default = $blog_name  . ': New user-submitted post!';
-		$subject = isset( $usp_options['email_alert_subject'] ) && ! empty( $usp_options['email_alert_subject'] ) ? $usp_options['email_alert_subject'] : $subject_default;
+		$subject = isset( USP_OPTIONS['email_alert_subject'] ) && ! empty( USP_OPTIONS['email_alert_subject'] ) ? USP_OPTIONS['email_alert_subject'] : $subject_default;
 		$subject = preg_replace( $patterns, $replacements, $subject );
 		$subject = apply_filters( 'usp_mail_subject', $subject );
 		
 		$message_default = 'Hello, there is a new user-submitted post:' . "\r\n\n" . 'Title: ' . $post_title . "\r\n\n" . 'Visit Admin Area: ' . $admin_url;
-		$message = isset( $usp_options['email_alert_message'] ) && ! empty( $usp_options['email_alert_message'] ) ? $usp_options['email_alert_message'] : $message_default;
+		$message = isset( USP_OPTIONS['email_alert_message'] ) && ! empty( USP_OPTIONS['email_alert_message'] ) ? USP_OPTIONS['email_alert_message'] : $message_default;
 		$message = preg_replace( $patterns, $replacements, $message );
 		$message = apply_filters( 'usp_mail_message', $message );
 		
-		$html = isset( $usp_options['usp_email_html'] ) ? $usp_options['usp_email_html'] : false;
+		$html = isset( USP_OPTIONS['usp_email_html'] ) ? USP_OPTIONS['usp_email_html'] : false;
 		$format = $html ? 'text/html' : 'text/plain';
 		
 		//
 		
 		$default = get_bloginfo( 'admin_email' );
 		
-		$to   = isset( $usp_options['usp_email_address'] ) && ! empty( $usp_options['usp_email_address'] ) ? $usp_options['usp_email_address'] : $default;
-		$from = isset( $usp_options['usp_email_from'] )    && ! empty( $usp_options['usp_email_from'] )    ? $usp_options['usp_email_from']    : $to;
+		$to   = isset( USP_OPTIONS['usp_email_address'] ) && ! empty( USP_OPTIONS['usp_email_address'] ) ? USP_OPTIONS['usp_email_address'] : $default;
+		$from = isset( USP_OPTIONS['usp_email_from'] )    && ! empty( USP_OPTIONS['usp_email_from'] )    ? USP_OPTIONS['usp_email_from']    : $to;
 		
 		$to   = explode( ',', $to );
 		$from = explode( ',', $from );
@@ -684,14 +668,11 @@ function usp_is_successful_submission(): bool {
  * Displays a message informing the user of the successful USP submission.
  * 
  * @since 1.0.0
- * 
- * @global array $usp_options The USP options.
  */
 function usp_display_successful_submission() {
-	global $usp_options;
 	?>
 	<div id="usp-success-message">
-		<?php echo $usp_options['success-message'] ?>
+		<?php echo USP_OPTIONS['success-message'] ?>
 	</div>
 	<?php
 }

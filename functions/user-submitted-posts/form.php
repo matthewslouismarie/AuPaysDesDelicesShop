@@ -1,22 +1,19 @@
 <?php
 
 function usp_allow_custom_names(): bool {
-	global $usp_options;
-	return ! ( is_user_logged_in() && $usp_options['usp_use_author'] );
+	return ! ( is_user_logged_in() && USP_OPTIONS['usp_use_author'] );
 }
 
 function usp_allow_custom_urls(): bool {
-	global $usp_options;
-	return ! ( is_user_logged_in() && $usp_options['usp_use_url'] );
+	return ! ( is_user_logged_in() && USP_OPTIONS['usp_use_url'] );
 }
 
 function usp_use_categories(): bool {
-	global $usp_options;
-	return $usp_options['usp_use_cat'] == true;
+	return USP_OPTIONS['usp_use_cat'] == true;
 }
 
 function usp_should_display_url_field(): bool {
-	return ( $usp_options['usp_url'] == 'show' || $usp_options['usp_url'] == 'optn' ) && usp_allow_custom_urls();
+	return ( USP_OPTIONS['usp_url'] == 'show' || USP_OPTIONS['usp_url'] == 'optn' ) && usp_allow_custom_urls();
 }
 
 /**
@@ -24,48 +21,38 @@ function usp_should_display_url_field(): bool {
  * 
  * @since 1.0.0
  * 
- * @global array $usp_options USP options.
- * 
  * @return True if the the author name field should be displayed, false otherwise.
  */
 function usp_should_display_author_name_field(): bool {
-	global $usp_options;
-	return ( $usp_options['usp_name'] == 'show' || $usp_options['usp_name'] == 'optn' ) && usp_allow_custom_names();
+	return ( USP_OPTIONS['usp_name'] == 'show' || USP_OPTIONS['usp_name'] == 'optn' ) && usp_allow_custom_names();
 }
 
 function usp_should_display_email_field(): bool {
-	global $usp_options;
-	return $usp_options['usp_email'] == 'show' || $usp_options['usp_email'] == 'optn';
+	return USP_OPTIONS['usp_email'] == 'show' || USP_OPTIONS['usp_email'] == 'optn';
 }
 
 function usp_should_display_title_field(): bool {
-	global $usp_options;
-	return $usp_options['usp_title'] == 'show' || $usp_options['usp_title'] == 'optn';
+	return USP_OPTIONS['usp_title'] == 'show' || USP_OPTIONS['usp_title'] == 'optn';
 }
 
 function usp_should_display_tags_field(): bool {
-	global $usp_options;
-	return $usp_options['usp_tags'] == 'show' || $usp_options['usp_tags'] == 'optn';
+	return USP_OPTIONS['usp_tags'] == 'show' || USP_OPTIONS['usp_tags'] == 'optn';
 }
 
 function usp_should_display_categories_field(): bool {
-	global $usp_options;
-	return ( $usp_options['usp_category'] == 'show' || $usp_options['usp_category'] == 'optn' ) && ( $usp_options['usp_use_cat'] == false );
+	return ( USP_OPTIONS['usp_category'] == 'show' || USP_OPTIONS['usp_category'] == 'optn' ) && ( USP_OPTIONS['usp_use_cat'] == false );
 }
 
 function usp_should_display_content_field(): bool {
-	global $usp_options;
-	return $usp_options['usp_content'] == 'show' || $usp_options['usp_content'] == 'optn';
+	return USP_OPTIONS['usp_content'] == 'show' || USP_OPTIONS['usp_content'] == 'optn';
 }
 
 function usp_should_display_image_field(): bool {
-	global $usp_options;
-	return $usp_options['usp_images'] == 'show' && $usp_options['max-images'] !== 0;
+	return USP_OPTIONS['usp_images'] == 'show' && USP_OPTIONS['max-images'] !== 0;
 }
 
 function usp_display_author_name_field(): void {
-	global $usp_options;
-	if ( $usp_options['disable_required'] ) {
+	if ( USP_OPTIONS['disable_required'] ) {
 		$usp_required = ''; 
 		$usp_captcha  = '';
 		$usp_files    = '';
@@ -144,13 +131,12 @@ function usp_display_tags_field(): void {
 }
 
 function usp_display_categories_field(): void {
-	global $usp_options;
 	?>
 	<fieldset class="usp-category">
 		<label for="user-submitted-category"><?php esc_html_e('Post Category', 'usp'); ?></label>
 		<select id="user-submitted-category" name="user-submitted-category"<?php if (usp_check_required('usp_category')) echo $usp_required; ?> class="usp-select">
 			<option value=""><?php esc_html_e('Please select a category..', 'usp'); ?></option>
-			<?php foreach ( $usp_options['categories'] as $category_id ) { $category = get_category( $category_id ); if ( ! $category ) { continue; } ?>
+			<?php foreach ( USP_OPTIONS['categories'] as $category_id ) { $category = get_category( $category_id ); if ( ! $category ) { continue; } ?>
 			
 			<option value="<?php echo $category_id; ?>"><?php $category = get_category($category_id); echo sanitize_text_field($category->name); ?></option>
 			<?php } ?>
@@ -161,10 +147,9 @@ function usp_display_categories_field(): void {
 }
 
 function usp_display_content_field(): void {
-	global $usp_options;
 	?>
 	<fieldset class="usp-content">
-		<?php if ( $usp_options['usp_richtext_editor'] == true ) { ?>
+		<?php if ( USP_OPTIONS['usp_richtext_editor'] == true ) { ?>
 		
 		<div class="usp_text-editor">
 		<?php $usp_rte_settings = array(
@@ -199,17 +184,16 @@ function usp_display_content_field(): void {
 }
 
 function usp_display_image_field(): void {
-	global $usp_options;
 	?>
 	<fieldset class="usp-images">
 				<label for="user-submitted-image"><?php esc_html_e('Upload an Image', 'usp'); ?></label>
-				<div id="usp-upload-message"><?php esc_html_e($usp_options['upload-message'], 'usp'); ?></div>
+				<div id="usp-upload-message"><?php esc_html_e(USP_OPTIONS['upload-message'], 'usp'); ?></div>
 				<div id="user-submitted-image">
 				<?php // upload files
 					
-				$usp_minImages = intval($usp_options['min-images']);
-				$usp_maxImages = intval($usp_options['max-images']);
-				$usp_addAnother = $usp_options['usp_add_another'];
+				$usp_minImages = intval(USP_OPTIONS['min-images']);
+				$usp_maxImages = intval(USP_OPTIONS['max-images']);
+				$usp_addAnother = USP_OPTIONS['usp_add_another'];
 				
 				if ( empty( $usp_addAnother ) ) $usp_addAnother = '<a href="#" id="usp_add-another" class="usp-no-js">'. esc_html__('Add another image', 'usp') .'</a>';
 				
@@ -226,8 +210,8 @@ function usp_display_image_field(): void {
 				<?php endif; ?>
 					
 				</div>
-				<input type="hidden" class="usp-hidden exclude" id="usp-min-images" name="usp-min-images" value="<?php echo $usp_options['min-images']; ?>">
-				<input type="hidden" class="usp-hidden exclude" id="usp-max-images" name="usp-max-images" value="<?php echo $usp_options['max-images']; ?>">
+				<input type="hidden" class="usp-hidden exclude" id="usp-min-images" name="usp-min-images" value="<?php echo USP_OPTIONS['min-images']; ?>">
+				<input type="hidden" class="usp-hidden exclude" id="usp-max-images" name="usp-max-images" value="<?php echo USP_OPTIONS['max-images']; ?>">
 			</fieldset>
 			<?php
 }
@@ -242,7 +226,6 @@ function usp_display_human_verification_field(): void {
 }
 
 function usp_display_hidden_default_values(): void {
-	global $usp_options;
 	?>
 	<div id="usp-submit">
 		<?php if ( ! usp_allow_custom_names() ) { ?>
@@ -255,7 +238,7 @@ function usp_display_hidden_default_values(): void {
 		<?php } ?>
 		<?php if ( usp_use_categories() ) { ?>
 		
-		<input type="hidden" class="usp-hidden exclude" name="user-submitted-category" value="<?php echo $usp_options['usp_use_cat_id']; ?>">
+		<input type="hidden" class="usp-hidden exclude" name="user-submitted-category" value="<?php echo USP_OPTIONS['usp_use_cat_id']; ?>">
 		<?php } ?>
 		
 		<input type="submit" class="usp-submit exclude" id="user-submitted-post" name="user-submitted-post" value="<?php esc_attr_e('Submit Post', 'usp'); ?>">
