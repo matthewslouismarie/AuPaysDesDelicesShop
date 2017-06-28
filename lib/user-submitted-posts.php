@@ -23,10 +23,8 @@ array (
 'usp_category' => 'show',
 'usp_images' => 'hide',
 'upload-message' => 'Please select your image(s) to upload.',
-'usp_question' => '1 + 1 =',
 'usp_response' => '2',
 'usp_casing' => 0,
-'usp_captcha' => 'show',
 'usp_content' => 'show',
 'success-message' => 'Success! Thank you for your submission.',
 'usp_email_alerts' => 1,
@@ -43,9 +41,6 @@ array (
 'titles_unique' => 0,
 'email_alert_subject' => '',
 'email_alert_message' => '',
-'recaptcha_public' => '',
-'recaptcha_private' => '',
-'usp_recaptcha' => 'hide',
 );
 
 function usp_get_default_title() {
@@ -306,14 +301,6 @@ function usp_create_public_submission( $title, $files, $ip, $author, $url, $emai
 	if ( isset( $usp_options['usp_content'] ) && $usp_options['usp_content'] == 'show' && empty( $content ) ) {
 		$new_post['error'][] = 'required-content';
 	}
-	
-	if ( isset( $usp_options['usp_recaptcha'] ) && $usp_options['usp_recaptcha'] == 'show' && !usp_verify_recaptcha() ) {
-		$new_post['error'][] = 'required-recaptcha';
-	}
-
-	if ( isset( $usp_options['usp_captcha'] ) && $usp_options['usp_captcha'] == 'show' && !usp_spam_question( $captcha ) ) {
-		$new_post['error'][] = 'required-captcha';
-	}
 
 	if ( isset( $usp_options['usp_email'] ) && $usp_options['usp_email'] != 'hide' && !usp_validateEmail( $email ) ) {
 		$new_post['error'][] = 'required-email';
@@ -546,24 +533,6 @@ function usp_check_images( $files, $new_post ) {
 	
 	return $file_data;
 	
-}
-
-function usp_spam_question( $input ) {
-	
-	global $usp_options;
-	
-	$response = $usp_options['usp_response'];
-	
-	$response = sanitize_text_field( $response );
-	
-	if ( $usp_options['usp_casing'] == false ) {
-		
-		return strtoupper($input) == strtoupper( $response );
-		
-	} else {
-		
-		return $input == $response;
-	}
 }
 
 function usp_prepare_post( $title, $content, $author_id, $author, $ip ) {

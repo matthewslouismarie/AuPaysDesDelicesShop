@@ -30,11 +30,6 @@ function display_front_end_submit_recipe_form( array $usp_options ): void {
 	$usp_display_name = is_user_logged_in() && $usp_options['usp_use_author'] ? false : true;
 	$usp_display_url  = is_user_logged_in() && $usp_options['usp_use_url']    ? false : true;
 	
-	$usp_recaptcha_public  = isset( $usp_options['recaptcha_public'] )  && ! empty( $usp_options['recaptcha_public'] )  ? true : false;
-	$usp_recaptcha_private = isset( $usp_options['recaptcha_private'] ) && ! empty( $usp_options['recaptcha_private'] ) ? true : false;
-	
-	$usp_data_sitekey = isset( $usp_options['recaptcha_public'] ) ? $usp_options['recaptcha_public'] : '';
-		
 	?>
 
 	<!-- User Submitted Posts @ https://m0n.co/usp -->
@@ -77,12 +72,6 @@ function display_front_end_submit_recipe_form( array $usp_options ): void {
 			<fieldset class="usp-tags">
 				<label for="user-submitted-tags"><?php esc_html_e('Post Tags', 'usp'); ?></label>
 				<input id="user-submitted-tags" name="user-submitted-tags" type="text" value="" placeholder="<?php esc_attr_e('Post Tags', 'usp'); ?>"<?php if (usp_check_required('usp_tags')) echo $usp_required; ?> class="usp-input">
-			</fieldset>
-			<?php } if ($usp_options['usp_captcha'] == 'show') { ?>
-			
-			<fieldset class="usp-captcha">
-				<label for="user-submitted-captcha"><?php echo $usp_options['usp_question']; ?></label>
-				<input id="user-submitted-captcha" name="user-submitted-captcha" type="text" value="" placeholder="<?php esc_attr_e('Antispam Question', 'usp'); ?>"<?php echo $usp_required; ?> class="usp-input exclude<?php echo $usp_captcha; ?>">
 			</fieldset>
 			<?php } if (($usp_options['usp_category'] == 'show' || $usp_options['usp_category'] == 'optn') && ($usp_options['usp_use_cat'] == false)) { ?>
 			
@@ -129,11 +118,6 @@ function display_front_end_submit_recipe_form( array $usp_options ): void {
 				<?php } ?>
 				
 			</fieldset>
-			<?php } if ($usp_recaptcha_public && $usp_recaptcha_private && $usp_options['usp_recaptcha'] == 'show') { ?>
-			
-			<label for="user-submitted-category"><?php esc_html_e('Verification', 'usp'); ?></label>
-			<div class="g-recaptcha" data-sitekey="<?php echo esc_attr($usp_data_sitekey); ?>"></div>
-			
 			<?php } if ($usp_options['usp_images'] == 'show') { ?>
 			<?php if ($usp_options['max-images'] !== 0) { ?>
 			
