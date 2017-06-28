@@ -1,9 +1,6 @@
 <?php
 
 $usp_options = array (
-'usp_version' => 20170531,
-'version_alert' => 0,
-'default_options' => 0,
 'author' => '1',
 'categories' => 
 array (
@@ -32,7 +29,6 @@ array (
 'usp_captcha' => 'show',
 'usp_content' => 'show',
 'success-message' => 'Success! Thank you for your submission.',
-'usp_form_version' => 'current',
 'usp_email_alerts' => 1,
 'usp_email_html' => 0,
 'usp_email_address' => 'louismarie.matthews@outlook.fr',
@@ -41,25 +37,12 @@ array (
 'usp_use_url' => 0,
 'usp_use_cat' => 0,
 'usp_use_cat_id' => '',
-'usp_include_js' => 1,
-'usp_display_url' => '',
-'usp_form_content' => '',
 'usp_richtext_editor' => 0,
-'usp_featured_images' => 0,
 'usp_add_another' => '',
 'disable_required' => 0,
 'titles_unique' => 0,
-'enable_shortcodes' => 0,
-'disable_ip_tracking' => 0,
 'email_alert_subject' => '',
 'email_alert_message' => '',
-'auto_display_images' => 'disable',
-'auto_display_email' => 'disable',
-'auto_display_url' => 'disable',
-'auto_image_markup' => '<a href="%%full%%"><img src="%%thumb%%" width="%%width%%" height="%%height%%" alt="%%title%%" style="display:inline-block" /></a> ',
-'auto_email_markup' => '<p><a href="mailto:%%email%%">Email</a></p>',
-'auto_url_markup' => '<p><a href="%%url%%">URL</a></p>',
-'logged_in_users' => 0,
 'recaptcha_public' => '',
 'recaptcha_private' => '',
 'usp_recaptcha' => 'hide',
