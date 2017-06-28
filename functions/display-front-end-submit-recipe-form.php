@@ -22,26 +22,22 @@ function display_front_end_submit_recipe_form() {
 	$usp_user_url     = $usp_current_user->user_url;
 	
 	if ( $usp_options['disable_required'] ) {
-		
 		$usp_required = ''; 
 		$usp_captcha  = '';
 		$usp_files    = '';
-		
 	} else {
-		
 		$usp_required = ' data-required="true" required';
 		$usp_captcha  = ' user-submitted-captcha'; 
 		$usp_files    = ' usp-required-file';
-		
 	} 
 	
-	$usp_display_name = (is_user_logged_in() && $usp_options['usp_use_author']) ? false : true;
-	$usp_display_url  = (is_user_logged_in() && $usp_options['usp_use_url'])    ? false : true;
+	$usp_display_name = is_user_logged_in() && $usp_options['usp_use_author'] ? false : true;
+	$usp_display_url  = is_user_logged_in() && $usp_options['usp_use_url']    ? false : true;
 	
-	$usp_recaptcha_public  = (isset($usp_options['recaptcha_public'])  && !empty($usp_options['recaptcha_public']))  ? true : false;
-	$usp_recaptcha_private = (isset($usp_options['recaptcha_private']) && !empty($usp_options['recaptcha_private'])) ? true : false;
+	$usp_recaptcha_public  = isset( $usp_options['recaptcha_public'] )  && ! empty( $usp_options['recaptcha_public'] )  ? true : false;
+	$usp_recaptcha_private = isset( $usp_options['recaptcha_private'] ) && ! empty( $usp_options['recaptcha_private'] ) ? true : false;
 	
-	$usp_data_sitekey = isset($usp_options['recaptcha_public']) ? $usp_options['recaptcha_public'] : '';
+	$usp_data_sitekey = isset( $usp_options['recaptcha_public'] ) ? $usp_options['recaptcha_public'] : '';
 		
 	?>
 
@@ -210,4 +206,5 @@ function display_front_end_submit_recipe_form() {
 		</form>
 	</div>
 	<script>(function(){var e = document.getElementById('coldform_verify'); if(e) e.parentNode.removeChild(e);})();</script>
+	<?php
 }
