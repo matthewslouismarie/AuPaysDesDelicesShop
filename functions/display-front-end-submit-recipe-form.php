@@ -11,7 +11,7 @@
  * 
  * @since 1.0.0
  */
-function display_front_end_submit_recipe_form( array $usp_options ) {
+function display_front_end_submit_recipe_form( array $usp_options ): void {
 
 	$usp_current_user = wp_get_current_user();
 	$usp_user_name    = $usp_current_user->user_login;
@@ -40,8 +40,6 @@ function display_front_end_submit_recipe_form( array $usp_options ) {
 	<!-- User Submitted Posts @ https://m0n.co/usp -->
 
 	<div id="user-submitted-posts">
-		<?php if ($usp_options['usp_form_content'] !== '') echo $usp_options['usp_form_content']; ?>
-		
 		<form id="usp_form" method="post" enctype="multipart/form-data" data-parsley-validate action="">
 			<div id="usp-error-message" class="usp-callout-failure usp-hidden"><?php esc_html_e('Please complete the required fields.', 'usp'); ?></div>
 			<?php echo usp_error_message();
