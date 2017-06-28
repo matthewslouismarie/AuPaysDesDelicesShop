@@ -1,6 +1,6 @@
 <?php
 
-$usp_options = array (
+$usp_options = array(
 'author' => get_current_user_id(),
 'categories' => 
 array (
@@ -684,11 +684,14 @@ function usp_is_successful_submission(): bool {
  * Displays a message informing the user of the successful USP submission.
  * 
  * @since 1.0.0
+ * 
+ * @global array $usp_options The USP options.
  */
 function usp_display_successful_submission() {
+	global $usp_options;
 	?>
 	<div id="usp-success-message">
-		<?php $usp_options['success-message'] ?>
+		<?php echo $usp_options['success-message'] ?>
 	</div>
 	<?php
 }
