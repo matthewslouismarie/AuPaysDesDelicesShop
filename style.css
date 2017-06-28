@@ -55,3 +55,7 @@ Text Domain: au_pays_des_delices
     border-left: 1rem #c1c1c1 solid;
     padding-left: 1rem;
 }
+
+.fixed-header-w {
+    background-color: rgba( 255, 255, 255, 0.9 );
+}
