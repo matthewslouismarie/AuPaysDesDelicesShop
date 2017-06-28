@@ -35,8 +35,10 @@ function display_front_end_submit_recipe_form( array $usp_options ): void {
 	<!-- User Submitted Posts @ https://m0n.co/usp -->
 
 	<div id="user-submitted-posts">
-		<form id="usp_form" method="post" enctype="multipart/form-data" data-parsley-validate action="">
-			<div id="usp-error-message" class="usp-callout-failure usp-hidden"><?php esc_html_e('Please complete the required fields.', 'usp'); ?></div>
+		<form action="#" data-parsley-validate enctype="multipart/form-data"  id="usp_form" method="post">
+			<div id="usp-error-message" class="usp-callout-failure usp-hidden">
+				<?php esc_html_e( 'Please complete the required fields.', 'usp' ); ?>
+			</div>
 			<?php echo usp_error_message();
 			
 			if (isset($_GET['success']) && $_GET['success'] == '1') :

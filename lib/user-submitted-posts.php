@@ -75,7 +75,7 @@ function usp_check_for_public_submission() {
 	global $usp_options;
 
 	if ( ! is_user_logged_in() ) {
-		echo "vous devez être connectés";
+		return;
 	}
 	
 	if ( isset( $_POST['user-submitted-post'], $_POST['usp-nonce'] ) && ! empty( $_POST['user-submitted-post'] ) && wp_verify_nonce( $_POST['usp-nonce'], 'usp-nonce' ) ) {
@@ -660,4 +660,35 @@ function usp_send_mail_alert( $post_id, $title ) {
 			}
 		}
 	}
+}
+
+/**
+ * Determines if the GET request follows a successful USP submission.
+ * 
+ * @since 1.0.0
+ * 
+ * @global array $_GET Details about the GET request.
+ * 
+ * @return bool True if it follows a successful USP POST request, false
+ * otherwise.
+ */
+function usp_is_successful_submission(): bool {
+	if ( isset( $_GET['success'] ) && $_GET['success'] == '1' ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+/**
+ * Displays a message informing the user of the successful USP submission.
+ * 
+ * @since 1.0.0
+ */
+function usp_display_successful_submission() {
+	?>
+	<div id="usp-success-message">
+		<?php $usp_options['success-message'] ?>
+	</div>
+	<?php
 }
