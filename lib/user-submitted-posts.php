@@ -79,6 +79,10 @@ function usp_get_ip_address() {
 function usp_check_for_public_submission() {
 
 	global $usp_options;
+
+	if ( ! is_user_logged_in() ) {
+		echo "vous devez être connectés";
+	}
 	
 	if ( isset( $_POST['user-submitted-post'], $_POST['usp-nonce'] ) && ! empty( $_POST['user-submitted-post'] ) && wp_verify_nonce( $_POST['usp-nonce'], 'usp-nonce' ) ) {
 		$title = usp_get_default_title();
