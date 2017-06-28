@@ -1,40 +1,47 @@
-<?php // User Submitted Posts - Submission Form
+<?php
+/**
+ * Definition of display_front_end_submit_recipe_form
+ * 
+ * @package Au_Pays_Des_Delices
+ * @since 1.0.0
+ */
 
+/**
+ * Displays the form allowing members of the website to submit recipes for approval.
+ * 
+ * @since 1.0.0
+ * 
+ * @global array $usp_options The array containing the optinos of USP.
+ */
 function display_front_end_submit_recipe_form() {
 
 	global $usp_options;
+
+	$usp_current_user = wp_get_current_user();
+	$usp_user_name    = $usp_current_user->user_login;
+	$usp_user_url     = $usp_current_user->user_url;
 	
-	if ($usp_options['logged_in_users'] && !is_user_logged_in()) : 
-
-		echo usp_login_required_message();
-
-	else : 
-
-		$usp_current_user = wp_get_current_user();
-		$usp_user_name    = $usp_current_user->user_login;
-		$usp_user_url     = $usp_current_user->user_url;
+	if ( $usp_options['disable_required'] ) {
 		
-		if ($usp_options['disable_required']) {
-			
-			$usp_required = ''; 
-			$usp_captcha  = '';
-			$usp_files    = '';
-			
-		} else {
-			
-			$usp_required = ' data-required="true" required';
-			$usp_captcha  = ' user-submitted-captcha'; 
-			$usp_files    = ' usp-required-file';
-			
-		} 
+		$usp_required = ''; 
+		$usp_captcha  = '';
+		$usp_files    = '';
 		
-		$usp_display_name = (is_user_logged_in() && $usp_options['usp_use_author']) ? false : true;
-		$usp_display_url  = (is_user_logged_in() && $usp_options['usp_use_url'])    ? false : true;
+	} else {
 		
-		$usp_recaptcha_public  = (isset($usp_options['recaptcha_public'])  && !empty($usp_options['recaptcha_public']))  ? true : false;
-		$usp_recaptcha_private = (isset($usp_options['recaptcha_private']) && !empty($usp_options['recaptcha_private'])) ? true : false;
+		$usp_required = ' data-required="true" required';
+		$usp_captcha  = ' user-submitted-captcha'; 
+		$usp_files    = ' usp-required-file';
 		
-		$usp_data_sitekey = isset($usp_options['recaptcha_public']) ? $usp_options['recaptcha_public'] : '';
+	} 
+	
+	$usp_display_name = (is_user_logged_in() && $usp_options['usp_use_author']) ? false : true;
+	$usp_display_url  = (is_user_logged_in() && $usp_options['usp_use_url'])    ? false : true;
+	
+	$usp_recaptcha_public  = (isset($usp_options['recaptcha_public'])  && !empty($usp_options['recaptcha_public']))  ? true : false;
+	$usp_recaptcha_private = (isset($usp_options['recaptcha_private']) && !empty($usp_options['recaptcha_private'])) ? true : false;
+	
+	$usp_data_sitekey = isset($usp_options['recaptcha_public']) ? $usp_options['recaptcha_public'] : '';
 		
 	?>
 
@@ -203,6 +210,4 @@ function display_front_end_submit_recipe_form() {
 		</form>
 	</div>
 	<script>(function(){var e = document.getElementById('coldform_verify'); if(e) e.parentNode.removeChild(e);})();</script>
-
-	<?php endif;
 }
