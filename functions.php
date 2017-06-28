@@ -685,12 +685,12 @@ function usp_send_mail_alert( $post_id, $title ) {
 		//
 		
 		$subject_default = $blog_name  . ': New user-submitted post!';
-		$subject = isset( $usp_options['email_alert_subject'] ) && ! empty( $usp_options['email_alert_subject'] ) ) ? $usp_options['email_alert_subject'] : $subject_default;
+		$subject = isset( $usp_options['email_alert_subject'] ) && ! empty( $usp_options['email_alert_subject'] ) ? $usp_options['email_alert_subject'] : $subject_default;
 		$subject = preg_replace( $patterns, $replacements, $subject );
 		$subject = apply_filters( 'usp_mail_subject', $subject );
 		
 		$message_default = 'Hello, there is a new user-submitted post:' . "\r\n\n" . 'Title: ' . $post_title . "\r\n\n" . 'Visit Admin Area: ' . $admin_url;
-		$message = isset( $usp_options['email_alert_message'] ) && ! empty( $usp_options['email_alert_message'] ) ) ? $usp_options['email_alert_message'] : $message_default;
+		$message = isset( $usp_options['email_alert_message'] ) && ! empty( $usp_options['email_alert_message'] ) ? $usp_options['email_alert_message'] : $message_default;
 		$message = preg_replace( $patterns, $replacements, $message );
 		$message = apply_filters( 'usp_mail_message', $message );
 		
@@ -701,8 +701,8 @@ function usp_send_mail_alert( $post_id, $title ) {
 		
 		$default = get_bloginfo( 'admin_email' );
 		
-		$to   = isset( $usp_options['usp_email_address'] ) && ! empty( $usp_options['usp_email_address'] ) ) ? $usp_options['usp_email_address'] : $default;
-		$from = isset( $usp_options['usp_email_from'] )    && ! empty( $usp_options['usp_email_from'] ) )    ? $usp_options['usp_email_from']    : $to;
+		$to   = isset( $usp_options['usp_email_address'] ) && ! empty( $usp_options['usp_email_address'] ) ? $usp_options['usp_email_address'] : $default;
+		$from = isset( $usp_options['usp_email_from'] )    && ! empty( $usp_options['usp_email_from'] )    ? $usp_options['usp_email_from']    : $to;
 		
 		$to   = explode( ',', $to );
 		$from = explode( ',', $from );
@@ -721,8 +721,8 @@ function usp_send_mail_alert( $post_id, $title ) {
 			
 			foreach ( $address as $k => $v ) {
 				
-				$address_to   = isset( $v['to'] )   && ! empty( $v['to'] ) )   ? $v['to']   : $default;
-				$address_from = isset( $v['from'] ) && ! empty( $v['from'] ) ) ? $v['from'] : $default;
+				$address_to   = isset( $v['to'] )   && ! empty( $v['to'] )   ? $v['to']   : $default;
+				$address_from = isset( $v['from'] ) && ! empty( $v['from'] ) ? $v['from'] : $default;
 				
 				$headers  = 'X-Mailer: User Submitted Posts' . "\n";
 				$headers .= 'From: ' . $blog_name . ' <' . $address_from . '>' . "\n";
