@@ -7,7 +7,6 @@ array (
 	0 => '1',
 ),
 'number-approved' => -1,
-'redirect-url' => '',
 'error-message' => 'There was an error. Please ensure that you have added a title, some content, and that you have uploaded only images.',
 'min-images' => 0,
 'max-images' => 1,

@@ -158,10 +158,6 @@ function display_front_end_submit_recipe_form( array $usp_options ): void {
 			</fieldset>
 			
 			<div id="usp-submit">
-				<?php if (!empty($usp_options['redirect-url'])) { ?>
-				
-				<input type="hidden" class="usp-hidden exclude" name="redirect-override" value="<?php echo $usp_options['redirect-url']; ?>">
-				<?php } ?>
 				<?php if (!$usp_display_name) { ?>
 				
 				<input type="hidden" class="usp-hidden exclude" name="user-submitted-name" value="<?php echo $usp_user_name; ?>">
