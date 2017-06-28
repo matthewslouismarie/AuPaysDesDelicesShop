@@ -1,7 +1,7 @@
 <?php
 
 $usp_options = array (
-'author' => '1',
+'author' => get_current_user_id(),
 'categories' => 
 array (
 	0 => '1',
@@ -136,20 +136,13 @@ function usp_check_for_public_submission() {
 				$redirect = remove_query_arg( array( 'success', 'post_id' ), $redirect );
 				$redirect = add_query_arg( array( 'usp_redirect' => '1', 'usp-error' => $e ), $redirect );
 			} else {
-				
 				$redirect = $_SERVER['REQUEST_URI'];
-				
 				$redirect = remove_query_arg(array('success', 'post_id'), $redirect);
 				$redirect = add_query_arg(array('usp-error' => $e), $redirect);
-				
 			}
-			
 			do_action('usp_submit_error', $redirect);
-			
 		}
-		
 		wp_redirect( esc_url_raw( $redirect ) );
-		
 		exit();
 	}
 }
