@@ -18,7 +18,7 @@ if ( ! is_user_logged_in() ) {
 	// TODO
 	echo "vous devez être connectés";
 } else {
-	display_front_end_submit_recipe_form();
+	display_front_end_submit_recipe_form( $usp_options );
 }
 
 display_main_container_closing_tags();

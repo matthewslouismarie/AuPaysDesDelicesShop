@@ -10,12 +10,8 @@
  * Displays the form allowing members of the website to submit recipes for approval.
  * 
  * @since 1.0.0
- * 
- * @global array $usp_options The array containing the optinos of USP.
  */
-function display_front_end_submit_recipe_form() {
-
-	global $usp_options;
+function display_front_end_submit_recipe_form( array $usp_options ) {
 
 	$usp_current_user = wp_get_current_user();
 	$usp_user_name    = $usp_current_user->user_login;
