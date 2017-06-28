@@ -114,7 +114,7 @@ function usp_get_ip_address() {
 	return $ip_address;
 }
 
-function usp_checkForPublicSubmission() {
+function usp_check_for_public_submission() {
 
 	global $usp_options;
 	
@@ -138,7 +138,7 @@ function usp_checkForPublicSubmission() {
 		$content  = isset( $_POST['user-submitted-content'] )  ? usp_sanitize_content( $_POST['user-submitted-content'] ) : '';
 		$category = isset( $_POST['user-submitted-category'] ) ? intval( $_POST['user-submitted-category'] )              : '';
 		
-		$result = usp_createPublicSubmission( $title, $files, $ip, $author, $url, $email, $tags, $captcha, $verify, $content, $category );
+		$result = usp_create_public_submission( $title, $files, $ip, $author, $url, $email, $tags, $captcha, $verify, $content, $category );
 		
 		$post_id = false;
 		
@@ -191,7 +191,7 @@ function usp_checkForPublicSubmission() {
 		exit();
 	}
 }
-add_action('parse_request', 'usp_checkForPublicSubmission', 1);
+add_action( 'parse_request', 'usp_check_for_public_submission', 1 );
 
 function usp_error_message() {
 	
@@ -312,79 +312,79 @@ function usp_sanitize_content( $content ) {
 	
 }
 
-function usp_createPublicSubmission( $title, $files, $ip, $author, $url, $email, $tags, $captcha, $verify, $content, $category ) {
+function usp_create_public_submission( $title, $files, $ip, $author, $url, $email, $tags, $captcha, $verify, $content, $category ) {
 	
 	global $usp_options;
 	
 	// check errors
-	$newPost = array( 'id' => false, 'error' => false );
+	$new_post = array( 'id' => false, 'error' => false );
 	
 	$author_data        = usp_get_author( $author );
 	$author             = $author_data['author'];
 	$author_id          = $author_data['author_id'];
-	$newPost['error'][] = $author_data['error'];
+	$new_post['error'][] = $author_data['error'];
 	
-	$file_data          = usp_check_images( $files, $newPost );
+	$file_data          = usp_check_images( $files, $new_post );
 	$file_count         = $file_data['file_count'];
-	$newPost['error']   = array_unique( array_merge( $file_data['error'], $newPost['error'] ) );
+	$new_post['error']   = array_unique( array_merge( $file_data['error'], $new_post['error'] ) );
 	
 	if ( isset( $usp_options['usp_title'] ) && $usp_options['usp_title']  == 'show' && empty( $title ) ) {
-		$newPost['error'][] = 'required-title';
+		$new_post['error'][] = 'required-title';
 	}
 
 	if ( isset( $usp_options['usp_url'] ) && $usp_options['usp_url'] == 'show' && empty( $url ) ) {
-		$newPost['error'][] = 'required-url';
+		$new_post['error'][] = 'required-url';
 	}
 
 	if ( isset( $usp_options['usp_tags'] ) && $usp_options['usp_tags'] == 'show' && empty( $tags ) ) {
-		$newPost['error'][] = 'required-tags';
+		$new_post['error'][] = 'required-tags';
 	}
 
 	if ( isset( $usp_options['usp_category'] ) && $usp_options['usp_category'] == 'show' && empty ($category ) ) {
-		$newPost['error'][] = 'required-category';
+		$new_post['error'][] = 'required-category';
 	}
 
 	if ( isset( $usp_options['usp_content'] ) && $usp_options['usp_content'] == 'show' && empty( $content ) ) {
-		$newPost['error'][] = 'required-content';
+		$new_post['error'][] = 'required-content';
 	}
 	
 	if ( isset( $usp_options['usp_recaptcha'] ) && $usp_options['usp_recaptcha'] == 'show' && !usp_verify_recaptcha() ) {
-		$newPost['error'][] = 'required-recaptcha';
+		$new_post['error'][] = 'required-recaptcha';
 	}
 
-	if ( isset( $usp_options['usp_captcha'] ) && $usp_options['usp_captcha'] == 'show' && !usp_spamQuestion( $captcha ) ) {
-		$newPost['error'][] = 'required-captcha';
+	if ( isset( $usp_options['usp_captcha'] ) && $usp_options['usp_captcha'] == 'show' && !usp_spam_question( $captcha ) ) {
+		$new_post['error'][] = 'required-captcha';
 	}
 
 	if ( isset( $usp_options['usp_email'] ) && $usp_options['usp_email'] != 'hide' && !usp_validateEmail( $email ) ) {
-		$newPost['error'][] = 'required-email';
+		$new_post['error'][] = 'required-email';
 	}
 	
 	if ( isset( $usp_options['titles_unique']) && $usp_options['titles_unique'] && ! usp_check_duplicates( $title ) ) {
-		$newPost['error'][] = 'duplicate-title';
+		$new_post['error'][] = 'duplicate-title';
 	}
 
 	if ( ! empty( $verify ) ) {
-		$newPost['error'][] = 'spam-verify';
+		$new_post['error'][] = 'spam-verify';
 	}
 	
-	foreach ( $newPost['error'] as $e ) {
+	foreach ( $new_post['error'] as $e ) {
 		if ( ! empty( $e ) ) {
-			unset($newPost['id']);
-			return $newPost;
+			unset($new_post['id']);
+			return $new_post;
 		}
 	}
 	
 	// submit post
-	$postData = usp_prepare_post( $title, $content, $author_id, $author, $ip );
+	$post_data = usp_prepare_post( $title, $content, $author_id, $author, $ip );
 	
-	do_action( 'usp_insert_before', $postData );
-	$newPost['id'] = wp_insert_post( $postData );
-	do_action( 'usp_insert_after', $newPost );
+	do_action( 'usp_insert_before', $post_data );
+	$new_post['id'] = wp_insert_post( $post_data );
+	do_action( 'usp_insert_after', $new_post );
 	
-	if ( $newPost['id'] ) {
+	if ( $new_post['id'] ) {
 		
-		$post_id = $newPost['id'];
+		$post_id = $new_post['id'];
 		
 		wp_set_post_tags( $post_id, $tags );
 		
@@ -418,9 +418,9 @@ function usp_createPublicSubmission( $title, $files, $ip, $author, $url, $email,
 				} else {
 					wp_delete_attachment( $attach_id );
 					wp_delete_post( $post_id, true );
-					$newPost['error'][] = 'file-upload';
-					unset( $newPost['id'] );
-					return $newPost;
+					$new_post['error'][] = 'file-upload';
+					unset( $new_post['id'] );
+					return $new_post;
 				}
 			}
 		}
@@ -445,10 +445,10 @@ function usp_createPublicSubmission( $title, $files, $ip, $author, $url, $email,
 			update_post_meta( $post_id, 'user_submit_ip', $ip );
 		}
 	} else {
-		$newPost['error'][] = 'post-fail';
+		$new_post['error'][] = 'post-fail';
 	}
 	
-	return apply_filters( 'usp_new_post', $newPost );
+	return apply_filters( 'usp_new_post', $new_post );
 }
 
 function usp_get_author( $author ) {
@@ -490,7 +490,7 @@ function usp_get_author( $author ) {
 	
 }
 
-function usp_check_images( $files, $newPost ) {
+function usp_check_images( $files, $new_post ) {
 	
 	global $usp_options;
 	
@@ -589,7 +589,7 @@ function usp_check_images( $files, $newPost ) {
 	
 }
 
-function usp_spamQuestion( $input ) {
+function usp_spam_question( $input ) {
 	
 	global $usp_options;
 	
@@ -611,25 +611,25 @@ function usp_prepare_post( $title, $content, $author_id, $author, $ip ) {
 	
 	global $usp_options;
 	
-	$postData = array();
-	$postData['post_title']   = $title;
-	$postData['post_content'] = $content;
-	$postData['post_author']  = $author_id;
-	$postData['post_status']  = apply_filters('usp_post_status', 'pending');
+	$post_data = array();
+	$post_data['post_title']   = $title;
+	$post_data['post_content'] = $content;
+	$post_data['post_author']  = $author_id;
+	$post_data['post_status']  = apply_filters('usp_post_status', 'pending');
 	
 	$numberApproved = $usp_options['number-approved'];
 	
 	if ( $numberApproved == 0 ) {
 		
-		$postData['post_status'] = apply_filters( 'usp_post_publish', 'publish' );
+		$post_data['post_status'] = apply_filters( 'usp_post_publish', 'publish' );
 		
 	} elseif ( $numberApproved == -1 ) {
 		
-		$postData['post_status'] = apply_filters( 'usp_post_moderate', 'pending' );
+		$post_data['post_status'] = apply_filters( 'usp_post_moderate', 'pending' );
 		
 	} elseif ( $numberApproved == -2 ) {
 		
-		$postData['post_status'] = apply_filters( 'usp_post_draft', 'draft' );
+		$post_data['post_status'] = apply_filters( 'usp_post_draft', 'draft' );
 		
 	} else {
 		
@@ -648,12 +648,12 @@ function usp_prepare_post( $title, $content, $author_id, $author, $ip ) {
 		}
 		
 		if ( $counter >= $numberApproved ) {
-			$postData['post_status'] = apply_filters( 'usp_post_approve', 'publish' );
+			$post_data['post_status'] = apply_filters( 'usp_post_approve', 'publish' );
 		}
 		
 	}
 	
-	return apply_filters('usp_post_data', $postData);
+	return apply_filters('usp_post_data', $post_data);
 }
 
 function usp_send_mail_alert( $post_id, $title ) {
