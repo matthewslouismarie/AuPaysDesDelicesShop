@@ -118,6 +118,7 @@ $mobile_logo_image_width = osetin_get_field('mobile_logo_image_width', 'option',
                 <?php } ?>
               <?php }else{ ?>
                 <li><a href="#" class="popup-login"><?php _e('Login', 'osetin'); ?></a></li>
+                <li><a href="<?php echo get_page_url_by_slug( 'devenir-ambassadeur' ) ?>">Devenir Ambassadeur</a></li>
               <?php } ?>
             <?php } ?>
             <?php if(osetin_top_bar_cart_button_visible()){ ?>
