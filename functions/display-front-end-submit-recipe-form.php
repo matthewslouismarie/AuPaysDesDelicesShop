@@ -14,20 +14,8 @@ require( $functions . 'user-submitted-posts/form.php' );
  * @since 1.0.0
  */
 function display_front_end_submit_recipe_form(): void {
-
-	if ( USP_OPTIONS['disable_required'] ) {
-		$usp_required = ''; 
-		$usp_captcha  = '';
-		$usp_files    = '';
-	} else {
-		$usp_required = ' data-required="true" required';
-		$usp_captcha  = ' user-submitted-captcha'; 
-		$usp_files    = ' usp-required-file';
-	}
 	
 	usp_display_form_opening_tags();
-
-	// User Submitted Posts @ https://m0n.co/usp
 
 	usp_display_form_general_error_message();
 
