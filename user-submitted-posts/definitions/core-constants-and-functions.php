@@ -1,7 +1,7 @@
 <?php
 
-if ( ! defined( 'USR_INIT_FILE_REQUIRED' ) ) {
-	die( "USR init file must be included before any other file." );
+if ( ! defined( 'USP_INIT_FILE_REQUIRED' ) ) {
+	die( "USP init file must be included before any other file." );
 }
 
 // USP options

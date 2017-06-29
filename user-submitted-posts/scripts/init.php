@@ -16,6 +16,6 @@
 
 // The actual value of the constant is useless, the only thing that matters is 
 // wether or not the constant exists.
-define( 'USR_INIT_FILE_REQUIRED', true );
+define( 'USP_INIT_FILE_REQUIRED', true );
 
 require_once( USP_CORE_CONSTANTS_AND_FUNCTIONS_PATH );
