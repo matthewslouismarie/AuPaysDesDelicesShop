@@ -4,6 +4,8 @@ if ( ! defined( 'USP_INIT_FILE_REQUIRED' ) ) {
 	die( "USP init file must be included before any other file." );
 }
 
+require( USP_FORM_EXTRACTING_FUNCTIONS_PATH );
+
 function usp_get_default_title() {
 	$time = date_i18n( 'Ymd', current_time( 'timestamp' ) ) . '-' . date_i18n( 'His', current_time( 'timestamp' ) );
 	$title = esc_html__( 'User Submitted Post', 'usp' );
@@ -32,118 +34,87 @@ function usp_get_ip_address() {
 	return $ip_address;
 }
 
-function usp_is_submission_post_request(): bool {
-	return isset( $_POST[ USP_SUBMIT_INPUT_NAME ], $_POST['usp-nonce'] ) && ! empty( $_POST[ USP_SUBMIT_INPUT_NAME ] ) && wp_verify_nonce( $_POST['usp-nonce'], 'usp-nonce' );
+function usp_get_post_id_from_result( array $result ) {
+	if ( isset( $result['id'] ) ) {
+		return $result['id'];
+	} else {
+		return false;
+	}
 }
 
-function usp_get_title_from_post_request( array $post ): string {
+function usp_get_error_from_result( array $result ) {
+	if ( isset( $result['error']) ) {
+		return array_filter( array_unique ( $result['error'] ) );
+	} else {
+		return false;
+	}
+}
 
-	$post_request_contains_a_title = isset( $post[ USP_TITLE_INPUT_NAME ] );
-	$title_option_is_on = USP_OPTIONS['usp_title'] == 'show' || USP_OPTIONS['usp_title'] == 'optn';
+function usp_get_errors_from_result( array $result ) {
+	$error = usp_get_error_from_result( $result );
 	
-	if ( $post_request_contains_a_title && $title_option_is_on ) {
-		return sanitize_text_field( $post[ USP_TITLE_INPUT_NAME ] );
+	if ( false !== $error ) {
+		$errors_array = implode( ',', $error );
+		$errors_array = trim( $errors_array, ',' );
+		return $errors_array;
 	} else {
-		return usp_get_default_title();
+		return 'error';
 	}
 }
 
-function usp_get_author_username_from_post_request( array $post ): string {
-	if ( ! usp_allow_custom_names() ) {
-		return wp_get_current_user()->user_login;
-	}
-	elseif ( isset( $post[ USP_AUTHOR_NAME_INPUT_NAME ] ) ) {
-		return sanitize_text_field( $post[ USP_AUTHOR_NAME_INPUT_NAME ] );
+function usp_redirect( $post, $post_id, $errors ) {
+	if ( $post_id ) {
+		if ( ! empty( $_POST['redirect-override'] ) ) {
+			$redirect = $_POST['redirect-override'];
+			$redirect = remove_query_arg( array( 'usp-error' ), $redirect );
+			$redirect = add_query_arg( array( 'usp_redirect' => '1', 'success' => 1, 'post_id' => $post_id ), $redirect );
+		} else {
+			$redirect = $_SERVER['REQUEST_URI'];
+			$redirect = remove_query_arg( array( 'usp-error' ), $redirect );
+			$redirect = add_query_arg( array( 'success' => 1, 'post_id' => $post_id ), $redirect );
+		}
+		do_action( 'usp_submit_success', $redirect );
 	} else {
-		return '';
+		if ( ! empty( $_POST['redirect-override'] ) ) {
+			$redirect = $_POST['redirect-override'];
+			$redirect = remove_query_arg( array( 'success', 'post_id' ), $redirect );
+			$redirect = add_query_arg( array( 'usp_redirect' => '1', 'usp-error' => $errors ), $redirect );
+		} else {
+			$redirect = $_SERVER['REQUEST_URI'];
+			$redirect = remove_query_arg( array( 'success', 'post_id'), $redirect );
+			$redirect = add_query_arg( array( 'usp-error' => $errors ), $redirect );
+		}
+		do_action('usp_submit_error', $redirect);
 	}
-}
-
-function usp_get_author_url_from_post_request( array $post ): string {
-	if ( ! usp_allow_custom_urls() ) {
-		return wp_get_current_user()->user_url;
-	} elseif ( isset( $_POST[ USP_AUTHOR_URL_INPUT_NAME ] ) ) {
-		esc_url( $_POST[ USP_AUTHOR_URL_INPUT_NAME ] );
-	} else {
-		return '';
-	}
-}
-
-function usp_get_category_from_post_request( array $post ): string {
-	if ( usp_use_predefined_category() ) {
-		return USP_OPTIONS['usp_use_cat_id'];
-	} elseif ( isset( $post[ USP_CATEGORIES_SELECT_NAME ] ) ) {
-		return intval( $post[ USP_CATEGORIES_SELECT_NAME ] );
-	} else {
-		return '';
-	}
+	wp_redirect( esc_url_raw( $redirect ) );
 }
 
 function usp_check_for_public_submission() {
 
-	if ( ! is_user_logged_in() ) {
-		return;
-	}
-	
 	if ( usp_is_submission_post_request() ) {
 		$title = usp_get_title_from_post_request( $_POST );
 		
 		$ip = sanitize_text_field( usp_get_ip_address() );
 		
-		$files = isset( $_FILES[ USP_IMAGE_INPUT_NAME ] ) ? $_FILES[ USP_IMAGE_INPUT_NAME ] : array();
+		$files = usp_get_files_from_post_request( $_POST );
 		
 		$author   = usp_get_author_username_from_post_request( $_POST );
 		$url      = usp_get_author_url_from_post_request( $_POST );
-		$email    = isset( $_POST[ USP_AUTHOR_EMAIL_INPUT_NAME ] )    ? sanitize_email( $_POST[ USP_AUTHOR_EMAIL_INPUT_NAME ] )         : '';
-		$tags     = isset( $_POST[ USP_TAGS_INPUT_NAME ] )     ? sanitize_text_field( $_POST[ USP_TAGS_INPUT_NAME ] )     : '';
-		$captcha  = isset( $_POST['user-submitted-captcha'] )  ? sanitize_text_field( $_POST['user-submitted-captcha'] )  : '';
-		$verify   = isset( $_POST[ USP_HUMAN_VERIFICATION_INPUT_NAME ] )   ? sanitize_text_field( $_POST[ USP_HUMAN_VERIFICATION_INPUT_NAME ] )   : '';
-		$content  = isset( $_POST[ USP_CONTENT_TEXTAREA_NAME ] )  ? usp_sanitize_content( $_POST[ USP_CONTENT_TEXTAREA_NAME ] ) : '';
+		$email    = usp_get_email_from_post_request( $_POST );
+		$tags     = usp_get_tags_from_post_request( $_POST );
+		$captcha  = usp_get_captcha_from_post_request( $_POST );
+		$verify   = usp_get_human_verification_from_post_request( $_POST );
+		$content  = usp_get_content_from_post_request( $_POST );
 		$category = usp_get_category_from_post_request( $_POST );
 		
 		$result = usp_create_public_submission( $title, $files, $ip, $author, $url, $email, $tags, $captcha, $verify, $content, $category );
 		
-		$post_id = false;
+		$post_id = usp_get_post_id_from_result( $result );
 		
-		if ( isset( $result['id'] ) ) $post_id = $result['id'];
-		
-		$error = false;
-		
-		if ( isset( $result['error']) ) {
-			$error = array_filter( array_unique ($result['error'] ) );
-		}
-		
-		if ( $error ) {
-			$e = implode(',', $error);
-			$e = trim($e, ',');
-		} else {
-			$e = 'error';
-		}
-		
-		if ( $post_id ) {
-			if ( ! empty( $_POST['redirect-override'] ) ) {
-				$redirect = $_POST['redirect-override'];
-				$redirect = remove_query_arg( array( 'usp-error' ), $redirect );
-				$redirect = add_query_arg( array( 'usp_redirect' => '1', 'success' => 1, 'post_id' => $post_id ), $redirect );
-			} else {
-				$redirect = $_SERVER['REQUEST_URI'];
-				$redirect = remove_query_arg( array( 'usp-error' ), $redirect );
-				$redirect = add_query_arg( array( 'success' => 1, 'post_id' => $post_id ), $redirect );
-			}
-			do_action( 'usp_submit_success', $redirect );
-		} else {
-			if ( ! empty( $_POST['redirect-override'] ) ) {
-				$redirect = $_POST['redirect-override'];
-				$redirect = remove_query_arg( array( 'success', 'post_id' ), $redirect );
-				$redirect = add_query_arg( array( 'usp_redirect' => '1', 'usp-error' => $e ), $redirect );
-			} else {
-				$redirect = $_SERVER['REQUEST_URI'];
-				$redirect = remove_query_arg(array('success', 'post_id'), $redirect);
-				$redirect = add_query_arg(array('usp-error' => $e), $redirect);
-			}
-			do_action('usp_submit_error', $redirect);
-		}
-		wp_redirect( esc_url_raw( $redirect ) );
+		$errors = usp_get_errors_from_result( $result );
+
+		usp_redirect( $_POST, $post_id, $errors );
+
 		exit();
 	}
 }
