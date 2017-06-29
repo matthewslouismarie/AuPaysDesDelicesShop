@@ -10,13 +10,18 @@ function usp_is_submission_post_request(): bool {
 
 function usp_get_title_from_post_request( array $post ): string {
 
-	$post_request_contains_a_title = isset( $post[ USP_TITLE_INPUT_NAME ] );
-	$title_option_is_on = USP_OPTIONS['usp_title'] == 'show' || USP_OPTIONS['usp_title'] == 'optn';
-	
-	if ( $post_request_contains_a_title && $title_option_is_on ) {
-		return sanitize_text_field( $post[ USP_TITLE_INPUT_NAME ] );
-	} else {
+	if ( ! usp_allow_custom_titles() ) {
 		return usp_get_default_title();
+	} else {
+		$title = sanitize_text_field( $post[ USP_TITLE_INPUT_NAME ] );
+		if ( strlen( $title ) === 0 ) {
+			throw new exception; // TODO
+		} else {
+			if ( isset( USP_OPTIONS['titles_unique']) && USP_OPTIONS['titles_unique'] && ! usp_check_duplicates( $title ) ) {
+				throw new exception;
+			}
+			return $title;
+		}
 	}
 }
 
@@ -34,28 +39,36 @@ function usp_get_author_username_from_post_request( array $post ): string {
 function usp_get_author_url_from_post_request( array $post ): string {
 	if ( ! usp_allow_custom_urls() ) {
 		return wp_get_current_user()->user_url;
-	} elseif ( isset( $_POST[ USP_AUTHOR_URL_INPUT_NAME ] ) ) {
-		esc_url( $_POST[ USP_AUTHOR_URL_INPUT_NAME ] );
 	} else {
-		return '';
+		$url = esc_url( $_POST[ USP_AUTHOR_URL_INPUT_NAME ] );
+		if ( strlen( $url) === 0 ) {
+			throw new exception; // TODO
+		} else {
+			return $url;
+		}
 	}
 }
 
-function usp_get_category_from_post_request( array $post ): string {
+function usp_get_category_from_post_request( array $post ): int {
 	if ( usp_use_predefined_category() ) {
 		return USP_OPTIONS['usp_use_cat_id'];
-	} elseif ( isset( $post[ USP_CATEGORIES_SELECT_NAME ] ) ) {
-		return intval( $post[ USP_CATEGORIES_SELECT_NAME ] );
 	} else {
-		return '';
+		$category_id = intval( $post[ USP_CATEGORIES_SELECT_NAME ] );
+		$category = get_the_category_by_ID( $category_id );
+		if ( ! is_wp_error( $category ) ) {
+			return $category_id;
+		} else {
+			throw new exception;
+		}
 	}
 }
 
 function usp_get_email_from_post_request( array $post ): string {
-	if ( isset( $post[ USP_AUTHOR_EMAIL_INPUT_NAME ] ) ) {
-		return sanitize_email( $post[ USP_AUTHOR_EMAIL_INPUT_NAME ] );
+	$email = sanitize_email( $post[ USP_AUTHOR_EMAIL_INPUT_NAME ] );
+	if ( ! usp_validateEmail( $email ) ) { // TODO:!!
+		throw new exception;
 	} else {
-		return '';
+		return $email;
 	}
 }
 
@@ -76,18 +89,25 @@ function usp_get_captcha_from_post_request( array $post ): string {
 }
 
 function usp_get_human_verification_from_post_request( array $post ): string {
-	if ( isset( $post[ USP_HUMAN_VERIFICATION_INPUT_NAME ] ) ) {
-		return sanitize_text_field( $post[ USP_HUMAN_VERIFICATION_INPUT_NAME ] );
+	$verification = sanitize_text_field( $post[ USP_HUMAN_VERIFICATION_INPUT_NAME ] );
+	if ( empty( $verification ) ) {
+		return $verification;
 	} else {
-		return '';
+		throw new exception;
 	}
 }
 
+// TODO: rich text formatting
 function usp_get_content_from_post_request( array $post ): string {
 	if ( isset( $post[ USP_CONTENT_TEXTAREA_NAME ] ) ) {
-		return usp_sanitize_content( $post[ USP_CONTENT_TEXTAREA_NAME ] );
+		$text = usp_sanitize_content( $post[ USP_CONTENT_TEXTAREA_NAME ] );
+		if ( strlen( $text ) === 0 ) {
+			throw new exception;
+		} else {
+			return $text;
+		}
 	} else {
-		return '';
+		throw new exception;
 	}
 }
 

@@ -119,6 +119,15 @@ const USP_SUCCESS_MESSAGE_CONTAINER_ID = 'usp-success-message';
 
 
 // Functions
+
+function usp_allow_custom_categories(): bool {
+	if ( isset( USP_OPTIONS['usp_category'] ) && USP_OPTIONS['usp_category'] == 'show' ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function usp_display_required_or_nothing(): void {
 	if ( ! $usp_options['disable_required'] ) {
 		echo ' data-required="true" required';
@@ -131,14 +140,46 @@ function usp_display_file_required_or_nothing(): void {
 	}
 }
 
+function usp_use_emails(): bool {
+	if ( isset( USP_OPTIONS['usp_email'] ) && USP_OPTIONS['usp_email'] !== 'hide' ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function usp_allow_custom_names(): bool {
 	return ! ( is_user_logged_in() && USP_OPTIONS['usp_use_author'] );
 }
 
 function usp_allow_custom_urls(): bool {
-	return ! ( is_user_logged_in() && USP_OPTIONS['usp_use_url'] );
+	return ! ( is_user_logged_in() && USP_OPTIONS['usp_url'] === 'show' );
+}
+
+function usp_use_urls(): bool {
+	return USP_OPTIONS['usp_use_url'];
 }
 
 function usp_use_predefined_category(): bool {
 	return USP_OPTIONS['usp_use_cat'] == true;
+}
+
+function usp_allow_custom_titles(): bool {
+	return USP_OPTIONS['usp_title'] === 'show' || USP_OPTIONS['usp_title'] === 'optn';
+}
+
+function usp_use_tags(): bool {
+	if ( USP_OPTIONS['usp_tags'] === 'show' || USP_OPTIONS['usp_tags'] === 'optn' ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function usp_allow_visitors(): bool {
+	if ( 'usp_use_author' !== 0 ) {
+		return true;
+	} else {
+		return false;
+	}
 }

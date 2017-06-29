@@ -95,18 +95,53 @@ function usp_check_for_public_submission() {
 	$ip = sanitize_text_field( usp_get_ip_address() );
 	$files = usp_get_files_from_post_request( $_POST );
 	$author   = usp_get_author_username_from_post_request( $_POST );
-	$url      = usp_get_author_url_from_post_request( $_POST );
-	$email    = usp_get_email_from_post_request( $_POST );
-	$tags     = usp_get_tags_from_post_request( $_POST );
+
+	$url = ''; // TEMP
+	if ( usp_use_urls() ) {
+		$url = usp_get_author_url_from_post_request( $_POST );
+	}
+
+	$email = '';
+	if ( usp_use_emails() ) {
+		$email = usp_get_email_from_post_request( $_POST );
+	}
+
+	$tags = '';
+	if ( usp_use_tags() ) {
+		$tags = usp_get_tags_from_post_request( $_POST );
+	}
+
 	$captcha  = usp_get_captcha_from_post_request( $_POST );
 	$verify   = usp_get_human_verification_from_post_request( $_POST );
 	$content  = usp_get_content_from_post_request( $_POST );
 	$category = usp_get_category_from_post_request( $_POST );
+
+	// check errors
+	$new_post = array( 'id' => false, 'error' => false );
 	
-	$result = usp_create_public_submission( $title, $files, $ip, $author, $url, $email, $tags, $captcha, $verify, $content, $category );
+	$author_data        = usp_get_author( $author );
+	$author             = $author_data['author'];
+	$author_id          = $author_data['author_id'];
+	$new_post['error'][] = $author_data['error'];
 	
-	$post_id = usp_get_post_id_from_result( $result );
-	$errors = usp_get_errors_from_result( $result );
+	$file_data          = usp_check_images( $files, $new_post );
+	$file_count         = $file_data['file_count'];
+	$new_post['error']   = array_unique( array_merge( $file_data['error'], $new_post['error'] ) );
+	
+	$error_in_form = false;
+	foreach ( $new_post['error'] as $e ) {
+		if ( ! empty( $e ) ) {
+			unset( $new_post['id'] );
+			$error_in_form = true;
+		}
+	}
+	
+	if ( ! $error_in_form ) {
+		$new_post = usp_create_public_submission( $title, $files, $ip, $author, $url, $email, $tags, $captcha, $verify, $content, $category );
+	}
+	
+	$post_id = usp_get_post_id_from_result( $new_post );
+	$errors = usp_get_errors_from_result( $new_post );
 
 	usp_redirect( $_POST, $post_id, $errors );
 
@@ -134,57 +169,6 @@ function usp_sanitize_content( $content ) {
 }
 
 function usp_create_public_submission( $title, $files, $ip, $author, $url, $email, $tags, $captcha, $verify, $content, $category ) {
-
-	// check errors
-	$new_post = array( 'id' => false, 'error' => false );
-	
-	$author_data        = usp_get_author( $author );
-	$author             = $author_data['author'];
-	$author_id          = $author_data['author_id'];
-	$new_post['error'][] = $author_data['error'];
-	
-	$file_data          = usp_check_images( $files, $new_post );
-	$file_count         = $file_data['file_count'];
-	$new_post['error']   = array_unique( array_merge( $file_data['error'], $new_post['error'] ) );
-	
-	if ( isset( USP_OPTIONS['usp_title'] ) && USP_OPTIONS['usp_title']  == 'show' && empty( $title ) ) {
-		$new_post['error'][] = 'required-title';
-	}
-
-	if ( isset( USP_OPTIONS['usp_url'] ) && USP_OPTIONS['usp_url'] == 'show' && empty( $url ) ) {
-		$new_post['error'][] = 'required-url';
-	}
-
-	if ( isset( USP_OPTIONS['usp_tags'] ) && USP_OPTIONS['usp_tags'] == 'show' && empty( $tags ) ) {
-		$new_post['error'][] = 'required-tags';
-	}
-
-	if ( isset( USP_OPTIONS['usp_category'] ) && USP_OPTIONS['usp_category'] == 'show' && empty ($category ) ) {
-		$new_post['error'][] = 'required-category';
-	}
-
-	if ( isset( USP_OPTIONS['usp_content'] ) && USP_OPTIONS['usp_content'] == 'show' && empty( $content ) ) {
-		$new_post['error'][] = 'required-content';
-	}
-
-	if ( isset( USP_OPTIONS['usp_email'] ) && USP_OPTIONS['usp_email'] != 'hide' && !usp_validateEmail( $email ) ) {
-		$new_post['error'][] = 'required-email';
-	}
-	
-	if ( isset( USP_OPTIONS['titles_unique']) && USP_OPTIONS['titles_unique'] && ! usp_check_duplicates( $title ) ) {
-		$new_post['error'][] = 'duplicate-title';
-	}
-
-	if ( ! empty( $verify ) ) {
-		$new_post['error'][] = 'spam-verify';
-	}
-	
-	foreach ( $new_post['error'] as $e ) {
-		if ( ! empty( $e ) ) {
-			unset($new_post['id']);
-			return $new_post;
-		}
-	}
 	
 	// submit post
 	$post_data = usp_prepare_post( $title, $content, $author_id, $author, $ip );
@@ -193,7 +177,7 @@ function usp_create_public_submission( $title, $files, $ip, $author, $url, $emai
 	$new_post['id'] = wp_insert_post( $post_data );
 	do_action( 'usp_insert_after', $new_post );
 	
-	if ( $new_post['id'] ) {
+	if ( $new_post['id'] > 0 ) {
 		
 		$post_id = $new_post['id'];
 		
@@ -214,12 +198,12 @@ function usp_create_public_submission( $title, $files, $ip, $author, $url, $emai
 			for ( $i = 0; $i < $file_count; $i++ ) {
 				$key = apply_filters( 'usp_file_key', USP_IMAGE_INPUT_NAME . '-{$i}' );
 				
-				$_FILES[$key]             = array();
-				$_FILES[$key]['name']     = $files['name'][$i];
-				$_FILES[$key]['tmp_name'] = $files['tmp_name'][$i];
-				$_FILES[$key]['type']     = $files['type'][$i];
-				$_FILES[$key]['error']    = $files['error'][$i];
-				$_FILES[$key]['size']     = $files['size'][$i];
+				$_FILES[ $key ]             = array();
+				$_FILES[ $key ]['name']     = $files['name'][ $i ];
+				$_FILES[ $key ]['tmp_name'] = $files['tmp_name'][ $i ];
+				$_FILES[ $key ]['type']     = $files['type'][ $i ];
+				$_FILES[ $key ]['error']    = $files['error'][ $i ];
+				$_FILES[ $key ]['size']     = $files['size'][ $i ];
 				
 				$attach_id = media_handle_upload( $key, $post_id );
 				
