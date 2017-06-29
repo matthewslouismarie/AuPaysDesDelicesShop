@@ -1,8 +1,15 @@
-<?php // Opening PHP tag - nothing should be before this, not even whitespace
+<?php
 
-$functions = get_stylesheet_directory() . '/functions/';
+// Constants
+define( 'FUNCTIONS_PATH' , get_stylesheet_directory() . '/functions/' );
+define( 'USP_CORE_CONSTANTS_AND_FUNCTIONS_PATH', get_stylesheet_directory() . '/user-submitted-posts/core-constants-and-functions.php' );
+define( 'USP_FORM_DISPLAYING_FUNCTIONS_PATH', get_stylesheet_directory() . '/user-submitted-posts/form-displaying-functions.php' );
+define( 'USP_FORM_PROCESSING_FUNCTIONS_PATH', get_stylesheet_directory() . '/user-submitted-posts/form-processing-functions.php' );
+define( 'USP_PROCESS_FORM_IF_ANY_PATH', get_stylesheet_directory() . '/user-submitted-posts/process-form-if-any.php' );
+define( 'USP_INIT_PATH', get_stylesheet_directory() . '/user-submitted-posts/init.php' );
 
-require_once( get_stylesheet_directory() . '/lib/user-submitted-posts.php' );
+require_once( USP_INIT_PATH );
+require_once( USP_PROCESS_FORM_IF_ANY_PATH );
 
 function get_logo_image_url() {
     return get_stylesheet_directory_uri() . '/img/logo.png';

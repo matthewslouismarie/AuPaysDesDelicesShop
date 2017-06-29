@@ -3,11 +3,11 @@
  * Template Name: Submit Recipe
  */
 
-require_once( $functions . 'functions.php' );
-require_once( $functions . 'display-top-bar.php' );
-require_once( $functions . 'display-main-container-opening-tags.php' );
-require_once( $functions . 'display-main-container-closing-tags.php' );
-require_once( $functions . 'display-front-end-submit-recipe-form.php' );
+require_once( FUNCTIONS_PATH . 'functions.php' );
+require_once( FUNCTIONS_PATH . 'display-top-bar.php' );
+require_once( FUNCTIONS_PATH . 'display-main-container-opening-tags.php' );
+require_once( FUNCTIONS_PATH . 'display-main-container-closing-tags.php' );
+require_once( USP_FORM_DISPLAYING_FUNCTIONS_PATH );
 
 get_header();
 

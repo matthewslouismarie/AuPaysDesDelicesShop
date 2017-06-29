@@ -1,46 +1,8 @@
 <?php
 
-define( 'USP_OPTIONS', array(
-'author' => get_current_user_id(),
-'categories' => 
-array (
-	0 => '1',
-),
-'number-approved' => -1,
-'error-message' => 'There was an error. Please ensure that you have added a title, some content, and that you have uploaded only images.',
-'min-images' => 0,
-'max-images' => 1,
-'min-image-height' => 0,
-'min-image-width' => 0,
-'max-image-height' => 1500,
-'max-image-width' => 1500,
-'usp_name' => 'hide',
-'usp_url' => 'hide',
-'usp_email' => 'hide',
-'usp_title' => 'show',
-'usp_tags' => 'show',
-'usp_category' => 'show',
-'usp_images' => 'hide',
-'upload-message' => 'Please select your image(s) to upload.',
-'usp_response' => '2',
-'usp_casing' => 0,
-'usp_content' => 'show',
-'success-message' => 'Success! Thank you for your submission.',
-'usp_email_alerts' => 1,
-'usp_email_html' => 0,
-'usp_email_address' => 'louismarie.matthews@outlook.fr',
-'usp_email_from' => 'louismarie.matthews@outlook.fr',
-'usp_use_author' => 0,
-'usp_use_url' => 0,
-'usp_use_cat' => 0,
-'usp_use_cat_id' => '',
-'usp_richtext_editor' => 0,
-'usp_add_another' => '',
-'disable_required' => 0,
-'titles_unique' => 0,
-'email_alert_subject' => '',
-'email_alert_message' => '',
-));
+if ( ! defined( 'USR_INIT_FILE_REQUIRED' ) ) {
+	die( "USR init file must be included before any other file." );
+}
 
 function usp_get_default_title() {
 	$time = date_i18n( 'Ymd', current_time( 'timestamp' ) ) . '-' . date_i18n( 'His', current_time( 'timestamp' ) );
@@ -74,13 +36,46 @@ function usp_is_submission_post_request(): bool {
 	return isset( $_POST['user-submitted-post'], $_POST['usp-nonce'] ) && ! empty( $_POST['user-submitted-post'] ) && wp_verify_nonce( $_POST['usp-nonce'], 'usp-nonce' );
 }
 
-function usp_get_title_from_post_request( arary $post ): string {
+function usp_get_title_from_post_request( array $post ): string {
 
-	$post_request_contains_a_title = isset( $post['user-submitted-title'] );
+	$post_request_contains_a_title = isset( $post[ USP_TITLE_INPUT_NAME ] );
 	$title_option_is_on = USP_OPTIONS['usp_title'] == 'show' || USP_OPTIONS['usp_title'] == 'optn';
 	
 	if ( $post_request_contains_a_title && $title_option_is_on ) {
-		$title = sanitize_text_field( $post['user-submitted-title'] );
+		return sanitize_text_field( $post[ USP_TITLE_INPUT_NAME ] );
+	} else {
+		return usp_get_default_title();
+	}
+}
+
+function usp_get_author_username_from_post_request( array $post ): string {
+	if ( ! usp_allow_custom_names() ) {
+		return wp_get_current_user()->user_login;
+	}
+	elseif ( isset( $post['user-submitted-name'] ) ) {
+		return sanitize_text_field( $post['user-submitted-name'] );
+	} else {
+		return '';
+	}
+}
+
+function usp_get_author_url_from_post_request( array $post ): string {
+	if ( ! usp_allow_custom_urls() ) {
+		return wp_get_current_user()->user_url;
+	} elseif ( isset( $_POST['user-submitted-url'] ) ) {
+		esc_url( $_POST['user-submitted-url'] );
+	} else {
+		return '';
+	}
+}
+
+function usp_get_category_from_post_request( array $post ): string {
+	if ( usp_use_predefined_category() ) {
+		return USP_OPTIONS['usp_use_cat_id'];
+	} elseif ( isset( $post['user-submitted-category'] ) ) {
+		return intval( $post['user-submitted-category'] );
+	} else {
+		return '';
 	}
 }
 
@@ -97,14 +92,14 @@ function usp_check_for_public_submission() {
 		
 		$files = isset( $_FILES['user-submitted-image'] ) ? $_FILES['user-submitted-image'] : array();
 		
-		$author   = isset( $_POST['user-submitted-name'] )     ? sanitize_text_field( $_POST['user-submitted-name'] )     : '';
-		$url      = isset( $_POST['user-submitted-url'] )      ? esc_url( $_POST['user-submitted-url'] )                  : '';
+		$author   = usp_get_author_username_from_post_request( $_POST );
+		$url      = usp_get_author_url_from_post_request( $_POST );
 		$email    = isset( $_POST['user-submitted-email'] )    ? sanitize_email( $_POST['user-submitted-email'] )         : '';
 		$tags     = isset( $_POST['user-submitted-tags'] )     ? sanitize_text_field( $_POST['user-submitted-tags'] )     : '';
 		$captcha  = isset( $_POST['user-submitted-captcha'] )  ? sanitize_text_field( $_POST['user-submitted-captcha'] )  : '';
 		$verify   = isset( $_POST['user-submitted-verify'] )   ? sanitize_text_field( $_POST['user-submitted-verify'] )   : '';
 		$content  = isset( $_POST['user-submitted-content'] )  ? usp_sanitize_content( $_POST['user-submitted-content'] ) : '';
-		$category = isset( $_POST['user-submitted-category'] ) ? intval( $_POST['user-submitted-category'] )              : '';
+		$category = usp_get_category_from_post_request( $_POST );
 		
 		$result = usp_create_public_submission( $title, $files, $ip, $author, $url, $email, $tags, $captcha, $verify, $content, $category );
 		
@@ -152,7 +147,6 @@ function usp_check_for_public_submission() {
 		exit();
 	}
 }
-add_action( 'parse_request', 'usp_check_for_public_submission', 1 );
 
 function usp_error_message() {
 	
@@ -672,17 +666,4 @@ function usp_is_successful_submission(): bool {
 	} else {
 		return false;
 	}
-}
-
-/**
- * Displays a message informing the user of the successful USP submission.
- * 
- * @since 1.0.0
- */
-function usp_display_successful_submission() {
-	?>
-	<div id="usp-success-message">
-		<?php echo USP_OPTIONS['success-message'] ?>
-	</div>
-	<?php
 }

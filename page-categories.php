@@ -1,6 +1,6 @@
 <?php
 
-require_once( $functions . 'display-category-mosaics.php' );
+require_once( FUNCTIONS_PATH . 'display-category-mosaics.php' );
 
 /*
  * Template Name: Categories

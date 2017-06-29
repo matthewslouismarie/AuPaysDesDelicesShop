@@ -9,11 +9,11 @@
 /**
  * Loads the definition of declaration and definition of display_top_bar().
  */
-require_once( $functions . 'display-top-bar.php' );
+require_once( FUNCTIONS_PATH . 'display-top-bar.php' );
 
-require_once( $functions . 'display-main-container-closing-tags.php' );
-require_once( $functions . 'display-main-container-opening-tags.php' );
-require_once( $functions . 'display-user-bookmarks.php' );
+require_once( FUNCTIONS_PATH . 'display-main-container-closing-tags.php' );
+require_once( FUNCTIONS_PATH . 'display-main-container-opening-tags.php' );
+require_once( FUNCTIONS_PATH . 'display-user-bookmarks.php' );
 
 get_header();
 

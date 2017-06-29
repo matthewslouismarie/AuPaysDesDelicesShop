@@ -1,15 +1,7 @@
 <?php
 
-function usp_allow_custom_names(): bool {
-	return ! ( is_user_logged_in() && USP_OPTIONS['usp_use_author'] );
-}
-
-function usp_allow_custom_urls(): bool {
-	return ! ( is_user_logged_in() && USP_OPTIONS['usp_use_url'] );
-}
-
-function usp_use_categories(): bool {
-	return USP_OPTIONS['usp_use_cat'] == true;
+if ( ! defined( 'USR_INIT_FILE_REQUIRED' ) ) {
+	die( "USR init file must be included before any other file." );
 }
 
 function usp_should_display_url_field(): bool {
@@ -40,7 +32,7 @@ function usp_should_display_tags_field(): bool {
 }
 
 function usp_should_display_categories_field(): bool {
-	return ( USP_OPTIONS['usp_category'] == 'show' || USP_OPTIONS['usp_category'] == 'optn' ) && ( USP_OPTIONS['usp_use_cat'] == false );
+	return ( USP_OPTIONS['usp_category'] == 'show' || USP_OPTIONS['usp_category'] == 'optn' ) && ! usp_use_predefined_category();
 }
 
 function usp_should_display_content_field(): bool {
@@ -52,21 +44,12 @@ function usp_should_display_image_field(): bool {
 }
 
 function usp_display_author_name_field(): void {
-	if ( USP_OPTIONS['disable_required'] ) {
-		$usp_required = ''; 
-		$usp_captcha  = '';
-		$usp_files    = '';
-	} else {
-		$usp_required = ' data-required="true" required';
-		$usp_captcha  = ' user-submitted-captcha'; 
-		$usp_files    = ' usp-required-file';
-	}
 	?>
-	<fieldset class="usp-name">
+	<fieldset class="<?php echo AUTHOR_NAME_FIELDSET_CLASS ?>">
 		<label for="user-submitted-name">
 			<?php esc_html_e('Your Name', 'usp'); ?>
 		</label>
-		<input id="user-submitted-name" name="user-submitted-name" type="text" value="" placeholder="<?php esc_attr_e('Your Name', 'usp'); ?>"<?php if ( usp_check_required( 'usp_name') ) echo $usp_required; ?> class="usp-input">
+		<input id="user-submitted-name" name="user-submitted-name" type="text" value="" placeholder="<?php esc_attr_e('Your Name', 'usp'); ?>"<?php if ( usp_check_required( 'usp_name') ) usp_display_required_or_nothing(); ?> class="usp-input">
 	</fieldset>
 	<?php
 }
@@ -98,7 +81,7 @@ function usp_display_url_field(): void {
 	?>
 	<fieldset class="usp-url">
 	<label for="user-submitted-url"><?php esc_html_e('Your URL', 'usp'); ?></label>
-	<input id="user-submitted-url" name="user-submitted-url" type="text" value="" placeholder="<?php esc_attr_e('Your URL', 'usp'); ?>"<?php if ( usp_check_required( 'usp_url' ) ) echo $usp_required; ?> class="usp-input">
+	<input id="user-submitted-url" name="user-submitted-url" type="text" value="" placeholder="<?php esc_attr_e('Your URL', 'usp'); ?>"<?php if ( usp_check_required( 'usp_url' ) ) usp_display_required_or_nothing(); ?> class="usp-input">
 	</fieldset>
 	<?php
 }
@@ -107,16 +90,16 @@ function usp_display_email_field(): void {
 	?>
 	<fieldset class="usp-email">
 		<label for="user-submitted-email"><?php esc_html_e('Your Email', 'usp'); ?></label>
-		<input id="user-submitted-email" name="user-submitted-email" type="text" value="" placeholder="<?php esc_attr_e('Your Email', 'usp'); ?>"<?php if (usp_check_required('usp_email')) echo $usp_required; ?> class="usp-input">
+		<input id="user-submitted-email" name="user-submitted-email" type="text" value="" placeholder="<?php esc_attr_e('Your Email', 'usp'); ?>"<?php if (usp_check_required('usp_email')) usp_display_required_or_nothing(); ?> class="usp-input">
 	</fieldset>
 	<?php
 }
 
 function usp_display_title_field(): void {
 	?>
-	<fieldset class="usp-title">
-		<label for="user-submitted-title"><?php esc_html_e('Post Title', 'usp'); ?></label>
-		<input id="user-submitted-title" name="user-submitted-title" type="text" value="" placeholder="<?php esc_attr_e('Post Title', 'usp'); ?>"<?php if (usp_check_required('usp_title')) echo $usp_required; ?> class="usp-input">
+	<fieldset class="<?php echo USP_TITLE_FIELDSET_CLASS ?>">
+		<label for="<?php echo USP_TITLE_INPUT_NAME ?>"><?php esc_html_e('Post Title', 'usp'); ?></label>
+		<input id="user-submitted-title" name="<?php echo USP_TITLE_INPUT_NAME ?>" type="text" value="" placeholder="<?php esc_attr_e('Post Title', 'usp'); ?>"<?php if (usp_check_required('usp_title')) usp_display_required_or_nothing(); ?> class="usp-input">
 	</fieldset>
 	<?php
 }
@@ -125,7 +108,7 @@ function usp_display_tags_field(): void {
 	?>
 	<fieldset class="usp-tags">
 		<label for="user-submitted-tags"><?php esc_html_e('Post Tags', 'usp'); ?></label>
-		<input id="user-submitted-tags" name="user-submitted-tags" type="text" value="" placeholder="<?php esc_attr_e('Post Tags', 'usp'); ?>"<?php if (usp_check_required('usp_tags')) echo $usp_required; ?> class="usp-input">
+		<input id="user-submitted-tags" name="user-submitted-tags" type="text" value="" placeholder="<?php esc_attr_e('Post Tags', 'usp'); ?>"<?php if (usp_check_required('usp_tags')) usp_display_required_or_nothing(); ?> class="usp-input">
 	</fieldset>
 	<?php
 }
@@ -134,7 +117,7 @@ function usp_display_categories_field(): void {
 	?>
 	<fieldset class="usp-category">
 		<label for="user-submitted-category"><?php esc_html_e('Post Category', 'usp'); ?></label>
-		<select id="user-submitted-category" name="user-submitted-category"<?php if (usp_check_required('usp_category')) echo $usp_required; ?> class="usp-select">
+		<select id="user-submitted-category" name="user-submitted-category"<?php if (usp_check_required('usp_category')) usp_display_required_or_nothing(); ?> class="usp-select">
 			<option value=""><?php esc_html_e('Please select a category..', 'usp'); ?></option>
 			<?php foreach ( USP_OPTIONS['categories'] as $category_id ) { $category = get_category( $category_id ); if ( ! $category ) { continue; } ?>
 			
@@ -176,7 +159,7 @@ function usp_display_content_field(): void {
 		<label for="user-submitted-content">
 			<?php esc_html_e('Post Content', 'usp'); ?>
 		</label>
-		<textarea id="user-submitted-content" name="user-submitted-content" rows="5" placeholder="<?php esc_attr_e('Post Content', 'usp'); ?>"<?php if (usp_check_required('usp_content')) echo $usp_required; ?> class="usp-textarea"></textarea>
+		<textarea id="user-submitted-content" name="user-submitted-content" rows="5" placeholder="<?php esc_attr_e('Post Content', 'usp'); ?>"<?php if (usp_check_required('usp_content')) usp_display_required_or_nothing(); ?> class="usp-textarea"></textarea>
 		<?php } ?>
 		
 	</fieldset>
@@ -184,6 +167,7 @@ function usp_display_content_field(): void {
 }
 
 function usp_display_image_field(): void {
+
 	?>
 	<fieldset class="usp-images">
 				<label for="user-submitted-image"><?php esc_html_e('Upload an Image', 'usp'); ?></label>
@@ -200,7 +184,7 @@ function usp_display_image_field(): void {
 				if ($usp_minImages > 0) : ?>
 					<?php for ($i = 0; $i < $usp_minImages; $i++) : ?>
 							
-					<input name="user-submitted-image[]" type="file" size="25"<?php echo $usp_required; ?> class="usp-input usp-clone<?php echo $usp_files; ?> exclude">
+					<input name="user-submitted-image[]" type="file" size="25"<?php usp_display_required_or_nothing() ?> class="usp-input usp-clone<?php usp_display_file_required_or_nothing() ?> exclude">
 					<?php endfor; ?>
 					<?php if ($usp_minImages < $usp_maxImages) : echo $usp_addAnother; endif; ?>
 				<?php else : ?>
@@ -225,24 +209,81 @@ function usp_display_human_verification_field(): void {
 	<?php
 }
 
-function usp_display_hidden_default_values(): void {
+function usp_display_submit_button(): void {
 	?>
 	<div id="usp-submit">
-		<?php if ( ! usp_allow_custom_names() ) { ?>
-		
-		<input type="hidden" class="usp-hidden exclude" name="user-submitted-name" value="<?php echo $usp_user_name; ?>">
-		<?php } ?>
-		<?php if (! usp_allow_custom_urls() ) { ?>
-		
-		<input type="hidden" class="usp-hidden exclude" name="user-submitted-url" value="<?php echo $usp_user_url; ?>">
-		<?php } ?>
-		<?php if ( usp_use_categories() ) { ?>
-		
-		<input type="hidden" class="usp-hidden exclude" name="user-submitted-category" value="<?php echo USP_OPTIONS['usp_use_cat_id']; ?>">
-		<?php } ?>
-		
 		<input type="submit" class="usp-submit exclude" id="user-submitted-post" name="user-submitted-post" value="<?php esc_attr_e('Submit Post', 'usp'); ?>">
-		<?php wp_nonce_field('usp-nonce', 'usp-nonce', false); ?>
+	</div>
+	<?php
+}
+
+function usp_display_wp_nonce(): void {
+	wp_nonce_field( 'usp-nonce', 'usp-nonce', false );
+}
+
+/**
+ * Displays the form allowing members of the website to submit recipes for approval.
+ * 
+ * @since 1.0.0
+ */
+function display_front_end_submit_recipe_form(): void {
+	
+	usp_display_form_opening_tags();
+
+	usp_display_form_general_error_message();
+
+	if ( usp_should_display_author_name_field() ) {
+		display_author_name_field();
+	}
+
+	if ( usp_should_display_url_field() ) {
+		usp_display_url_field();
+	}
+	
+	if ( usp_should_display_email_field() ) {
+		usp_display_email_field();
+	}
+	
+	if ( usp_should_display_title_field() ) {
+		usp_display_title_field();
+	}
+	
+	if ( usp_should_display_tags_field() ) {
+		usp_display_tags_field();
+	}
+
+	if ( usp_should_display_categories_field() ) {
+		usp_display_categories_field();
+	}
+	
+	if ( usp_should_display_content_field() ) {
+		usp_display_content_field();
+	}
+	
+	if ( usp_should_display_image_field() ) {
+		usp_display_image_field();
+	} 
+	
+	usp_display_human_verification_field();
+	
+	usp_display_submit_button();
+
+	usp_display_wp_nonce();
+
+	usp_display_form_closing_tags();
+}
+
+
+
+/**
+ * Displays a message informing the user of the successful USP submission.
+ * 
+ * @since 1.0.0
+ */
+function usp_display_successful_submission() {
+	?>
+	<div id="usp-success-message">
+		<?php echo USP_OPTIONS['success-message'] ?>
 	</div>
 	<?php
 }
