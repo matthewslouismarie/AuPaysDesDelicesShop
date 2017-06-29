@@ -113,15 +113,6 @@ function usp_check_for_public_submission() {
 	exit();
 }
 
-function usp_check_required( $field ) {
-	
-	if ( USP_OPTIONS[$field] === 'show' ) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
 function usp_sanitize_content( $content ) {
 	
 	$allowed_tags = wp_kses_allowed_html( 'post' );

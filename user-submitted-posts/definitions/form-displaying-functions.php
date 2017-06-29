@@ -64,7 +64,7 @@ function usp_display_form_general_error_message(): void {
 	<div id="<?php echo GENERAL_ERROR_CONTAINER_ID ?>" class="<?php echo GENERAL_ERROR_CONTAINER_CLASS ?> <?php echo USP_HIDDEN_CLASS ?>">
 		<?php esc_html_e( 'Please complete the required fields.', 'usp' ); ?>
 	</div>
-	<?php echo usp_error_message();
+	<?php echo usp_get_error_message();
 }
 
 function usp_display_author_name_field(): void {
@@ -299,7 +299,7 @@ function usp_display_successful_submission() {
 	<?php
 }
 
-function usp_error_message() {
+function usp_get_error_message() {
 	
 	$min = USP_OPTIONS['min-images'];
 	$max = USP_OPTIONS['max-images'];
@@ -381,4 +381,12 @@ function usp_error_message() {
 	}
 	
 	return false;
+}
+
+function usp_check_required( $field ): bool {
+	if ( USP_OPTIONS[ $field ] === 'show' ) {
+		return true;
+	} else {
+		return false;
+	}
 }
