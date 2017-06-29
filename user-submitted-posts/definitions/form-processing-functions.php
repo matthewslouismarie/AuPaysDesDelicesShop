@@ -92,11 +92,8 @@ function usp_redirect( $post, $post_id, $errors ) {
 function usp_check_for_public_submission() {
 
 	$title = usp_get_title_from_post_request( $_POST );
-	
 	$ip = sanitize_text_field( usp_get_ip_address() );
-	
 	$files = usp_get_files_from_post_request( $_POST );
-	
 	$author   = usp_get_author_username_from_post_request( $_POST );
 	$url      = usp_get_author_url_from_post_request( $_POST );
 	$email    = usp_get_email_from_post_request( $_POST );
@@ -109,99 +106,12 @@ function usp_check_for_public_submission() {
 	$result = usp_create_public_submission( $title, $files, $ip, $author, $url, $email, $tags, $captcha, $verify, $content, $category );
 	
 	$post_id = usp_get_post_id_from_result( $result );
-	
 	$errors = usp_get_errors_from_result( $result );
 
 	usp_redirect( $_POST, $post_id, $errors );
 
 	exit();
 }
-
-function usp_error_message() {
-	
-	$min = USP_OPTIONS['min-images'];
-	$max = USP_OPTIONS['max-images'];
-	
-	if ( (int) $min > 1 ) {
-		$min = ' (' . $min . esc_html__( ' files required', 'usp' ) . ')';
-	} else {
-		$min = ' (' . $min . esc_html__( ' file required', 'usp' ) . ')';
-	}
-	
-	if ( (int) $max > 1 ) {
-		$max = ' (limit: ' . $max . esc_html__(' files', 'usp') . ')';
-	} else {
-		$max = ' (limit: ' . $max . esc_html__(' file', 'usp') . ')';
-	}
-	
-	$min_width  = ' (' . USP_OPTIONS['min-image-width']  . esc_html__(' pixels', 'usp') . ')';
-	$max_width  = ' (' . USP_OPTIONS['max-image-width']  . esc_html__(' pixels', 'usp') . ')';
-	$min_height = ' (' . USP_OPTIONS['min-image-height'] . esc_html__(' pixels', 'usp') . ')';
-	$max_height = ' (' . USP_OPTIONS['max-image-height'] . esc_html__(' pixels', 'usp') . ')';
-	
-	if ( ! empty( USP_OPTIONS['error-message'] ) ) {
-		$general_error = USP_OPTIONS['error-message'];
-	} else {
-		$general_error = esc_html__( 'An error occurred. Please go back and try again.', 'usp' );
-	}
-	
-	if ( isset( $_GET['usp-error'] ) && ! empty( $_GET['usp-error'] ) ) {
-		
-		$error_string = sanitize_text_field( $_GET['usp-error'] );
-		$error_array = explode( ',', $error_string );
-		$error = array();
-		
-		foreach ( $error_array as $e ) {
-			
-			if     ($e == 'required-login')      $error[] = esc_html__( 'User login required', 'usp' );
-			elseif ($e == 'required-name')       $error[] = esc_html__( 'User name required', 'usp' );
-			elseif ($e == 'required-title')      $error[] = esc_html__( 'Post title required', 'usp' );
-			elseif ($e == 'required-url')        $error[] = esc_html__( 'User URL required', 'usp' );
-			elseif ($e == 'required-tags')       $error[] = esc_html__( 'Post tags required', 'usp' );
-			elseif ($e == 'required-category')   $error[] = esc_html__( 'Post category required', 'usp' );
-			elseif ($e == 'required-content')    $error[] = esc_html__( 'Post content required', 'usp' );
-			elseif ($e == 'required-recaptcha')  $error[] = esc_html__( 'Correct captcha required', 'usp' );
-			elseif ($e == 'required-captcha')    $error[] = esc_html__( 'Correct captcha required', 'usp' );
-			elseif ($e == 'required-email')      $error[] = esc_html__( 'User email required', 'usp' );
-			elseif ($e == 'spam-verify')         $error[] = esc_html__( 'Non-empty value for hidden field', 'usp' );
-			elseif ($e == 'file-min')            $error[] = esc_html__( 'Minimum number of images not met', 'usp' ) . $min;
-			elseif ($e == 'file-max')            $error[] = esc_html__( 'Maximum number of images exceeded ', 'usp' ) . $max;
-			elseif ($e == 'width-min')           $error[] = esc_html__( 'Minimum image width not met', 'usp' ) . $min_width;
-			elseif ($e == 'width-max')           $error[] = esc_html__( 'Image width exceeds maximum', 'usp' ) . $max_width;
-			elseif ($e == 'height-min')          $error[] = esc_html__( 'Minimum image height not met', 'usp' ) . $min_height;
-			elseif ($e == 'height-max')          $error[] = esc_html__( 'Image height exceeds maximum', 'usp' ) . $max_height;
-			elseif ($e == 'file-type')           $error[] = esc_html__( 'File type not allowed (please upload images only)', 'usp' );
-			elseif ($e == 'file-error')          $error[] = esc_html__( 'The selected files could not be uploaded to the server', 'usp' ); // general file(s) error
-			
-			// check permissions on /uploads/ directory, check error log for the following error:
-			// PHP Warning: mysql_real_escape_string() expects parameter 1 to be string, object given in /wp-includes/wp-db.php
-			elseif ( $e == 'file-upload' )       $error[] = esc_html__('The file(s) could not be uploaded', 'usp'); 
-			
-			elseif ( $e == 'post-fail' )         $error[] = esc_html__('Post not created. Please contact the site administrator for help.', 'usp');
-			elseif ( $e == 'duplicate-title' )   $error[] = esc_html__('Duplicate post title. Please try again.', 'usp');
-			
-			elseif ( $e == 'error' )             $error[] = $general_error;
-			
-		}
-		
-		$output = '';
-		
-		foreach ($error as $e) {
-			
-			$output .= "\t\t\t".'<div class="usp-error">'. esc_html__('Error: ', 'usp') . $e .'</div>'."\n";
-			
-		}
-		
-		$return = '<div id="<?php echo GENERAL_ERROR_CONTAINER_ID ?>">'."\n". $output ."\t\t".'</div>'."\n";
-		
-		return apply_filters('usp_error_message', $return);
-		
-	}
-	
-	return false;
-	
-}
-
 
 function usp_check_required( $field ) {
 	
