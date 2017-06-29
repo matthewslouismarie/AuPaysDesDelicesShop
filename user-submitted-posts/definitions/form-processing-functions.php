@@ -33,7 +33,7 @@ function usp_get_ip_address() {
 }
 
 function usp_is_submission_post_request(): bool {
-	return isset( $_POST['user-submitted-post'], $_POST['usp-nonce'] ) && ! empty( $_POST['user-submitted-post'] ) && wp_verify_nonce( $_POST['usp-nonce'], 'usp-nonce' );
+	return isset( $_POST[ USP_SUBMIT_INPUT_NAME ], $_POST['usp-nonce'] ) && ! empty( $_POST[ USP_SUBMIT_INPUT_NAME ] ) && wp_verify_nonce( $_POST['usp-nonce'], 'usp-nonce' );
 }
 
 function usp_get_title_from_post_request( array $post ): string {
@@ -52,8 +52,8 @@ function usp_get_author_username_from_post_request( array $post ): string {
 	if ( ! usp_allow_custom_names() ) {
 		return wp_get_current_user()->user_login;
 	}
-	elseif ( isset( $post['user-submitted-name'] ) ) {
-		return sanitize_text_field( $post['user-submitted-name'] );
+	elseif ( isset( $post[ USP_AUTHOR_NAME_INPUT_NAME ] ) ) {
+		return sanitize_text_field( $post[ USP_AUTHOR_NAME_INPUT_NAME ] );
 	} else {
 		return '';
 	}
@@ -62,8 +62,8 @@ function usp_get_author_username_from_post_request( array $post ): string {
 function usp_get_author_url_from_post_request( array $post ): string {
 	if ( ! usp_allow_custom_urls() ) {
 		return wp_get_current_user()->user_url;
-	} elseif ( isset( $_POST['user-submitted-url'] ) ) {
-		esc_url( $_POST['user-submitted-url'] );
+	} elseif ( isset( $_POST[ USP_AUTHOR_URL_INPUT_NAME ] ) ) {
+		esc_url( $_POST[ USP_AUTHOR_URL_INPUT_NAME ] );
 	} else {
 		return '';
 	}
@@ -72,8 +72,8 @@ function usp_get_author_url_from_post_request( array $post ): string {
 function usp_get_category_from_post_request( array $post ): string {
 	if ( usp_use_predefined_category() ) {
 		return USP_OPTIONS['usp_use_cat_id'];
-	} elseif ( isset( $post['user-submitted-category'] ) ) {
-		return intval( $post['user-submitted-category'] );
+	} elseif ( isset( $post[ USP_CATEGORIES_SELECT_NAME ] ) ) {
+		return intval( $post[ USP_CATEGORIES_SELECT_NAME ] );
 	} else {
 		return '';
 	}
@@ -90,15 +90,15 @@ function usp_check_for_public_submission() {
 		
 		$ip = sanitize_text_field( usp_get_ip_address() );
 		
-		$files = isset( $_FILES['user-submitted-image'] ) ? $_FILES['user-submitted-image'] : array();
+		$files = isset( $_FILES[ USP_IMAGE_INPUT_NAME ] ) ? $_FILES[ USP_IMAGE_INPUT_NAME ] : array();
 		
 		$author   = usp_get_author_username_from_post_request( $_POST );
 		$url      = usp_get_author_url_from_post_request( $_POST );
-		$email    = isset( $_POST['user-submitted-email'] )    ? sanitize_email( $_POST['user-submitted-email'] )         : '';
-		$tags     = isset( $_POST['user-submitted-tags'] )     ? sanitize_text_field( $_POST['user-submitted-tags'] )     : '';
+		$email    = isset( $_POST[ USP_AUTHOR_EMAIL_INPUT_NAME ] )    ? sanitize_email( $_POST[ USP_AUTHOR_EMAIL_INPUT_NAME ] )         : '';
+		$tags     = isset( $_POST[ USP_TAGS_INPUT_NAME ] )     ? sanitize_text_field( $_POST[ USP_TAGS_INPUT_NAME ] )     : '';
 		$captcha  = isset( $_POST['user-submitted-captcha'] )  ? sanitize_text_field( $_POST['user-submitted-captcha'] )  : '';
-		$verify   = isset( $_POST['user-submitted-verify'] )   ? sanitize_text_field( $_POST['user-submitted-verify'] )   : '';
-		$content  = isset( $_POST['user-submitted-content'] )  ? usp_sanitize_content( $_POST['user-submitted-content'] ) : '';
+		$verify   = isset( $_POST[ USP_HUMAN_VERIFICATION_INPUT_NAME ] )   ? sanitize_text_field( $_POST[ USP_HUMAN_VERIFICATION_INPUT_NAME ] )   : '';
+		$content  = isset( $_POST[ USP_CONTENT_TEXTAREA_NAME ] )  ? usp_sanitize_content( $_POST[ USP_CONTENT_TEXTAREA_NAME ] ) : '';
 		$category = usp_get_category_from_post_request( $_POST );
 		
 		$result = usp_create_public_submission( $title, $files, $ip, $author, $url, $email, $tags, $captcha, $verify, $content, $category );
@@ -223,7 +223,7 @@ function usp_error_message() {
 			
 		}
 		
-		$return = '<div id="usp-error-message">'."\n". $output ."\t\t".'</div>'."\n";
+		$return = '<div id="<?php echo GENERAL_ERROR_CONTAINER_ID ?>">'."\n". $output ."\t\t".'</div>'."\n";
 		
 		return apply_filters('usp_error_message', $return);
 		
@@ -342,7 +342,7 @@ function usp_create_public_submission( $title, $files, $ip, $author, $url, $emai
 			usp_include_deps();
 			
 			for ( $i = 0; $i < $file_count; $i++ ) {
-				$key = apply_filters( 'usp_file_key', 'user-submitted-image-{$i}' );
+				$key = apply_filters( 'usp_file_key', USP_IMAGE_INPUT_NAME . '-{$i}' );
 				
 				$_FILES[$key]             = array();
 				$_FILES[$key]['name']     = $files['name'][$i];

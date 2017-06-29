@@ -47,11 +47,76 @@ array (
 'email_alert_message' => '',
 ));
 
-// Field constants
-const AUTHOR_NAME_FIELDSET_CLASS = 'usp-name';
+// Field classes and ids
+
+const INPUT_CLASS = 'usp-input';
+
+const EXCLUDE_CLASS = 'exclude';
+
+const USP_CLONE_CLASS = 'usp-clone';
+
+const USP_HIDDEN_CLASS = 'usp-hidden';
+
+const FORM_CONTAINER_ID = 'user-submitted-posts';
+const FORM_ID = 'usp_form';
+
+const GENERAL_ERROR_CONTAINER_ID = 'usp-error-message';
+const GENERAL_ERROR_CONTAINER_CLASS = 'usp-callout-failure';
+
+const USP_AUTHOR_NAME_FIELDSET_CLASS = 'usp-name';
+const USP_AUTHOR_NAME_INPUT_ID = 'user-submitted-name';
+const USP_AUTHOR_NAME_INPUT_NAME = 'user-submitted-name';
+
+const USP_AUTHOR_URL_FIELDSET_CLASS = 'usp-url';
+const USP_AUTHOR_URL_INPUT_ID = 'user-submitted-url';
+const USP_AUTHOR_URL_INPUT_NAME = 'user-submitted-url';
+
+const USP_AUTHOR_EMAIL_FIELDSET_CLASS = 'usp-email';
+const USP_AUTHOR_EMAIL_INPUT_ID = 'user-submitted-email';
+const USP_AUTHOR_EMAIL_INPUT_NAME = 'user-submitted-email';
 
 const USP_TITLE_FIELDSET_CLASS = 'usp-title';
+const USP_TITLE_INPUT_ID = 'user-submitted-title';
 const USP_TITLE_INPUT_NAME = 'user-submitted-title';
+
+const USP_TAGS_FIELDSET_CLASS = 'usp-tags';
+const USP_TAGS_INPUT_ID = 'user-submitted-tags';
+const USP_TAGS_INPUT_NAME = 'user-submitted-tags';
+
+const USP_CATEGORIES_FIELDSET_CLASS = 'usp-category';
+const USP_CATEGORIES_FIELDSET_ID = 'user-submitted-category';
+const USP_CATEGORIES_SELECT_NAME = 'user-submitted-category';
+
+const USP_CONTENT_FIELDSET_CLASS = 'usp-content';
+const USP_CONTENT_FIELDSET_DIV_CLASS = 'usp_text-editor';
+const USP_CONTENT_TEXTAREA_ID = 'user-submitted-content';
+const USP_CONTENT_TEXTAREA_NAME = 'user-submitted-content';
+
+const USP_IMAGE_FIELDSET_CLASS = 'usp-images';
+const USP_IMAGE_UPLOAD_MESSAGE_ID = 'usp-upload-message';
+const USP_IMAGE_INPUT_CONTAINER_ID = 'user-submitted-image';
+const USP_IMAGE_INPUT_ID = 'user-submitted-image';
+const USP_IMAGE_INPUT_NAME = 'user-submitted-image';
+
+const USP_IMAGE_MIN_IMAGES_ID = 'usp-min-images';
+const USP_IMAGE_MIN_IMAGES_NAME = 'usp-min-images';
+const USP_IMAGE_MAX_IMAGES_ID = 'usp-max-images';
+const USP_IMAGE_MAX_IMAGES_NAME = 'usp-max-images';
+
+const USP_IMAGE_ADD_ANOTHER_ID = 'usp_add-another';
+const USP_IMAGE_ADD_ANOTHER_CLASS = 'usp-no-js';
+
+const USP_HUMAN_VERIFICATION_FIELDSET_ID = 'coldform_verify';
+const USP_HUMAN_VERIFICATION_INPUT_ID = 'user-submitted-verify';
+const USP_HUMAN_VERIFICATION_INPUT_NAME = 'user-submitted-verify';
+
+const USP_SUBMIT_CONTAINER_ID = 'usp-submit';
+const USP_SUBMIT_INPUT_CLASS = 'usp-submit';
+const USP_SUBMIT_INPUT_ID = 'user-submitted-post';
+const USP_SUBMIT_INPUT_NAME = 'user-submitted-post';
+
+const USP_SUCCESS_MESSAGE_CONTAINER_ID = 'usp-success-message';
+
 
 // Functions
 function usp_display_required_or_nothing(): void {

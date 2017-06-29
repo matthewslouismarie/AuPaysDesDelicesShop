@@ -43,21 +43,11 @@ function usp_should_display_image_field(): bool {
 	return USP_OPTIONS['usp_images'] == 'show' && USP_OPTIONS['max-images'] !== 0;
 }
 
-function usp_display_author_name_field(): void {
-	?>
-	<fieldset class="<?php echo AUTHOR_NAME_FIELDSET_CLASS ?>">
-		<label for="user-submitted-name">
-			<?php esc_html_e('Your Name', 'usp'); ?>
-		</label>
-		<input id="user-submitted-name" name="user-submitted-name" type="text" value="" placeholder="<?php esc_attr_e('Your Name', 'usp'); ?>"<?php if ( usp_check_required( 'usp_name') ) usp_display_required_or_nothing(); ?> class="usp-input">
-	</fieldset>
-	<?php
-}
 
 function usp_display_form_opening_tags(): void {
 	?>
-	<div id="user-submitted-posts">
-		<form action="#" data-parsley-validate enctype="multipart/form-data"  id="usp_form" method="post">
+	<div id="<?php echo FORM_CONTAINER_ID ?>">
+		<form action="#" data-parsley-validate enctype="multipart/form-data"  id="<?php echo FORM_ID ?>" method="post">
 	<?php
 }
 
@@ -65,32 +55,45 @@ function usp_display_form_closing_tags(): void {
 	?>
 		</form>
 	</div>
-	<script>(function(){var e = document.getElementById('coldform_verify'); if(e) e.parentNode.removeChild(e);})();</script>
+	<script>(function(){var e = document.getElementById('<?php echo USP_HUMAN_VERIFICATION_FIELDSET_ID ?>'); if(e) e.parentNode.removeChild(e);})();</script>
 	<?php
 }
 
 function usp_display_form_general_error_message(): void {
 	?>
-	<div id="usp-error-message" class="usp-callout-failure usp-hidden">
+	<div id="<?php echo GENERAL_ERROR_CONTAINER_ID ?>" class="<?php echo GENERAL_ERROR_CONTAINER_CLASS ?> <?php echo USP_HIDDEN_CLASS ?>">
 		<?php esc_html_e( 'Please complete the required fields.', 'usp' ); ?>
 	</div>
 	<?php echo usp_error_message();
 }
 
+function usp_display_author_name_field(): void {
+	?>
+	<fieldset class="<?php echo AUTHOR_NAME_FIELDSET_CLASS ?>">
+		<label for="<?php echo USP_AUTHOR_NAME_INPUT_ID ?>">
+			<?php esc_html_e('Your Name', 'usp'); ?>
+		</label>
+		<input id="<?php echo USP_AUTHOR_NAME_INPUT_ID ?>" name="<?php echo USP_AUTHOR_NAME_INPUT_NAME ?>" type="text" value="" placeholder="<?php esc_attr_e('Your Name', 'usp'); ?>"<?php if ( usp_check_required( 'usp_name') ) usp_display_required_or_nothing(); ?> class="<?php echo INPUT_CLASS ?>">
+	</fieldset>
+	<?php
+}
+
 function usp_display_url_field(): void {
 	?>
-	<fieldset class="usp-url">
-	<label for="user-submitted-url"><?php esc_html_e('Your URL', 'usp'); ?></label>
-	<input id="user-submitted-url" name="user-submitted-url" type="text" value="" placeholder="<?php esc_attr_e('Your URL', 'usp'); ?>"<?php if ( usp_check_required( 'usp_url' ) ) usp_display_required_or_nothing(); ?> class="usp-input">
+	<fieldset class="<?php echo USP_AUTHOR_URL_FIELDSET_CLASS ?>">
+	<label for="<?php echo USP_AUTHOR_URL_INPUT_ID ?>">
+		<?php esc_html_e('Your URL', 'usp'); ?>
+	</label>
+	<input id="<?php echo USP_AUTHOR_URL_INPUT_ID ?>" name="<?php echo USP_AUTHOR_URL_INPUT_NAME ?>" type="text" value="" placeholder="<?php esc_attr_e('Your URL', 'usp'); ?>"<?php if ( usp_check_required( 'usp_url' ) ) usp_display_required_or_nothing(); ?> class="<?php echo INPUT_CLASS ?>">
 	</fieldset>
 	<?php
 }
 
 function usp_display_email_field(): void {
 	?>
-	<fieldset class="usp-email">
-		<label for="user-submitted-email"><?php esc_html_e('Your Email', 'usp'); ?></label>
-		<input id="user-submitted-email" name="user-submitted-email" type="text" value="" placeholder="<?php esc_attr_e('Your Email', 'usp'); ?>"<?php if (usp_check_required('usp_email')) usp_display_required_or_nothing(); ?> class="usp-input">
+	<fieldset class="<?php echo USP_AUTHOR_EMAIL_FIELDSET_CLASS ?>">
+		<label for="<?php echo USP_AUTHOR_EMAIL_INPUT_ID ?>"><?php esc_html_e('Your Email', 'usp'); ?></label>
+		<input id="<?php echo USP_AUTHOR_EMAIL_INPUT_ID ?>" name="<?php echo USP_AUTHOR_EMAIL_INPUT_NAME ?>" type="text" value="" placeholder="<?php esc_attr_e('Your Email', 'usp'); ?>"<?php if (usp_check_required('usp_email')) usp_display_required_or_nothing(); ?> class="<?php echo INPUT_CLASS ?>">
 	</fieldset>
 	<?php
 }
@@ -98,26 +101,28 @@ function usp_display_email_field(): void {
 function usp_display_title_field(): void {
 	?>
 	<fieldset class="<?php echo USP_TITLE_FIELDSET_CLASS ?>">
-		<label for="<?php echo USP_TITLE_INPUT_NAME ?>"><?php esc_html_e('Post Title', 'usp'); ?></label>
-		<input id="user-submitted-title" name="<?php echo USP_TITLE_INPUT_NAME ?>" type="text" value="" placeholder="<?php esc_attr_e('Post Title', 'usp'); ?>"<?php if (usp_check_required('usp_title')) usp_display_required_or_nothing(); ?> class="usp-input">
+		<label for="<?php echo USP_TITLE_INPUT_ID ?>"><?php esc_html_e('Post Title', 'usp'); ?></label>
+		<input id="<?php echo USP_TITLE_INPUT_ID ?>" name="<?php echo USP_TITLE_INPUT_NAME ?>" type="text" value="" placeholder="<?php esc_attr_e('Post Title', 'usp'); ?>"<?php if (usp_check_required('usp_title')) usp_display_required_or_nothing(); ?> class="<?php echo INPUT_CLASS ?>">
 	</fieldset>
 	<?php
 }
 
 function usp_display_tags_field(): void {
 	?>
-	<fieldset class="usp-tags">
-		<label for="user-submitted-tags"><?php esc_html_e('Post Tags', 'usp'); ?></label>
-		<input id="user-submitted-tags" name="user-submitted-tags" type="text" value="" placeholder="<?php esc_attr_e('Post Tags', 'usp'); ?>"<?php if (usp_check_required('usp_tags')) usp_display_required_or_nothing(); ?> class="usp-input">
+	<fieldset class="<?php echo USP_TAGS_FIELDSET_CLASS ?>">
+		<label for="<?php echo USP_TAGS_INPUT_ID ?>"><?php esc_html_e('Post Tags', 'usp'); ?></label>
+		<input id="<?php echo USP_TAGS_INPUT_ID ?>" name="<?php echo USP_TAGS_INPUT_NAME ?>" type="text" value="" placeholder="<?php esc_attr_e('Post Tags', 'usp'); ?>"<?php if (usp_check_required('usp_tags')) usp_display_required_or_nothing(); ?> class="<?php echo INPUT_CLASS ?>">
 	</fieldset>
 	<?php
 }
 
 function usp_display_categories_field(): void {
 	?>
-	<fieldset class="usp-category">
-		<label for="user-submitted-category"><?php esc_html_e('Post Category', 'usp'); ?></label>
-		<select id="user-submitted-category" name="user-submitted-category"<?php if (usp_check_required('usp_category')) usp_display_required_or_nothing(); ?> class="usp-select">
+	<fieldset class="<?php echo USP_CATEGORIES_FIELDSET_CLASS ?>">
+		<label for="<?php echo USP_CATEGORIES_FIELDSET_ID ?>">
+			<?php esc_html_e('Post Category', 'usp'); ?>
+			</label>
+		<select id="<?php echo USP_CATEGORIES_FIELDSET_ID ?>" name="<?php echo USP_CATEGORIES_SELECT_NAME ?>"<?php if (usp_check_required('usp_category')) usp_display_required_or_nothing(); ?> class="usp-select">
 			<option value=""><?php esc_html_e('Please select a category..', 'usp'); ?></option>
 			<?php foreach ( USP_OPTIONS['categories'] as $category_id ) { $category = get_category( $category_id ); if ( ! $category ) { continue; } ?>
 			
@@ -131,14 +136,14 @@ function usp_display_categories_field(): void {
 
 function usp_display_content_field(): void {
 	?>
-	<fieldset class="usp-content">
+	<fieldset class="<?php echo USP_CONTENT_FIELDSET_CLASS ?>">
 		<?php if ( USP_OPTIONS['usp_richtext_editor'] == true ) { ?>
 		
-		<div class="usp_text-editor">
+		<div class="<?php echo USP_CONTENT_FIELDSET_DIV_CLASS ?>">
 		<?php $usp_rte_settings = array(
 				'wpautop'          => true,  // enable rich text editor
 				'media_buttons'    => true,  // enable add media button
-				'textarea_name'    => 'user-submitted-content', // name
+				'textarea_name'    => USP_CONTENT_TEXTAREA_NAME, // name
 				'textarea_rows'    => '10',  // number of textarea rows
 				'tabindex'         => '',    // tabindex
 				'editor_css'       => '',    // extra CSS
@@ -156,10 +161,10 @@ function usp_display_content_field(): void {
 		</div>
 		<?php } else { ?>
 			
-		<label for="user-submitted-content">
+		<label for="<?php echo USP_CONTENT_TEXTAREA_ID ?>">
 			<?php esc_html_e('Post Content', 'usp'); ?>
 		</label>
-		<textarea id="user-submitted-content" name="user-submitted-content" rows="5" placeholder="<?php esc_attr_e('Post Content', 'usp'); ?>"<?php if (usp_check_required('usp_content')) usp_display_required_or_nothing(); ?> class="usp-textarea"></textarea>
+		<textarea id="<?php echo USP_CONTENT_TEXTAREA_ID ?>" name="<?php echo USP_CONTENT_TEXTAREA_NAME ?>" rows="5" placeholder="<?php esc_attr_e('Post Content', 'usp'); ?>"<?php if (usp_check_required('usp_content')) usp_display_required_or_nothing(); ?> class="usp-textarea"></textarea>
 		<?php } ?>
 		
 	</fieldset>
@@ -169,50 +174,56 @@ function usp_display_content_field(): void {
 function usp_display_image_field(): void {
 
 	?>
-	<fieldset class="usp-images">
-				<label for="user-submitted-image"><?php esc_html_e('Upload an Image', 'usp'); ?></label>
-				<div id="usp-upload-message"><?php esc_html_e(USP_OPTIONS['upload-message'], 'usp'); ?></div>
-				<div id="user-submitted-image">
-				<?php // upload files
-					
-				$usp_minImages = intval(USP_OPTIONS['min-images']);
-				$usp_maxImages = intval(USP_OPTIONS['max-images']);
-				$usp_addAnother = USP_OPTIONS['usp_add_another'];
+	<fieldset class="<?php echo USP_IMAGE_FIELDSET_CLASS ?>">
+		<label for="<?php echo USP_IMAGE_INPUT_ID ?>"><?php esc_html_e('Upload an Image', 'usp'); ?></label>
+		<div id="<?php echo USP_IMAGE_UPLOAD_MESSAGE_ID ?>">
+			<?php esc_html_e(USP_OPTIONS['upload-message'], 'usp'); ?>
+		</div>
+		<div id="<?php echo USP_IMAGE_INPUT_CONTAINER_ID ?>">
+			<?php // upload files
 				
-				if ( empty( $usp_addAnother ) ) $usp_addAnother = '<a href="#" id="usp_add-another" class="usp-no-js">'. esc_html__('Add another image', 'usp') .'</a>';
-				
-				if ($usp_minImages > 0) : ?>
-					<?php for ($i = 0; $i < $usp_minImages; $i++) : ?>
-							
-					<input name="user-submitted-image[]" type="file" size="25"<?php usp_display_required_or_nothing() ?> class="usp-input usp-clone<?php usp_display_file_required_or_nothing() ?> exclude">
-					<?php endfor; ?>
-					<?php if ($usp_minImages < $usp_maxImages) : echo $usp_addAnother; endif; ?>
+			$usp_minImages = intval( USP_OPTIONS['min-images'] );
+			$usp_maxImages = intval( USP_OPTIONS['max-images'] );
+			$usp_addAnother = USP_OPTIONS['usp_add_another'];
+			
+			if ( empty( $usp_addAnother ) ) {
+				$usp_addAnother = '<a href="#" id="' . USP_IMAGE_ADD_ANOTHER_ID . '" class="' . USP_IMAGE_ADD_ANOTHER_CLASS . '">' . esc_html__('Add another image', 'usp') .'</a>';
+			}
+			
+			if ( $usp_minImages > 0 ) : ?>
+				<?php for ($i = 0; $i < $usp_minImages; $i++) : ?>
+						
+				<input name="<?php echo USP_IMAGE_INPUT_NAME ?>[]" type="file" size="25"<?php usp_display_required_or_nothing() ?> class="<?php echo INPUT_CLASS ?> <?php echo USP_CLONE_CLASS ?> <?php usp_display_file_required_or_nothing() ?> <?php echo EXCLUDE_CLASS ?>">
+				<?php endfor; ?>
+				<?php if ( $usp_minImages < $usp_maxImages ) : echo $usp_addAnother; endif; ?>
 				<?php else : ?>
-					
-					<input name="user-submitted-image[]" type="file" size="25" class="usp-input usp-clone exclude">
-					<?php echo $usp_addAnother; ?>
-				<?php endif; ?>
-					
-				</div>
-				<input type="hidden" class="usp-hidden exclude" id="usp-min-images" name="usp-min-images" value="<?php echo USP_OPTIONS['min-images']; ?>">
-				<input type="hidden" class="usp-hidden exclude" id="usp-max-images" name="usp-max-images" value="<?php echo USP_OPTIONS['max-images']; ?>">
-			</fieldset>
-			<?php
+				
+				<input name="<?php echo USP_IMAGE_INPUT_NAME ?>[]" type="file" size="25" class="<?php echo INPUT_CLASS ?> <?php echo USP_CLONE_CLASS ?> <?php echo EXCLUDE_CLASS ?>">
+				<?php echo $usp_addAnother; ?>
+			<?php endif; ?>
+				
+		</div>
+		<input type="hidden" class="<?php echo USP_HIDDEN_CLASS ?> <?php echo EXCLUDE_CLASS ?>" id="<?php echo USP_IMAGE_MIN_IMAGES_ID ?>" name="<?php echo USP_IMAGE_MIN_IMAGES_NAME ?>" value="<?php echo USP_OPTIONS['min-images']; ?>">
+		<input type="hidden" class="<?php echo USP_HIDDEN_CLASS ?> <?php echo EXCLUDE_CLASS ?>" id="<?php echo USP_IMAGE_MAX_IMAGES_ID ?>" name="<?php echo USP_IMAGE_MAX_IMAGES_NAME ?>" value="<?php echo USP_OPTIONS['max-images']; ?>">
+	</fieldset>
+	<?php
 }
 
 function usp_display_human_verification_field(): void {
 	?>
-	<fieldset id="coldform_verify" style="display:none;">
-		<label for="user-submitted-verify"><?php esc_html_e('Human verification: leave this field empty.', 'usp'); ?></label>
-		<input id="user-submitted-verify" name="user-submitted-verify" type="text" class="exclude" value="">
+	<fieldset id="<?php echo USP_HUMAN_VERIFICATION_FIELDSET_ID ?>" style="display:none;">
+		<label for="<?php echo USP_HUMAN_VERIFICATION_INPUT_ID ?>">
+			<?php esc_html_e('Human verification: leave this field empty.', 'usp'); ?>
+		</label>
+		<input id="<?php echo USP_HUMAN_VERIFICATION_INPUT_ID ?>" name="<?php echo USP_HUMAN_VERIFICATION_INPUT_NAME ?>" type="text" class="<?php echo EXCLUDE_CLASS ?>" value="">
 	</fieldset>
 	<?php
 }
 
 function usp_display_submit_button(): void {
 	?>
-	<div id="usp-submit">
-		<input type="submit" class="usp-submit exclude" id="user-submitted-post" name="user-submitted-post" value="<?php esc_attr_e('Submit Post', 'usp'); ?>">
+	<div id="<?php echo USP_SUBMIT_CONTAINER_ID ?>">
+		<input type="submit" class="<?php echo USP_SUBMIT_INPUT_CLASS ?> <?php echo EXCLUDE_CLASS ?>" id="<?php echo USP_SUBMIT_INPUT_ID ?>" name="<?php echo USP_SUBMIT_INPUT_NAME ?>" value="<?php esc_attr_e('Submit Post', 'usp'); ?>">
 	</div>
 	<?php
 }
@@ -282,7 +293,7 @@ function display_front_end_submit_recipe_form(): void {
  */
 function usp_display_successful_submission() {
 	?>
-	<div id="usp-success-message">
+	<div id="<?php echo USP_SUCCESS_MESSAGE_CONTAINER_ID ?>">
 		<?php echo USP_OPTIONS['success-message'] ?>
 	</div>
 	<?php
