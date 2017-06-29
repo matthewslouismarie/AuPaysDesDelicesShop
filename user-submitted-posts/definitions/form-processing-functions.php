@@ -91,32 +91,30 @@ function usp_redirect( $post, $post_id, $errors ) {
 
 function usp_check_for_public_submission() {
 
-	if ( usp_is_submission_post_request() ) {
-		$title = usp_get_title_from_post_request( $_POST );
-		
-		$ip = sanitize_text_field( usp_get_ip_address() );
-		
-		$files = usp_get_files_from_post_request( $_POST );
-		
-		$author   = usp_get_author_username_from_post_request( $_POST );
-		$url      = usp_get_author_url_from_post_request( $_POST );
-		$email    = usp_get_email_from_post_request( $_POST );
-		$tags     = usp_get_tags_from_post_request( $_POST );
-		$captcha  = usp_get_captcha_from_post_request( $_POST );
-		$verify   = usp_get_human_verification_from_post_request( $_POST );
-		$content  = usp_get_content_from_post_request( $_POST );
-		$category = usp_get_category_from_post_request( $_POST );
-		
-		$result = usp_create_public_submission( $title, $files, $ip, $author, $url, $email, $tags, $captcha, $verify, $content, $category );
-		
-		$post_id = usp_get_post_id_from_result( $result );
-		
-		$errors = usp_get_errors_from_result( $result );
+	$title = usp_get_title_from_post_request( $_POST );
+	
+	$ip = sanitize_text_field( usp_get_ip_address() );
+	
+	$files = usp_get_files_from_post_request( $_POST );
+	
+	$author   = usp_get_author_username_from_post_request( $_POST );
+	$url      = usp_get_author_url_from_post_request( $_POST );
+	$email    = usp_get_email_from_post_request( $_POST );
+	$tags     = usp_get_tags_from_post_request( $_POST );
+	$captcha  = usp_get_captcha_from_post_request( $_POST );
+	$verify   = usp_get_human_verification_from_post_request( $_POST );
+	$content  = usp_get_content_from_post_request( $_POST );
+	$category = usp_get_category_from_post_request( $_POST );
+	
+	$result = usp_create_public_submission( $title, $files, $ip, $author, $url, $email, $tags, $captcha, $verify, $content, $category );
+	
+	$post_id = usp_get_post_id_from_result( $result );
+	
+	$errors = usp_get_errors_from_result( $result );
 
-		usp_redirect( $_POST, $post_id, $errors );
+	usp_redirect( $_POST, $post_id, $errors );
 
-		exit();
-	}
+	exit();
 }
 
 function usp_error_message() {
