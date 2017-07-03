@@ -10,6 +10,9 @@ define( 'USP_INIT_PATH', get_stylesheet_directory() . '/user-submitted-posts/scr
 define( 'USP_REQUEST_PROCESSING_FUNCTIONS_PATH', get_stylesheet_directory() . '/user-submitted-posts/definitions/request-processing-functions.php' );
 define( 'USP_FORM_EXTRACTING_FUNCTIONS_PATH', get_stylesheet_directory() . '/user-submitted-posts/definitions/form-extracting-functions.php' );
 define( 'USP_DEFINITIONS_PATH', get_stylesheet_directory() . '/user-submitted-posts/definitions/' );
+define( 'APDD_TEXTDOMAIN', 'aupaysdesdelices' );
+
+load_theme_textdomain( APDD_TEXTDOMAIN, get_stylesheet_directory() . '/languages' );
 
 require_once( USP_INIT_PATH );
 require_once( USP_PROCESS_FORM_IF_ANY_PATH );
