@@ -106,7 +106,7 @@ $mobile_logo_image_width = osetin_get_field('mobile_logo_image_width', 'option',
                   <?php if(get_page_by_title( 'Bookmarks' )){ ?>
                     <li><a href="<?php echo get_permalink( get_page_by_title( 'Bookmarks' ) ); ?>"><i class="os-icon os-icon-ui-33"></i> <span><?php _e('My Bookmarks', 'osetin') ?></span></a></li>
                   <?php } ?>
-<li><a href="<?php echo esc_attr( get_page_url_by_slug( 'user-comments' ) ) ?>"><?= __( 'My Comments', APDD_TEXTDOMAIN ) ?></a></li>
+<li><a href="<?php echo esc_attr( get_page_url_by_slug( 'user-comments' ) ) ?>"><span><?= __( 'My Comments', APDD_TEXTDOMAIN ) ?></span></a></li>
                   <?php 
                     // try to see if there is a page with meal plans list template
                     $user_meal_plans_permalink = get_user_meal_plans_permalink();
