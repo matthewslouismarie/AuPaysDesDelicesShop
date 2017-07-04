@@ -2,6 +2,7 @@
 
 // Constants
 define( 'FUNCTIONS_PATH' , get_stylesheet_directory() . '/functions/' );
+define( 'CLASSES_PATH' , get_stylesheet_directory() . '/classes/' );
 define( 'USP_CORE_CONSTANTS_AND_FUNCTIONS_PATH', get_stylesheet_directory() . '/user-submitted-posts/definitions/core-constants-and-functions.php' );
 define( 'USP_FORM_DISPLAYING_FUNCTIONS_PATH', get_stylesheet_directory() . '/user-submitted-posts/definitions/form-displaying-functions.php' );
 define( 'USP_FORM_PROCESSING_FUNCTIONS_PATH', get_stylesheet_directory() . '/user-submitted-posts/definitions/form-processing-functions.php' );
