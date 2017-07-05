@@ -2,7 +2,7 @@
 /**
  * The template for displaying all pages.
  *
- * @package Au_Pays_Des_Delices_Shop
+ * @package APDD_Shop
  * @since 1.0.0
  */
 

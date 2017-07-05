@@ -4,7 +4,7 @@
  * 
  * Displays the comments of the currently logged-in user.
  * 
- * @package Au_Pays_Des_Delices
+ * @package APDD_Shop
  * @since 1.0.0
  */
 

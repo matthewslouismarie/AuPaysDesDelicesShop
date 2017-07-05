@@ -2,7 +2,7 @@
 /**
  * Function definitions
  * 
- * @package Au_Pays_Des_Delices
+ * @package APDD_Shop
  * @since 1.0.0
  */
 

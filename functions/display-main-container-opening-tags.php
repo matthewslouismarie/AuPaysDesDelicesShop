@@ -2,7 +2,7 @@
 /**
  * Definition of display_main_container_opening_tags()
  * 
- * @package Au_Pays_Des_Delices
+ * @package APDD_Shop
  * @since 1.0.0
  */
 

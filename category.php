@@ -11,9 +11,8 @@
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
- * @package WordPress
- * @subpackage Neptune
- * @since Neptune
+ * @package Neptune
+ * @since unknown
  */
 
 get_header(); 

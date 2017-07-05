@@ -2,7 +2,7 @@
 /**
  * Template Name: Set the user language to French (France)
  *
- * @package Set Language to French (France)
+ * @package APDD_Shop
  * @since 1.0.0
  */
 
