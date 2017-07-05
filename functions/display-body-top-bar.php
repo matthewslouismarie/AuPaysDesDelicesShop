@@ -1,6 +1,7 @@
 <?php
 
 require_once( FUNCTIONS_PATH . 'get-page-url-by-slug.php' );
+require_once( FUNCTIONS_PATH . 'display-language-icons.php' );
 
 function display_body_top_bar(): void {
 	$member_bar_bg = osetin_get_field( 'top_member_bar_background_color', 'option' );
@@ -10,6 +11,7 @@ function display_body_top_bar(): void {
 		<div class="top-profile-links-box-w">
 			<div class="top-profile-links-box" style="<?= $top_profile_links_box_style ?>">
 				<ul>
+					<?php display_language_icons() ?>
 					<?php if ( osetin_top_bar_member_buttons_visible() ) { ?>
 					<?php if ( is_user_logged_in() ) { ?>
 					<?php 

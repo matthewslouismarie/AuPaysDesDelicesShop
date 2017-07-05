@@ -59,3 +59,13 @@ Text Domain: au_pays_des_delices
 .fixed-header-w {
     background-color: rgba( 255, 255, 255, 0.9 );
 }
+
+.apdd-language-icon {
+    height: 16px;
+    width: auto;
+}
+
+.apdd-language-button {
+    border: none;
+    background: none;
+}
