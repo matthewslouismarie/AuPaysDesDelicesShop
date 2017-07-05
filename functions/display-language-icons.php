@@ -7,7 +7,7 @@ function display_language_icons(): void {
 ?>
 		<li>
 			<a href="<?= get_page_url_by_slug( APDD_SWITCH_TO_FR_FR_SLUG ) ?>">
-				<img class="apdd-language-icon" src="<?= IMG_PATH . 'french-flag.jpg' ?>">
+				<img class="apdd-language-icon" src="<?= APDD_IMG_PATH . 'french-flag.jpg' ?>">
 			</a>
 		</li>
 <?php
@@ -16,7 +16,7 @@ function display_language_icons(): void {
 ?>
 		<li>
 			<a href="<?= get_page_url_by_slug( APDD_SWITCH_TO_EN_UK_SLUG ) ?>">
-				<img class="apdd-language-icon" src="<?= IMG_PATH . 'uk-flag.jpg' ?>">
+				<img class="apdd-language-icon" src="<?= APDD_IMG_PATH . 'uk-flag.jpg' ?>">
 			</a>
 		</li>
 <?php
