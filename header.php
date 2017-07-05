@@ -12,6 +12,7 @@ require_once( FUNCTIONS_PATH . 'is-fixed-header-activated.php' );
 require_once( FUNCTIONS_PATH . 'is-query-for-a-single-recipe.php' );
 require_once( FUNCTIONS_PATH . 'print-logo.php' );
 require_once( FUNCTIONS_PATH . 'website-has-icon.php' );
+require_once( FUNCTIONS_PATH . 'display-custom-style.php' );
 
 ?>
 <!DOCTYPE html>
