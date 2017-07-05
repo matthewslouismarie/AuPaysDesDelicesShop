@@ -2,7 +2,7 @@
 
 require_once( FUNCTIONS_PATH . 'get-page-url-by-slug.php' );
 
-function display_language_icons(): void {
+function display_language_icons() {
 	if ( get_page_by_path( APDD_SWITCH_TO_FR_FR_SLUG ) != null ) {
 ?>
 		<li>

@@ -16,7 +16,7 @@
  * @see get_post_thumbnail_id()
  * @see get_the_ID()
  */
-function display_page_featured_image(): void
+function display_page_featured_image()
 {
 	if ( osetin_is_bbpress() ) {
 		$page_bg_image_url = get_template_directory_uri() . '/assets/img/patterns/flowers_light.jpg';

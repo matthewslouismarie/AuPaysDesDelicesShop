@@ -2,7 +2,7 @@
 
 require_once( FUNCTIONS_PATH . 'get-logo.php' );
 
-function print_logo(): void {
+function print_logo() {
 
 	$logo = get_logo();
 ?>

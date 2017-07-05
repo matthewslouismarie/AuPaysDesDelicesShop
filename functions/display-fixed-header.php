@@ -1,6 +1,6 @@
 <?php
 
-function display_fixed_header(): void {
+function display_fixed_header() {
 
 $logo = get_logo();
 

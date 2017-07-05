@@ -2,7 +2,7 @@
 
 require_once( FUNCTIONS_PATH . 'get-logo.php' );
 
-function display_body_header(): void {
+function display_body_header() {
 
 	$logo = get_logo();
 

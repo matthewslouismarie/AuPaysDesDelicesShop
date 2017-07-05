@@ -7,7 +7,7 @@
  * @see get_the_ID()
  */
 
-function display_regular_header(): void {
+function display_regular_header() {
 	?>
 	<h1 class="page-title">
 		<?php echo osetin_get_the_title( get_the_ID() ) ?>

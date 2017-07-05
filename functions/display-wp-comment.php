@@ -15,7 +15,7 @@
  * 
  * @param WP_Comment $comment The comment to display.
  */
-function display_wp_comment( WP_Comment $comment ): void {
+function display_wp_comment( WP_Comment $comment ) {
 	$post = get_post( $comment->comment_post_ID );
 	?>
 	<article class="apdd-comment-in-list">

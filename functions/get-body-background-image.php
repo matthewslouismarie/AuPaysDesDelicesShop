@@ -2,7 +2,7 @@
 
 require_once( CLASSES_PATH . 'class-image.php' );
 
-function get_body_background_image(): ?Image {
+function get_body_background_image() {
 
 	$background = null;
 

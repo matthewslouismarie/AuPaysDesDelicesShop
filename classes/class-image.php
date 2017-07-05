@@ -5,7 +5,7 @@ class Image {
 	private $width;
 	private $height;
 
-	public function __construct( ?string $url, ?int $width, ?int $height ) {
+	public function __construct( $url, $width, $height ) {
 		$this->url = $url;
 		$this->width = $width;
 		$this->height = $height;
@@ -23,15 +23,15 @@ class Image {
 		return $this->height !== null;
 	}
 
-	public function get_url(): ?string {
+	public function get_url() {
 		return $this->url;
 	}
 
-	public function get_width(): ?int {
+	public function get_width() {
 		return $this->width;
 	}
 
-	public function get_height(): ?int {
+	public function get_height() {
 		return $this->height;
 	}
 }

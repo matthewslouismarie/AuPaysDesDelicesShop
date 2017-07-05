@@ -11,7 +11,7 @@
  * 
  * @since 1.0.0
  */
-function display_main_container_closing_tags(): void {
+function display_main_container_closing_tags() {
 	?>
 		</div>
 	</div>

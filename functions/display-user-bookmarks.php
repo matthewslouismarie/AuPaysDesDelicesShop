@@ -18,7 +18,7 @@ require_once( FUNCTIONS_PATH . 'display-post-in-list.php' );
  * 
  * @see 
  */
-function display_user_bookmarks(): void {
+function display_user_bookmarks() {
 	global $userpro_fav;
 	$bookmarks = $userpro_fav->get_bookmarks( get_current_user_id() );
 	?>

@@ -2,7 +2,7 @@
 
 require_once( CLASSES_PATH . 'class-image.php' );
 
-function get_logo(): ?Image {
+function get_logo() {
 
 	$default_logo = get_template_directory_uri() . '/assets/img/neptune-logo.png';
 	if ( osetin_get_field( 'enable_custom_header_settings' ) === true ) {

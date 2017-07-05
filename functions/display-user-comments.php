@@ -15,7 +15,7 @@ require_once( FUNCTIONS_PATH . 'display-wp-comment.php' );
  * 
  * @see get_current_user_id()
  */
-function display_user_comments(): void {
+function display_user_comments() {
 	$args = array(
 	'user_id' => get_current_user_id(),
 	);

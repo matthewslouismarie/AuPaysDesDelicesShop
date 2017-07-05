@@ -2,7 +2,7 @@
 
 require_once( FUNCTIONS_PATH . 'get-logo.php' );
 
-function display_mobile_header(): void {
+function display_mobile_header() {
 	
 	$logo = get_logo();
 

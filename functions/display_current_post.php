@@ -1,6 +1,6 @@
 <?php
 
-function display_current_post( $paged ): void {
+function display_current_post( $paged ) {
 	// Looks like it doesn't do anything, maybe it only displays something with a certain theme config - LM
 	echo osetin_get_hero_recipes_slider(); 
 	osetin_show_featured_recipes_slider();

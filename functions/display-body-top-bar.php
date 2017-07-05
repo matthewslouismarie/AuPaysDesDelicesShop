@@ -3,7 +3,7 @@
 require_once( FUNCTIONS_PATH . 'get-page-url-by-slug.php' );
 require_once( FUNCTIONS_PATH . 'display-language-icons.php' );
 
-function display_body_top_bar(): void {
+function display_body_top_bar() {
 	$member_bar_bg = osetin_get_field( 'top_member_bar_background_color', 'option' );
 	$top_profile_links_box_style = $member_bar_bg ? 'background-color: ' . $member_bar_bg : '';
 ?>

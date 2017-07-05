@@ -11,7 +11,7 @@
  * 
  * @since 1.0.0
  */
-function display_main_container_opening_tags(): void {
+function display_main_container_opening_tags() {
 	?>
 	<div class="os-container">
 		<div class="archive-posts-w with-sidebar sidebar-location-right">
