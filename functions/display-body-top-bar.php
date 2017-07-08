@@ -41,7 +41,7 @@ function display_body_top_bar() {
 						<a href="<?= get_author_posts_url( get_current_user_id() ); ?>"><i class="os-icon os-icon-home-03"></i> <span><?php _e('My Recipes', 'osetin') ?></span></a>
 					</li>  
 					<?php } ?>
-					<?php if ( get_page_by_title( '' ) ) { ?>
+					<?php if ( get_page_by_title( 'Mes Marque-pages' ) ) { ?>
 					<li>
 						<a href="<?= get_permalink( get_page_by_title( 'Bookmarks' ) ); ?>"><i class="os-icon os-icon-ui-33"></i> <span><?php _e('Mes Marque-pages', 'osetin') ?></span></a>
 					</li>
