@@ -23,7 +23,9 @@ function display_body_top_bar() {
 						<span><?php _e("Logged in as", 'osetin'); ?> <strong><?= $os_current_user->display_name; ?></strong></span>
 					</li>
 					<li>
-						<a href="<?= $userpro->permalink(get_current_user_id()); ?>"><i class="os-icon os-icon-head"></i> <span><?php _e('My Profile', 'osetin') ?></span></a>
+						<a href="<?= $userpro->permalink(get_current_user_id()); ?>">
+							<i class="os-icon os-icon-head"></i> <span><?php _e('My Profile', 'osetin') ?></span>
+						</a>
 					</li>
 					<?php
 					$user_has_posts_query = array(
@@ -39,9 +41,9 @@ function display_body_top_bar() {
 						<a href="<?= get_author_posts_url( get_current_user_id() ); ?>"><i class="os-icon os-icon-home-03"></i> <span><?php _e('My Recipes', 'osetin') ?></span></a>
 					</li>  
 					<?php } ?>
-					<?php if ( get_page_by_title( 'Bookmarks' ) ) { ?>
+					<?php if ( get_page_by_title( '' ) ) { ?>
 					<li>
-						<a href="<?= get_permalink( get_page_by_title( 'Bookmarks' ) ); ?>"><i class="os-icon os-icon-ui-33"></i> <span><?php _e('My Bookmarks', 'osetin') ?></span></a>
+						<a href="<?= get_permalink( get_page_by_title( 'Bookmarks' ) ); ?>"><i class="os-icon os-icon-ui-33"></i> <span><?php _e('Mes Marque-pages', 'osetin') ?></span></a>
 					</li>
 					<?php } ?>
 					<li>
