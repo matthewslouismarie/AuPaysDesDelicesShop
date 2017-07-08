@@ -38,20 +38,20 @@ function display_body_top_bar() {
                     if ( isset( $user_has_posts->posts ) && count( $user_has_posts->posts ) > 0 ) {
 					?>
                     <li>
-						<a href="<?= get_author_posts_url( get_current_user_id() ); ?>"><i class="os-icon os-icon-home-03"></i> <span><?php _e('My Recipes', 'osetin') ?></span></a>
+						<a href="<?= get_author_posts_url( get_current_user_id() ); ?>"><i class="os-icon os-icon-home-03"></i> <span>Mes Recettes</span></a>
 					</li>  
 					<?php } ?>
 					<?php if ( get_page_by_title( 'Mes Marque-pages' ) ) { ?>
 					<li>
-						<a href="<?= get_permalink( get_page_by_title( 'Bookmarks' ) ); ?>"><i class="os-icon os-icon-ui-33"></i> <span><?php _e('Mes Marque-pages', 'osetin') ?></span></a>
+						<a href="<?= get_permalink( get_page_by_title( 'Bookmarks' ) ); ?>"><i class="os-icon os-icon-ui-33"></i> <span>Mes Marque-pages</span></a>
 					</li>
 					<?php } ?>
 					<li>
-						<a href="<?= esc_attr( get_page_url_by_slug( 'mes-commentaires' ) ) ?>"><span><?= __( 'Mes Commentaires', APDD_TEXTDOMAIN ) ?></span></a>
+						<a href="<?= esc_attr( get_page_url_by_slug( 'mes-commentaires' ) ) ?>"><span>Mes Commentaires</span></a>
 					</li>
-					<?php if ( get_user_meal_plans_permalink() ) { ?>
+					<?php if ( get_page_by_title( 'Mes Meal Plans' ) ) { ?>
 					<li>
-						<a href="' . $user_meal_plans_permalink . '"><i class="os-icon os-icon-ui-33"></i><span><?= __('My Meal Plans', 'osetin') ?></span></a>
+						<a href="<?= get_page_url_by_slug( 'mes-meal-plans' ) ?>"><i class="os-icon os-icon-ui-33"></i><span>Mes Meal Plans</span></a>
 					</li>
 					<?php } ?>
 					<li>
