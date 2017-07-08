@@ -47,7 +47,7 @@ function display_body_top_bar() {
 					</li>
 					<?php } ?>
 					<li>
-						<a href="<?= esc_attr( get_page_url_by_slug( 'user-comments' ) ) ?>"><span><?= __( 'My Comments', APDD_TEXTDOMAIN ) ?></span></a>
+						<a href="<?= esc_attr( get_page_url_by_slug( 'mes-commentaires' ) ) ?>"><span><?= __( 'Mes Commentaires', APDD_TEXTDOMAIN ) ?></span></a>
 					</li>
 					<?php if ( get_user_meal_plans_permalink() ) { ?>
 					<li>
