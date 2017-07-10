@@ -26,6 +26,7 @@ switch ( APDD_CURRENT_LANGUAGE ) {
 		define( 'APDD_COMMENTS_SLUG', 'mes-commentaires' );
 		define( 'APDD_MEAL_PLANS_SLUG', 'mes-meal-plans' );
 		define( 'APDD_REGISTER_SLUG', 'join-the-community' );
+		define( 'APDD_HEADER_MENU_NAME', 'Header Menu (fr_FR)');
 		break;
 	
 	case 'en_UK':
@@ -34,6 +35,7 @@ switch ( APDD_CURRENT_LANGUAGE ) {
  		define( 'APDD_COMMENTS_SLUG', 'my-comments' );
 		define( 'APDD_MEAL_PLANS_SLUG', 'my-meal-plans' );
 		define( 'APDD_REGISTER_SLUG', 'devenir-ambassadeur' );
+		define( 'APDD_HEADER_MENU_NAME', 'Header Menu (en_UK)');
 		break;
 	
 	default:

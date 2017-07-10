@@ -25,7 +25,7 @@ function display_body_header() {
 					<img src="<?= get_logo_image_url() ?>" alt="">
 				</a>
 			</div>
-			<?php wp_nav_menu( array( 'theme_location' => 'header', 'menu_id' => 'header-menu', 'container_class' => 'top-menu menu-activated-on-hover', 'fallback_cb' => false ) ); ?>
+			<?php wp_nav_menu( array( 'menu' => APDD_HEADER_MENU_NAME, 'theme_location' => 'header', 'menu_id' => 'header-menu', 'container_class' => 'top-menu menu-activated-on-hover', 'fallback_cb' => false ) ); ?>
 			<div class="search-trigger">
 				<i class="os-icon os-icon-thin-search"></i>
 			</div>
@@ -47,7 +47,7 @@ function display_body_header() {
 				</div>
 			</div>
 			<div class="top-menu-w">
-				<?php wp_nav_menu( array( 'theme_location' => 'header', 'menu_id' => 'header-menu', 'container_class' => 'top-menu menu-activated-on-hover', 'fallback_cb' => false ) ); ?>
+				<?php wp_nav_menu( array( 'menu' => APDD_HEADER_MENU_NAME, 'theme_location' => 'header', 'menu_id' => 'header-menu', 'container_class' => 'top-menu menu-activated-on-hover', 'fallback_cb' => false ) ); ?>
 			</div>
 			<?php } ?>
 		</div>

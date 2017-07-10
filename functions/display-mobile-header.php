@@ -11,7 +11,7 @@ function display_mobile_header() {
 ?>
 	<div class="mobile-header-w">
 		<div class="mobile-header-menu-w menu-activated-on-click color-scheme-<?= osetin_get_field('mobile_header_background_color_type', 'option', 'dark'); ?>" style="<?= osetin_get_css_prop('background-color', osetin_get_field('mobile_header_background_color', 'option')); ?>">
-			<?php wp_nav_menu( array( 'theme_location' => 'header', 'menu_id' => 'mobile-header-menu', 'container' => '', 'fallback_cb' => false ) ); ?>
+			<?php wp_nav_menu( array( 'menu' => APDD_HEADER_MENU_NAME, 'theme_location' => 'header', 'menu_id' => 'mobile-header-menu', 'container' => '', 'fallback_cb' => false ) ); ?>
 		</div>
 		<div class="mobile-header">
 			<div class="mobile-menu-toggler">
