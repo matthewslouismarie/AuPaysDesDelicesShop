@@ -8,8 +8,7 @@ require_once( APDD_FUNCTIONS_PATH . '/get-page-title-from-slug.php' );
 function display_body_top_bar_user_section() {
 	global $userpro;
 	$os_current_user = wp_get_current_user();
-
-	var_dump( get_current_user_id() );
+	
 	?>
 
 	<li>
