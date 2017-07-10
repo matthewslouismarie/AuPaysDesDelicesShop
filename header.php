@@ -1,18 +1,18 @@
 <?php
 
-require_once( FUNCTIONS_PATH . 'display-body-header.php' );
-require_once( FUNCTIONS_PATH . 'display-body-opening-tag.php' );
-require_once( FUNCTIONS_PATH . 'display-body-top-bar.php' );
-require_once( FUNCTIONS_PATH . 'display-fixed-header.php' );
-require_once( FUNCTIONS_PATH . 'display-mobile-header.php' );
-require_once( FUNCTIONS_PATH . 'get-body-background-image.php' );
-require_once( FUNCTIONS_PATH . 'get-logo.php' );
-require_once( FUNCTIONS_PATH . 'is-custom-style-defined.php' );
-require_once( FUNCTIONS_PATH . 'is-fixed-header-activated.php' );
-require_once( FUNCTIONS_PATH . 'is-query-for-a-single-recipe.php' );
-require_once( FUNCTIONS_PATH . 'print-logo.php' );
-require_once( FUNCTIONS_PATH . 'website-has-icon.php' );
-require_once( FUNCTIONS_PATH . 'display-custom-style.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display-body-header.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display-body-opening-tag.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display-body-top-bar.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display-fixed-header.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display-mobile-header.php' );
+require_once( APDD_FUNCTIONS_PATH . 'get-body-background-image.php' );
+require_once( APDD_FUNCTIONS_PATH . 'get-logo.php' );
+require_once( APDD_FUNCTIONS_PATH . 'is-custom-style-defined.php' );
+require_once( APDD_FUNCTIONS_PATH . 'is-fixed-header-activated.php' );
+require_once( APDD_FUNCTIONS_PATH . 'is-query-for-a-single-recipe.php' );
+require_once( APDD_FUNCTIONS_PATH . 'print-logo.php' );
+require_once( APDD_FUNCTIONS_PATH . 'website-has-icon.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display-custom-style.php' );
 
 ?>
 <!DOCTYPE html>

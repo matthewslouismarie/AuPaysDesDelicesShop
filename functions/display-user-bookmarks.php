@@ -9,7 +9,7 @@
 /**
  * Needs the definition of display_post_in_list().
  */
-require_once( FUNCTIONS_PATH . 'display-post-in-list.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display-post-in-list.php' );
 
 /**
  * Displays the bookmarks of the currently logged-in user.

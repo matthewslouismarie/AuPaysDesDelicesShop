@@ -1,6 +1,7 @@
 <?php
 
-require_once( FUNCTIONS_PATH . 'get-logo.php' );
+require_once( APDD_FUNCTIONS_PATH . 'get-logo.php' );
+require_once( APDD_FUNCTIONS_PATH . 'get-logo-image-url.php' );
 
 function display_body_header() {
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once( CLASSES_PATH . 'class-image.php' );
+require_once( APDD_CLASSES_PATH . 'class-image.php' );
 
 function get_logo() {
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once( FUNCTIONS_PATH . 'get-body-inline-style.php' );
+require_once( APDD_FUNCTIONS_PATH . 'get-body-inline-style.php' );
 
 function display_body_opening_tag() {
 ?>

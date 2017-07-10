@@ -1,10 +1,10 @@
 <?php
 
-require_once( FUNCTIONS_PATH . 'display_subheader.php' );
-require_once( FUNCTIONS_PATH . 'display_page_featured_image.php' );
-require_once( FUNCTIONS_PATH . 'display_page_regular_header.php' );
-require_once( FUNCTIONS_PATH . 'category-mosaics/display_all.php' );
-require_once( FUNCTIONS_PATH . 'category-mosaics/display_items.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display_subheader.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display_page_featured_image.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display_page_regular_header.php' );
+require_once( APDD_FUNCTIONS_PATH . 'category-mosaics/display_all.php' );
+require_once( APDD_FUNCTIONS_PATH . 'category-mosaics/display_items.php' );
 
 function display_category_mosaics() {
 	display_subheader();

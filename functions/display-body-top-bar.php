@@ -1,7 +1,7 @@
 <?php
 
-require_once( FUNCTIONS_PATH . 'get-page-url-by-slug.php' );
-require_once( FUNCTIONS_PATH . 'display-language-icons.php' );
+require_once( APDD_FUNCTIONS_PATH . 'get-page-url-by-slug.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display-language-icons.php' );
 
 function display_body_top_bar() {
 	$member_bar_bg = osetin_get_field( 'top_member_bar_background_color', 'option' );

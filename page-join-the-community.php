@@ -10,16 +10,16 @@
  * Template Name: Join the Community
  */
 
-require_once( FUNCTIONS_PATH . 'display-top-bar.php' );
-require_once( FUNCTIONS_PATH . 'get-page-w-additional-classes.php' );
-require_once( FUNCTIONS_PATH . 'is-regular-header.php' );
-require_once( FUNCTIONS_PATH . 'display-regular-header.php' );
-require_once( FUNCTIONS_PATH . 'has-sub-title.php' );
-require_once( FUNCTIONS_PATH . 'display-sub-title.php' );
-require_once( FUNCTIONS_PATH . 'should-load-up-the-comments-template.php' );
-require_once( FUNCTIONS_PATH . 'display-sidebar-index.php' );
-require_once( FUNCTIONS_PATH . 'is-sidebar-index-active.php' );
-require_once( FUNCTIONS_PATH . 'display-join-the-community-button.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display-top-bar.php' );
+require_once( APDD_FUNCTIONS_PATH . 'get-page-w-additional-classes.php' );
+require_once( APDD_FUNCTIONS_PATH . 'is-regular-header.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display-regular-header.php' );
+require_once( APDD_FUNCTIONS_PATH . 'has-sub-title.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display-sub-title.php' );
+require_once( APDD_FUNCTIONS_PATH . 'should-load-up-the-comments-template.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display-sidebar-index.php' );
+require_once( APDD_FUNCTIONS_PATH . 'is-sidebar-index-active.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display-join-the-community-button.php' );
 
 get_header();
 
