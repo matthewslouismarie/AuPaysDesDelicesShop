@@ -426,4 +426,8 @@ $current_language = array(
 		=> 'Tamik Soziev',
 	'http://soziev.com/'
 		=> 'http://soziev.com/',
+	
+	/*
+	 * APDD Shop
+	 */
 );

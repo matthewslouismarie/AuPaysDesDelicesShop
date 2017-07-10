@@ -22,10 +22,18 @@ switch ( APDD_CURRENT_LANGUAGE ) {
 	case 'fr_FR':
 		define( 'APDD_L10N_EXCLUDED_CATEGORIES', 'en_UK' );
 		define( 'APDD_L10N_TRANSLATIONS_PATH', get_stylesheet_directory() . '/languages/fr_FR.php' );
+		define( 'APDD_BOOKMARKS_SLUG', 'mes-marque-pages' );
+		define( 'APDD_COMMENTS_SLUG', 'mes-commentaires' );
+		define( 'APDD_MEAL_PLANS_SLUG', 'mes-meal-plans' );
+		define( 'APDD_REGISTER_SLUG', 'join-the-community' );
 		break;
 	
 	case 'en_UK':
 		define( 'APDD_L10N_EXCLUDED_CATEGORIES', 'fr_FR' );
+		define( 'APDD_BOOKMARKS_SLUG', 'my-bookmarks' );
+ 		define( 'APDD_COMMENTS_SLUG', 'my-comments' );
+		define( 'APDD_MEAL_PLANS_SLUG', 'my-meal-plans' );
+		define( 'APDD_REGISTER_SLUG', 'devenir-ambassadeur' );
 		break;
 	
 	default:
