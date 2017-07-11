@@ -1,9 +1,9 @@
 <?php
 
-require_once( 'functions/generate_query_arguments.php' );
-require_once( 'functions/get_sticky_posts.php' );
-require_once( 'functions/get_recipes_index_query.php' );
-require_once( 'functions/display_current_post.php' );
+require_once( 'functions/generate-query-arguments.php' );
+require_once( 'functions/get-sticky-posts.php' );
+require_once( 'functions/get-recipes-index-query.php' );
+require_once( 'functions/display-current-post.php' );
 
 /**
  * 
