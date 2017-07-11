@@ -15,8 +15,10 @@ $supported_languages = array(
 );
 if ( ! isset( $_COOKIE[APDD_COOKIE_LANGUAGE] ) || ! in_array( $_COOKIE[APDD_COOKIE_LANGUAGE], $supported_languages) ) {
 	setcookie( APDD_COOKIE_LANGUAGE, 'fr_FR', strtotime( '+30 days' ), '/' );
+	define( 'APDD_CURRENT_LANGUAGE', 'fr_FR' );
+} else {
+	define( 'APDD_CURRENT_LANGUAGE', $_COOKIE[APDD_COOKIE_LANGUAGE] );
 }
-define( 'APDD_CURRENT_LANGUAGE', $_COOKIE[APDD_COOKIE_LANGUAGE] );
 
 switch ( APDD_CURRENT_LANGUAGE ) {
 	case 'fr_FR':

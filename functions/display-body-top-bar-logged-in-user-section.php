@@ -5,7 +5,7 @@ require_once( APDD_FUNCTIONS_PATH . '/page-exists.php' );
 require_once( APDD_FUNCTIONS_PATH . '/get-page-title-from-slug.php' );
 
 // TODO: new function to replace __ to translate dynamically
-function display_body_top_bar_user_section() {
+function display_body_top_bar_logged_in_user_section() {
 	global $userpro;
 	$os_current_user = wp_get_current_user();
 	

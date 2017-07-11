@@ -2,9 +2,9 @@
 
 require_once( APDD_FUNCTIONS_PATH . 'get-page-url-by-slug.php' );
 require_once( APDD_FUNCTIONS_PATH . 'display-language-icons.php' );
-require_once( APDD_FUNCTIONS_PATH . 'display-body-top-bar-user-section.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display-body-top-bar-logged-in-user-section.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display-body-top-bar-visitor-section.php' );
 require_once( APDD_FUNCTIONS_PATH . 'is-userpro-activated.php' );
-require_once( APDD_FUNCTIONS_PATH . 'display-body-top-bar-user-section.php' );
 
 function display_body_top_bar() {
 	$member_bar_bg = osetin_get_field( 'top_member_bar_background_color', 'option' );
@@ -18,7 +18,11 @@ function display_body_top_bar() {
 					display_language_icons();
 
 					if ( osetin_top_bar_member_buttons_visible() && is_userpro_activated() ) {
-						display_body_top_bar_user_section();
+						if ( is_user_logged_in() ) {
+							display_body_top_bar_logged_in_user_section();
+						} else {
+							display_body_top_bar_visitor_section();
+						}
 					}
 
 					if ( osetin_top_bar_cart_button_visible() ) {
