@@ -1,19 +1,9 @@
 <?php
 /**
- * The template for displaying archive pages
- *
- * Used to display archive-type pages if nothing more specific matches a query.
- * For example, puts together date-based pages if no date.php file exists.
- *
- * If you'd like to further customize these archive views, you may create a
- * new template file for each one. For example, tag.php (Tag archives),
- * category.php (Category archives), author.php (Author archives), etc.
- *
- * @link https://codex.wordpress.org/Template_Hierarchy
- *
- * @package Neptune
- * @since unknown
+ * To refactor.
  */
+
+require_once( APDD_FUNCTIONS_PATH . 'display-breadcrumb.php' );
 
 get_header(); 
 $cat_id =  get_query_var('cat');
@@ -37,7 +27,7 @@ if(empty($category_bg_image_url)){
 ?>
   <div class="os-container top-bar-w">
     <div class="top-bar <?php if(empty($category_bg_image_url)) echo 'bordered'; ?>">
-      <?php osetin_output_breadcrumbs(); ?>
+      <?php display_breadcrumb(); ?>
       <?php osetin_social_share_icons('header'); ?>
     </div>
     <?php if(!empty($category_bg_image_url)){ ?>

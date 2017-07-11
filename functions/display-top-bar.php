@@ -1,5 +1,7 @@
 <?php
 
+require_once( FUNCTIONS_PATH . 'display-breadcrumb.php' );
+
 /**
  * Displays the bar at the top of a regular page.
  * 
@@ -11,7 +13,7 @@ function display_top_bar ( int $page_id ) {
 	?>
 	<div class="os-container top-bar-w">
 		<div class="top-bar <?php if(!osetin_is_imaged_header(get_the_ID())) echo 'bordered'; ?>">
-			<?php osetin_output_breadcrumbs(); ?>
+			<?php display_breadcrumb(); ?>
 			<?php osetin_social_share_icons('header'); ?>
 		</div>
 	</div>

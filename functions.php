@@ -8,6 +8,14 @@ define( 'APDD_IMG_PATH', get_stylesheet_directory_uri() . '/img/' );
 define( 'APDD_SWITCH_TO_FR_FR_SLUG', 'set-language-to-fr_fr' );
 define( 'APDD_SWITCH_TO_EN_UK_SLUG', 'set-language-to-en_uk' );
 define( 'APDD_COOKIE_LANGUAGE', 'user-language' );
+const APDD_SUPPORTED_LANGUAGES = array(
+	'fr_FR',
+	'en_UK',
+);
+const APDD_SLUGS_OF_L10N_CATEGORIES = array(
+	'fr_fr',
+	'en_uk',
+);
 
 $supported_languages = array(
 	'fr_FR',
@@ -23,6 +31,7 @@ if ( ! isset( $_COOKIE[APDD_COOKIE_LANGUAGE] ) || ! in_array( $_COOKIE[APDD_COOK
 switch ( APDD_CURRENT_LANGUAGE ) {
 	case 'fr_FR':
 		define( 'APDD_L10N_EXCLUDED_CATEGORIES', 'en_UK' );
+		define( 'APDD_L10N_TRANSLATIONS_PATH', get_stylesheet_directory() . '/languages/fr_FR.php' );
 		define( 'APDD_L10N_TRANSLATIONS_PATH', get_stylesheet_directory() . '/languages/fr_FR.php' );
 		define( 'APDD_BOOKMARKS_SLUG', 'mes-marque-pages' );
 		define( 'APDD_COMMENTS_SLUG', 'mes-commentaires' );
