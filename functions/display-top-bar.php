@@ -1,6 +1,6 @@
 <?php
 
-require_once( FUNCTIONS_PATH . 'display-breadcrumb.php' );
+require_once( APDD_FUNCTIONS_PATH . 'display-breadcrumb.php' );
 
 /**
  * Displays the bar at the top of a regular page.
