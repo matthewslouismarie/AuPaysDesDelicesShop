@@ -45,13 +45,10 @@ function display_default_breadcrumb_list_items() {
 			<?= esc_html__( 'Home', 'osetin' ) ?>
 		</a>
 	</li>
-	<?php
-	$categories = get_the_category();
-	if ( ! empty( $categories ) ) {
-		$category = $categories[0];
-		echo '<li><a href="' . get_category_link( $category->term_id ) . '" title="' . esc_attr( sprintf( esc_html__( "View all posts in %s", 'osetin' ), $category->name ) ) . '">' . $category->cat_name . '</a></li>';
-	}
-	?>
+	<?php 
+	$cat = get_the_category();
+	$id = $cat[0]->term_id;
+	display_category_hierarchy( get_category_hierarchy( $id, -1 ) ) ?>
 	<li>
 		<?= get_the_title() ?>
 	</li>
