@@ -8,15 +8,15 @@ define( 'APDD_SWITCH_TO_FR_FR_SLUG', 'set-language-to-fr_fr' );
 define( 'APDD_SWITCH_TO_EN_UK_SLUG', 'set-language-to-en_uk' );
 define( 'APDD_COOKIE_LANGUAGE', 'user-language' );
 
-const APDD_SUPPORTED_LANGUAGES = array(
+define( 'APDD_SUPPORTED_LANGUAGES', array(
 	'fr_FR',
 	'en_UK',
-);
+));
 
-const APDD_SLUGS_OF_L10N_CATEGORIES = array(
+define( 'APDD_SLUGS_OF_L10N_CATEGORIES', array(
 	'fr_fr',
 	'en_uk',
-);
+));
 
 if ( ! isset( $_COOKIE[APDD_COOKIE_LANGUAGE] ) || ! in_array( $_COOKIE[APDD_COOKIE_LANGUAGE], APDD_SUPPORTED_LANGUAGES ) ) {
 	define( 'APDD_CURRENT_LANGUAGE', 'fr_FR' );
