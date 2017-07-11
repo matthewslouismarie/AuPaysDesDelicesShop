@@ -1,12 +1,18 @@
 <?php
 
 // Constants
+// Maybe instead of define we could use "const". That would mean that
+// APDD_FUNCTIONS_PATH, APDD_CLASSES_PATH and APDD_IMG_PATH would be hard-coded.
+// Not that a big deal for 3 constants.
 define( 'APDD_FUNCTIONS_PATH' , get_stylesheet_directory() . '/functions/' );
 define( 'APDD_CLASSES_PATH' , get_stylesheet_directory() . '/classes/' );
 define( 'APDD_IMG_PATH', get_stylesheet_directory_uri() . '/img/' );
-define( 'APDD_SWITCH_TO_FR_FR_SLUG', 'set-language-to-fr_fr' );
-define( 'APDD_SWITCH_TO_EN_UK_SLUG', 'set-language-to-en_uk' );
 define( 'APDD_COOKIE_LANGUAGE', 'user-language' );
+
+define( 'APDD_SWITCH_TO_LANGUAGE', array(
+	'fr_FR' => 'passer-en-francais-france',
+	'en_UK' => 'set-language-to-en_uk',
+));
 
 define( 'APDD_SUPPORTED_LANGUAGES', array(
 	'fr_FR',
@@ -18,42 +24,90 @@ define( 'APDD_SLUGS_OF_L10N_CATEGORIES', array(
 	'en_uk',
 ));
 
+define( 'APDD_LIFESTYLE_SLUG', array(
+	'fr_FR' => 'lifestyle-fr_fr',
+	'en_UK' => 'lifestyle-en_uk',
+));
+
+define( 'APDD_STORIES_SLUG', array(
+	'fr_FR' => 'stories-fr_FR',
+	'en_UK' => 'stories-en_UK',
+));
+
+define( 'APDD_RECIPES_SLUG', array(
+	'fr_FR' => 'recettes',
+	'en_UK' => 'recipes',
+));
+
+define( 'APDD_L10N_EXCLUDED_CATEORIES', array(
+	'fr_FR' => array( 'en_UK' ),
+	'en_UK' => array( 'fr_FR' ),
+));
+
+define( 'APDD_IS_RUNTIME_TRANSLATION_ACTIVATED', array(
+	'fr_FR' => true,
+	'en_UK' => false,
+));
+
+define( 'APDD_BOOKMARKS_SLUG', array(
+	'fr_FR' => 'mes-marque-pages',
+	'en_UK' => 'my-bookmarks',
+));
+
+define( 'APDD_COMMENTS_SLUG', array(
+	'fr_FR' => 'mes-commentaires',
+	'en_UK' => 'my-comments',
+));
+
+define( 'APDD_MEAL_PLANS_SLUG', array(
+	'fr_FR' => 'mes-meal-plans',
+	'en_UK' => 'my-meal-plans',
+));
+
+define( 'APDD_REGISTER_SLUG', array(
+	'fr_FR' => 'devenir-ambassadeur',
+	'en_UK' => 'join-the-community',
+));
+
+define( 'APDD_HEADER_MENU_NAME', array(
+	'fr_FR' => 'Header Menu (fr_FR)',
+	'en_UK' => 'Header Menu (en_UK)',
+));
+
 if ( ! isset( $_COOKIE[APDD_COOKIE_LANGUAGE] ) || ! in_array( $_COOKIE[APDD_COOKIE_LANGUAGE], APDD_SUPPORTED_LANGUAGES ) ) {
 	define( 'APDD_CURRENT_LANGUAGE', 'fr_FR' );
 } else {
 	define( 'APDD_CURRENT_LANGUAGE', $_COOKIE[APDD_COOKIE_LANGUAGE] );
 }
 
-switch ( APDD_CURRENT_LANGUAGE ) {
-	case 'fr_FR':
-		define( 'APDD_L10N_EXCLUDED_CATEGORIES', 'en_UK' );
-		define( 'APDD_IS_RUNTIME_TRANSLATION_ACTIVATED', true );
-		define( 'APDD_BOOKMARKS_SLUG', 'mes-marque-pages' );
-		define( 'APDD_COMMENTS_SLUG', 'mes-commentaires' );
-		define( 'APDD_MEAL_PLANS_SLUG', 'mes-meal-plans' );
-		define( 'APDD_REGISTER_SLUG', 'join-the-community' );
-		define( 'APDD_HEADER_MENU_NAME', 'Header Menu (fr_FR)');
-		break;
-	
-	case 'en_UK':
-		define( 'APDD_L10N_EXCLUDED_CATEGORIES', 'fr_FR' );
-		define( 'APDD_IS_RUNTIME_TRANSLATION_ACTIVATED', false );
-		define( 'APDD_BOOKMARKS_SLUG', 'my-bookmarks' );
- 		define( 'APDD_COMMENTS_SLUG', 'my-comments' );
-		define( 'APDD_MEAL_PLANS_SLUG', 'my-meal-plans' );
-		define( 'APDD_REGISTER_SLUG', 'devenir-ambassadeur' );
-		define( 'APDD_HEADER_MENU_NAME', 'Header Menu (en_UK)');
-		break;
-	
-	default:
-		throw new exception;
-}
+
+// Shortcuts
+// TODO: is it the right way to name them? Their name does not begin with the 
+// package name, nor even with an abbreviation of it. This leaves room for 
+// errors caused by multiple constants being defined with the same name.
+// Besides, it does not make it obvious that this constant is defined and used
+// by this particular theme.
+// However, it makes writing them and especially reading the code much more
+// easier and pleasant.
+// It's probably okay for shortcuts not to have any prefix.
+define( 'SWITCH_TO_FR_FR_SLUG', APDD_SWITCH_TO_LANGUAGE['fr_FR'] );
+define( 'SWITCH_TO_EN_UK_SLUG', APDD_SWITCH_TO_LANGUAGE['en_UK'] );
+define( 'HEADER_MENU_NAME', APDD_HEADER_MENU_NAME[APDD_CURRENT_LANGUAGE] );
+define( 'REGISTER_SLUG', APDD_REGISTER_SLUG[APDD_CURRENT_LANGUAGE] );
+define( 'MEAL_PLANS_SLUG', APDD_MEAL_PLANS_SLUG[APDD_CURRENT_LANGUAGE] );
+define( 'COMMENTS_SLUG', APDD_COMMENTS_SLUG[APDD_CURRENT_LANGUAGE] );
+define( 'BOOKMARKS_SLUG', APDD_BOOKMARKS_SLUG[APDD_CURRENT_LANGUAGE] );
+define( 'IS_RUNTIME_TRANSLATION_ACTIVATED', APDD_IS_RUNTIME_TRANSLATION_ACTIVATED[APDD_CURRENT_LANGUAGE] );
+define( 'L10N_EXCLUDED_CATEORIES', APDD_L10N_EXCLUDED_CATEORIES[APDD_CURRENT_LANGUAGE] );
+define( 'RECIPES_SLUG', APDD_RECIPES_SLUG[APDD_CURRENT_LANGUAGE] );
+define( 'STORIES_SLUG', APDD_STORIES_SLUG[APDD_CURRENT_LANGUAGE] );
+define( 'LIFESTYLE_SLUG', APDD_LIFESTYLE_SLUG[APDD_CURRENT_LANGUAGE] );
 
 // Localisation
 require_once( APDD_FUNCTIONS_PATH . 'restrict-query-to-user-language.php' );
 add_action( 'pre_get_posts', 'restrict_query_to_user_language', 10, 1 );
 
-if ( true === APDD_IS_RUNTIME_TRANSLATION_ACTIVATED ) {
+if ( true === IS_RUNTIME_TRANSLATION_ACTIVATED[APDD_CURRENT_LANGUAGE] ) {
 	require_once( APDD_FUNCTIONS_PATH . 'runtime-translate.php' );
 	add_filter( 'gettext', 'runtime_translate', 10, 3 );
 }

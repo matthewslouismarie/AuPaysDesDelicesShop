@@ -15,7 +15,7 @@ $fixed_menu_logo_image_width = osetin_get_field( 'fixed_header_logo_width', 'opt
 					<img src="<?= get_logo_image_url(); ?>" alt="">
 				</a>
 			</div>
-			<?php wp_nav_menu( array( 'menu' => APDD_HEADER_MENU_NAME, 'theme_location' => 'header', 'menu_id' => 'fixed-header-menu', 'container_class' => 'fixed-top-menu-w menu-activated-on-hover', 'fallback_cb' => false ) ); ?>
+			<?php wp_nav_menu( array( 'menu' => HEADER_MENU_NAME, 'theme_location' => 'header', 'menu_id' => 'fixed-header-menu', 'container_class' => 'fixed-top-menu-w menu-activated-on-hover', 'fallback_cb' => false ) ); ?>
 			<div class="fixed-search-trigger-w">
 				<div class="search-trigger">
 					<i class="os-icon os-icon-thin-search"></i>

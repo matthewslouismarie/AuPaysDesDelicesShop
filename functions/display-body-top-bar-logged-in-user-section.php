@@ -33,28 +33,28 @@ function display_body_top_bar_logged_in_user_section() {
 	</li>  
 	<?php endif; ?>
 
-	<?php if ( page_exists( APDD_BOOKMARKS_SLUG ) ) : ?>
+	<?php if ( page_exists( BOOKMARKS_SLUG ) ) : ?>
 	<li>
-		<a href="<?= get_page_url_by_slug( APDD_BOOKMARKS_SLUG ) ?>">
+		<a href="<?= get_page_url_by_slug( BOOKMARKS_SLUG ) ?>">
 			<i class="os-icon os-icon-ui-33"></i>
-			<span><?= get_page_title_from_slug( APDD_BOOKMARKS_SLUG ) ?></span>
+			<span><?= get_page_title_from_slug( BOOKMARKS_SLUG ) ?></span>
 		</a>
 	</li>
 	<?php endif; ?>
 
-	<?php if ( page_exists( APDD_COMMENTS_SLUG ) ) : ?>
+	<?php if ( page_exists( COMMENTS_SLUG ) ) : ?>
 	<li>
-		<a href="<?= get_page_url_by_slug( APDD_COMMENTS_SLUG ) ?>">
-			<span><?= get_page_title_from_slug( APDD_COMMENTS_SLUG ) ?></span>
+		<a href="<?= get_page_url_by_slug( COMMENTS_SLUG ) ?>">
+			<span><?= get_page_title_from_slug( COMMENTS_SLUG ) ?></span>
 		</a>
 	</li>
 	<?php endif; ?>
 
-	<?php if ( page_exists( APDD_MEAL_PLANS_SLUG ) ) : ?>
+	<?php if ( page_exists( MEAL_PLANS_SLUG ) ) : ?>
 	<li>
-		<a href="<?= get_page_url_by_slug( APDD_MEAL_PLANS_SLUG ) ?>">
+		<a href="<?= get_page_url_by_slug( MEAL_PLANS_SLUG ) ?>">
 			<i class="os-icon os-icon-ui-33"></i>
-			<span><?= get_page_title_from_slug( APDD_MEAL_PLANS_SLUG ) ?></span>
+			<span><?= get_page_title_from_slug( MEAL_PLANS_SLUG ) ?></span>
 		</a>
 	</li>
 	<?php endif; ?>

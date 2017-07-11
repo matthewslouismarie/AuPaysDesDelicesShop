@@ -3,19 +3,19 @@
 require_once( APDD_FUNCTIONS_PATH . 'get-page-url-by-slug.php' );
 
 function display_language_icons() {
-	if ( get_page_by_path( APDD_SWITCH_TO_FR_FR_SLUG ) != null ) {
+	if ( get_page_by_path( SWITCH_TO_FR_FR_SLUG ) != null ) {
 ?>
 		<li>
-			<a href="<?= get_page_url_by_slug( APDD_SWITCH_TO_FR_FR_SLUG ) ?>">
+			<a href="<?= get_page_url_by_slug( SWITCH_TO_FR_FR_SLUG ) ?>">
 				<img class="apdd-language-icon" src="<?= APDD_IMG_PATH . 'french-flag.jpg' ?>">
 			</a>
 		</li>
 <?php
 	}
-	if ( get_page_by_path( APDD_SWITCH_TO_EN_UK_SLUG ) != null ) {
+	if ( get_page_by_path( SWITCH_TO_EN_UK_SLUG ) != null ) {
 ?>
 		<li>
-			<a href="<?= get_page_url_by_slug( APDD_SWITCH_TO_EN_UK_SLUG ) ?>">
+			<a href="<?= get_page_url_by_slug( SWITCH_TO_EN_UK_SLUG ) ?>">
 				<img class="apdd-language-icon" src="<?= APDD_IMG_PATH . 'uk-flag.jpg' ?>">
 			</a>
 		</li>

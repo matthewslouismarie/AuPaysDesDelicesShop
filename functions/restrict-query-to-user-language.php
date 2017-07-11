@@ -5,9 +5,11 @@ function restrict_query_to_user_language( $query ) {
 	if ( 1 === sizeof( $query->query ) && isset( $query->query['category_name'] ) ) {
 		return;
 	}
-	$l10n_excluded_category = get_category_by_slug( APDD_L10N_EXCLUDED_CATEGORIES );
-	if ( false !== $l10n_excluded_category ) {
-		$l10n_excluded_category_id = $l10n_excluded_category->term_id;
-		$query->query_vars['cat'] = '-' . $l10n_excluded_category_id;
+	foreach ( L10N_EXCLUDED_CATEORIES as $excluded_category ) {
+		$excluded_category = get_category_by_slug( $excluded_category );
+		if ( false !== $excluded_category ) {
+			$excluded_category_id = $excluded_category->term_id;
+			$query->query_vars['cat'] .= '-' . $l10n_excluded_category_id;
+		}
 	}
 }
