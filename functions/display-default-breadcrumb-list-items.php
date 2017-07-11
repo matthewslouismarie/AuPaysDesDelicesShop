@@ -1,5 +1,7 @@
 <?php
 
+require_once( APDD_FUNCTIONS_PATH . 'breadcrumb/display-category-hierarchy.php' );
+
 function display_default_breadcrumb_list_items() {
 ?>
 <?php if ( is_home() ) : ?>
@@ -14,14 +16,7 @@ function display_default_breadcrumb_list_items() {
 	</li>
 	<?php
 	$category_hierarchy = get_category_hierarchy( get_query_var( 'cat' ) );
-	if ( isset( $category_hierarchy[0] ) && in_array( $category_hierarchy[0], APDD_SLUGS_OF_L10N_CATEGORIES, false ) ) {
-		if ( isset( $category_hierarchy[1] ) && 'lifestyle' === $category_hierarchy[1] ) {
-			if ( isset( $category_hierarchy[2] ) ) {
-				$lifestyle = get_category_by_path( $category_hierarchy[0] . '/' . 'lifestyle', true );
-				echo( '<li><a href="' . get_category_link( $lifestyle->term_id ) . '">' . $lifestyle->cat_name . '</a></li>' );
-			}
-		}
-	}
+	display_category_hierarchy( $category_hierarchy );
 	echo '<li>' . get_cat_name( get_query_var( 'cat' ) ) . '</li>'; ?>
 <?php elseif ( is_archive() ) : ?>
 	<li>
