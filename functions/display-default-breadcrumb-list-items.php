@@ -1,6 +1,6 @@
 <?php
 
-function display_default_breadcrump_list_items() {
+function display_default_breadcrumb_list_items() {
 ?>
 <?php if ( is_home() ) : ?>
 	<li>

@@ -1,6 +1,6 @@
 <?php
 
-require_once( APDD_L10N_TRANSLATIONS_PATH );
+require_once( get_stylesheet_directory() . '/languages/' . APDD_CURRENT_LANGUAGE . '.php' );
 
 function runtime_translate( $translation, $text, $domain ) {
 	global $current_language;
