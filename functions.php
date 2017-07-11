@@ -3,7 +3,6 @@
 // Constants
 define( 'APDD_FUNCTIONS_PATH' , get_stylesheet_directory() . '/functions/' );
 define( 'APDD_CLASSES_PATH' , get_stylesheet_directory() . '/classes/' );
-define( 'APDD_TEXTDOMAIN', 'aupaysdesdelices' );
 define( 'APDD_IMG_PATH', get_stylesheet_directory_uri() . '/img/' );
 define( 'APDD_SWITCH_TO_FR_FR_SLUG', 'set-language-to-fr_fr' );
 define( 'APDD_SWITCH_TO_EN_UK_SLUG', 'set-language-to-en_uk' );
@@ -51,8 +50,6 @@ switch ( APDD_CURRENT_LANGUAGE ) {
 }
 
 // Localisation
-load_theme_textdomain( APDD_TEXTDOMAIN, get_stylesheet_directory() . '/languages' );
-
 require_once( APDD_FUNCTIONS_PATH . 'restrict-query-to-user-language.php' );
 add_action( 'pre_get_posts', 'restrict_query_to_user_language', 10, 1 );
 
