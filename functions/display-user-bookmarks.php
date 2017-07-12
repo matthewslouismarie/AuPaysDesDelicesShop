@@ -21,6 +21,22 @@ require_once( APDD_FUNCTIONS_PATH . 'display-post-in-list.php' );
 function display_user_bookmarks() {
 	global $userpro_fav;
 	$bookmarks = $userpro_fav->get_bookmarks( get_current_user_id() );
+
+	$has_bookmarks = false;
+
+	foreach ( $bookmarks as $id => $useless_variable ) {
+		if ( $id == 0 ) {
+			continue;
+		} else {
+			$has_bookmarks = true;
+		}
+	}
+
+	if ( false === $has_bookmarks ) {
+?>
+<p><?= __( 'You do not have any bookmarks' ) ?></p>
+<?php
+	} else {
 	?>
 	<ul>
 		<?php
@@ -34,4 +50,5 @@ function display_user_bookmarks() {
 		?>
 	</ul>
 	<?php
+	}
 }
