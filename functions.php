@@ -112,7 +112,7 @@ define( 'LIFESTYLE_SLUG', APDD_LIFESTYLE_SLUG[APDD_CURRENT_LANGUAGE] );
 require_once( APDD_FUNCTIONS_PATH . 'restrict-query-to-user-language.php' );
 add_action( 'pre_get_posts', 'restrict_query_to_user_language', 10, 1 );
 
-if ( true === IS_RUNTIME_TRANSLATION_ACTIVATED[APDD_CURRENT_LANGUAGE] ) {
+if ( true === IS_RUNTIME_TRANSLATION_ACTIVATED ) {
 	require_once( APDD_FUNCTIONS_PATH . 'runtime-translate.php' );
 	add_filter( 'gettext', 'runtime_translate', 10, 3 );
 }
