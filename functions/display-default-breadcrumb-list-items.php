@@ -48,7 +48,11 @@ function display_default_breadcrumb_list_items() {
 	<?php 
 	$cat = get_the_category();
 	$id = $cat[0]->term_id;
-	display_category_hierarchy( get_category_hierarchy( $id, -1 ) ) ?>
+	$category_hierarchy = get_category_hierarchy( $id, -1 );
+	if ( is_array( $category_hierarchy ) ) {
+		display_category_hierarchy( $category_hierarchy );
+	}
+	?>
 	<li>
 		<?= get_the_title() ?>
 	</li>
