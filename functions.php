@@ -24,6 +24,11 @@ define( 'APDD_SLUGS_OF_L10N_CATEGORIES', array(
 	'en_uk',
 ));
 
+define( 'L10N_CATEGORY_TO_LANGUAGE', array(
+	'fr_fr' => 'fr_FR',
+	'en_uk' => 'en_UK',
+));
+
 define( 'APDD_LIFESTYLE_SLUG', array(
 	'fr_FR' => 'lifestyle-fr_fr',
 	'en_UK' => 'lifestyle-en_uk',
