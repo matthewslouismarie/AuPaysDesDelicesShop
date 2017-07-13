@@ -142,17 +142,22 @@ function my_acf_json_load_point( $paths ) {
 // Netpune Style
 wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
 
-register_sidebar(
-	array(
-		'name'          => esc_html__( 'Archives/Index Sidebar (fr_FR)', APDD_TEXT_DOMAIN ),
-		'id'			=> 'sidebar-index-fr_fr',
-		'description'   => __( 'This sidebar only gets displayed when the website is set in French (France). When that happens the default Archives/Index Sidebar is not displayed.', APDD_TEXT_DOMAIN ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</aside>',
-		'before_title'  => '<h3 class="widget-title"><span>',
-		'after_title'   => '</span></h3>',
-	)
-);
+function register_localised_index_sidebars() {
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Archives/Index Sidebar (fr_FR)', APDD_TEXT_DOMAIN ),
+			'id'			=> 'sidebar-index-fr_fr',
+			'description'   => __( 'This sidebar only gets displayed when the website is set in French (France). When that happens the default Archives/Index Sidebar is not displayed.', APDD_TEXT_DOMAIN ),
+			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</aside>',
+			'before_title'  => '<h3 class="widget-title"><span>',
+			'after_title'   => '</span></h3>',
+		)
+	);
+}
+
+
+add_action( 'widgets_init', 'register_localised_index_sidebars' );
 
 switch ( APDD_CURRENT_LANGUAGE ) {
 	case 'fr_FR':
