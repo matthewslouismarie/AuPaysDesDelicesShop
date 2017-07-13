@@ -4,17 +4,21 @@
  */
 
 require_once( APDD_FUNCTIONS_PATH . 'display-breadcrumb.php' );
+require_once( APDD_FUNCTIONS_PATH . 'get-page-url-by-slug.php' );
 $use_apdd_category = false;
 
-
 $category_hierarchy = get_category_hierarchy( get_query_var( 'cat' ), -1 );
-if ( 2 == sizeof( $category_hierarchy ) ) {
-	if ( in_array( $category_hierarchy[0], APDD_SLUGS_OF_L10N_CATEGORIES ) ) {
+if ( isset( $category_hierarchy[0] ) && in_array( $category_hierarchy[0], APDD_SLUGS_OF_L10N_CATEGORIES ) ) {
+  if ( 2 == sizeof( $category_hierarchy ) ) {
     $lg = L10N_CATEGORY_TO_LANGUAGE[ $category_hierarchy[0] ];
 		if ( APDD_LIFESTYLE_SLUG[ $lg ] === $category_hierarchy[1] ) {
 			require( get_stylesheet_directory() . '/apdd-category.php' );
 			$use_apdd_category = true;
-		}
+		} elseif ( 'recettes' === $category_hierarchy[1] ) { // TODO: hard-coded!!!
+      wp_redirect( get_permalink( get_page_by_path( 'fr_FR/recettes' ) ) ); // TODO: hard-coded
+    } elseif ( 'recipes' === $category_hierarchy[1] ) { // TODO: hard-coded
+      wp_redirect( get_permalink( get_page_by_path( 'en_UK/recipes' ) ) ); // TODO: hard-coded
+    }
 	}
 }
 

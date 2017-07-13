@@ -45,6 +45,7 @@ function display_default_breadcrumb_list_items() {
 			<?= esc_html__( 'Home', 'osetin' ) ?>
 		</a>
 	</li>
+	
 	<?php 
 	$cat = get_the_category();
 	$id = $cat[0]->term_id;
@@ -53,6 +54,7 @@ function display_default_breadcrumb_list_items() {
 		display_category_hierarchy( $category_hierarchy );
 	}
 	?>
+
 	<li>
 		<?= get_the_title() ?>
 	</li>
