@@ -12,7 +12,7 @@
  * least one class.
  */
 function get_page_w_additional_classes(): string {
-	if ( osetin_is_active_sidebar( 'sidebar-index' ) ) {
+	if ( osetin_is_active_sidebar( CURRENT_SIDEBAR_INDEX ) ) {
 		return 'with-sidebar sidebar-location-right';
 	} else {
 		return '';

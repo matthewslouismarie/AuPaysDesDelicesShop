@@ -24,7 +24,7 @@ get_header(); ?>
 
   <div class="os-container">
     
-    <div class="page-w bordered <?php if ( is_active_sidebar( 'sidebar-index' ) ) echo 'with-sidebar sidebar-location-right'; ?>">
+    <div class="page-w bordered <?php if ( is_active_sidebar( CURRENT_SIDEBAR_INDEX ) ) echo 'with-sidebar sidebar-location-right'; ?>">
       <div class="page-content">
         <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
           <?php if(osetin_get_field('hide_title', get_the_ID()) != true){ ?>
@@ -120,11 +120,11 @@ get_header(); ?>
           ?>
         </article>
       </div>
-      <?php if ( osetin_is_active_sidebar( 'sidebar-index' ) ) { ?>
+      <?php if ( osetin_is_active_sidebar( CURRENT_SIDEBAR_INDEX ) ) { ?>
 
         <div class="page-sidebar">
         
-          <?php dynamic_sidebar( 'sidebar-index' ); ?>
+          <?php dynamic_sidebar( CURRENT_SIDEBAR_INDEX ); ?>
 
         </div>
           

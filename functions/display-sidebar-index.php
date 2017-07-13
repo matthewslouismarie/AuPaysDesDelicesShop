@@ -9,7 +9,7 @@
 function display_sidebar_index() {
 	?>
 	<div class="page-sidebar">
-		<?php dynamic_sidebar( 'sidebar-index' ); ?>
+		<?php dynamic_sidebar( CURRENT_SIDEBAR_INDEX ); ?>
 	</div>
 	<?php
 }

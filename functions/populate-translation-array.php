@@ -433,13 +433,16 @@ function populate_translation_array( & $array, string $language, string $domain 
 				=> 'Ajouter Média'
 			);
 			return;
-		} elseif ( 'apdd_shop' === $domain ) {
-			$array['fr_FR']['apdd_shop'] = array(
+		} elseif ( APDD_TEXT_DOMAIN === $domain ) {
+			$array['fr_FR'][ APDD_TEXT_DOMAIN ] = array(
 			'You did not write any comments yet.'
 				=> 'Vous n\'avez écrit aucun commentaire.',
-
 			'You do not have any bookmarks'
 				=> 'Vous n\'avez aucun marque-pages pour le moment.',
+			'Archives/Index Sidebar (fr_FR)'
+				=> 'Barre Latérale de Archives/Index (fr_FR)',
+			'This sidebar only gets displayed when the website is set in French (France). When that happens the default Archives/Index Sidebar is not displayed.'
+				=> 'Cette barre latérale ne sera affichée que quand le site est réglée en français. Elle remplacera alors la Barre Latérale Archives/Index par défaut.',
 			);
 			return;
 		} elseif ( 'acf' === $domain ) {

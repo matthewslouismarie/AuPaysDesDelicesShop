@@ -8,5 +8,5 @@
  * @return bool True if sidebar-index is active, false otherwise.
  */
 function is_sidebar_index_active(): bool {
-	return osetin_is_active_sidebar( 'sidebar-index' );
+	return osetin_is_active_sidebar( CURRENT_SIDEBAR_INDEX );
 }
