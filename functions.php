@@ -113,8 +113,9 @@ require_once( APDD_FUNCTIONS_PATH . 'restrict-query-to-user-language.php' );
 add_action( 'pre_get_posts', 'restrict_query_to_user_language', 10, 1 );
 
 if ( true === IS_RUNTIME_TRANSLATION_ACTIVATED ) {
-	require_once( APDD_FUNCTIONS_PATH . 'runtime-translate.php' );
-	add_filter( 'gettext', 'runtime_translate', 10, 3 );
+	require_once( APDD_CLASSES_PATH . 'class-dynamic-translator.php' );
+	$dynamic_translator = new Dynamic_Translator( APDD_CURRENT_LANGUAGE );
+	add_filter( 'gettext', array( $dynamic_translator, 'translate' ), 10, 3 );
 }
 
 // Netpune Style
