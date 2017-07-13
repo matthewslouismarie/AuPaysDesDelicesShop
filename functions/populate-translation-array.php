@@ -429,6 +429,8 @@ function populate_translation_array( & $array, string $language, string $domain 
 				=> 'Tamik Soziev',
 			'http://soziev.com/'
 				=> 'http://soziev.com/',
+			'Add Media'
+				=> 'Ajouter Média'
 			);
 			return;
 		} elseif ( 'apdd_shop' === $domain ) {
@@ -440,6 +442,15 @@ function populate_translation_array( & $array, string $language, string $domain 
 				=> 'Vous n\'avez aucun marque-pages pour le moment.',
 			);
 			return;
+		} elseif ( 'acf' === $domain ) {
+			$array['fr_FR']['acf'] = array(
+				'No image selected' =>
+					'Aucune image sélectionnée',
+				'Add Image' =>
+					'Ajouter une Image',
+				'Visual' =>
+					'Visuel',
+			);
 		} elseif ( 'userpro' === $domain ) {
 			$array['fr_FR']['userpro'] = array(
 			'Add a New Badge' => 'Ajouter un nouveau badge',
