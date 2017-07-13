@@ -13,7 +13,6 @@ class Dynamic_Translator {
 	}
 
 	public function translate( string $translation, string $phrase_to_translate, string $domain ) : string {
-		
 		// TEMP (?)
 		if ( 'osetin' === $domain ) {
 			$domain = 'default';
