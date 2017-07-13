@@ -24,7 +24,7 @@ function display_user_comments() {
 
 	if ( 0 === sizeof( $comments ) ) {
 ?>
-<p><?= __( 'You did not write any comments yet.', 'neptune' ) ?></p>
+<p><?= __( 'You did not write any comments yet.', APDD_TEXT_DOMAIN ) ?></p>
 <?php
 	}
 

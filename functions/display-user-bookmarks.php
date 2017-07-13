@@ -34,7 +34,7 @@ function display_user_bookmarks() {
 
 	if ( false === $has_bookmarks ) {
 ?>
-<p><?= __( 'You do not have any bookmarks' ) ?></p>
+<p><?= __( 'You do not have any bookmarks', APDD_TEXT_DOMAIN ) ?></p>
 <?php
 	} else {
 	?>
