@@ -10,6 +10,7 @@ define( 'APDD_IMG_PATH', get_stylesheet_directory_uri() . '/img/' );
 define( 'APDD_COOKIE_LANGUAGE', 'user-language' );
 define( 'APDD_TEXT_DOMAIN', 'apdd_shop' );
 define( 'APDD_DEFAULT_LANGUAGE', 'en_UK' );
+define( 'APDD_MOSAICS_OF_SUBCATEGORIES_LAYOUT', 'mosaics_of_subcategories' );
 
 define( 'APDD_SWITCH_TO_LANGUAGE', array(
 	'fr_FR' => 'passer-en-francais-france',
