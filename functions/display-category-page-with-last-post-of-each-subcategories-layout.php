@@ -1,11 +1,4 @@
 <?php
-/**
- * The template for displaying all pages.
- *
- * @package APDD_Shop
- * @since 1.0.0
- */
-
 require_once( APDD_FUNCTIONS_PATH . 'display-top-bar.php' );
 require_once( APDD_FUNCTIONS_PATH . 'get-page-w-additional-classes.php' );
 require_once( APDD_FUNCTIONS_PATH . 'is-regular-header.php' );
@@ -15,10 +8,10 @@ require_once( APDD_FUNCTIONS_PATH . 'display-sub-title.php' );
 require_once( APDD_FUNCTIONS_PATH . 'should-load-up-the-comments-template.php' );
 require_once( APDD_FUNCTIONS_PATH . 'display-sidebar-index.php' );
 require_once( APDD_FUNCTIONS_PATH . 'is-sidebar-index-active.php' );
-
 require_once( APDD_FUNCTIONS_PATH . 'custom-build-index-posts.php' );
 
-$lifestyle_direct_children = get_categories( array(
+function display_category_page_with_last_post_of_each_subcategories_layout() {
+	$lifestyle_direct_children = get_categories( array(
 	'parent' => get_query_var( 'cat' ),
 ) );
 
@@ -53,3 +46,4 @@ display_top_bar( 0 );
 <?php
 
 get_footer();
+}

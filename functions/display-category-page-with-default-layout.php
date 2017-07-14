@@ -4,39 +4,6 @@ require_once( APDD_FUNCTIONS_PATH . 'display-breadcrumb.php' );
 require_once( APDD_FUNCTIONS_PATH . 'get-page-url-by-slug.php' );
 
 function display_category_page_with_default_layout() {
-
-$use_apdd_category = false;
-
-function get_cat_slug($cat_id) {
-	$cat_id = (int) $cat_id;
-	$category = &get_category($cat_id);
-	return $category->slug;
-}
-
-$category_hierarchy = get_category_hierarchy( get_query_var( 'cat' ), -1 );
-if ( isset( $category_hierarchy[0] ) && in_array( $category_hierarchy[0], APDD_SLUGS_OF_L10N_CATEGORIES ) ) {
-  if ( 2 == sizeof( $category_hierarchy ) ) {
-    $lg = L10N_CATEGORY_TO_LANGUAGE[ $category_hierarchy[0] ];
-		if ( APDD_LIFESTYLE_SLUG[ $lg ] === $category_hierarchy[1] ) {
-			require( get_stylesheet_directory() . '/apdd-category.php' );
-			$use_apdd_category = true;
-		} elseif ( 'recettes' === $category_hierarchy[1] ) { // TODO: hard-coded!!!
-      wp_redirect( get_permalink( get_page_by_path( 'fr_FR/recettes' ) ) ); // TODO: hard-coded
-    } elseif ( 'recipes' === $category_hierarchy[1] ) { // TODO: hard-coded
-      wp_redirect( get_permalink( get_page_by_path( 'en_UK/recipes' ) ) ); // TODO: hard-coded
-    }
-	} elseif ( 3 === sizeof( $category_hierarchy ) ) {
-    if ( 'recettes' === $category_hierarchy[1] ) { // TODO: hard-coded!!!
-      wp_redirect( get_permalink( get_page_by_path( 'fr_FR-recettes-' . get_cat_slug( get_query_var( 'cat' ) ) ) ) ); // TODO: hard-coded
-    } elseif ( 'recipes' === $category_hierarchy[1] ) { // TODO: hard-coded
-    var_dump( get_page_by_path( 'en_UK-recipes-' . get_cat_slug( get_query_var( 'cat' ) ) ) );
-      wp_redirect( get_permalink( get_page_by_path( 'en_UK-recipes-' . get_cat_slug( get_query_var( 'cat' ) ) ) ) ); // TODO: hard-coded
-      //wp_redirect( get_permalink( get_page_by_path( 'en_UK/recipes/' . get_cat_slug( get_query_var( 'cat' ) ) ) ) ); // TODO: hard-coded
-    }
-  }
-}
-
-if ( ! $use_apdd_category ) {
 get_header(); 
 $cat_id =  get_query_var('cat');
 $category_bg_image_url = osetin_get_field('category_header_bg', "category_{$cat_id}");
@@ -78,5 +45,4 @@ if(empty($category_bg_image_url)){
     <?php echo build_index_posts($layout_type_for_index, false, $wp_query, false, $header_arr); ?>
   </div>
 <?php get_footer();
-}
 }
