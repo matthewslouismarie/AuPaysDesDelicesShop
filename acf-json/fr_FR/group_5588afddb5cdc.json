@@ -136,8 +136,8 @@
                 "masonry_4": "Masonry - 4 columns",
                 "full_width": "Full Width Posts",
                 "half_image": "Half Image & Half Text",
-                "mosaics_of_subcategories": "Mosaics of Sub-categories",
-                "last_post_of_each_subcategories": "Dernier Post de chaque Sous-catégories"
+                "mosaics_of_subcategories": "Mosaïques de chaque Sous-catégorie",
+                "last_post_of_each_subcategories": "Dernier Post de chaque Sous-catégorie"
             },
             "default_value": {
                 "default": "default"
