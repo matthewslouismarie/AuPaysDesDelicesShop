@@ -158,7 +158,6 @@ function register_localised_index_sidebars() {
 	);
 }
 
-
 add_action( 'widgets_init', 'register_localised_index_sidebars' );
 
 switch ( APDD_CURRENT_LANGUAGE ) {
@@ -168,4 +167,11 @@ switch ( APDD_CURRENT_LANGUAGE ) {
 	
 	default:
 		define( 'CURRENT_SIDEBAR_INDEX', 'sidebar-index' );
+}
+
+if ('fr_FR' === APDD_CURRENT_LANGUAGE) {
+	add_action('wp_enqueue_scripts', 'enqueue_fr_fr_translation_script', null, 0);
+	function enqueue_fr_fr_translation_script() {
+		wp_enqueue_script('apdd_translate_to_fr_fr', get_stylesheet_directory_uri() . '/js/translate-to-fr-fr.js', array('jquery'), '1.0.0');
+	}
 }
