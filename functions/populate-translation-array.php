@@ -68,7 +68,7 @@ function populate_translation_array( & $array, string $language, string $domain 
 			'Logged in as'
 				=> 'Connecté en tant que : ',
 			'My Profile'
-				=> 'Mon Profile',
+				=> 'Mon Profil',
 			'My Bookmarks'
 				=> 'Mes Marque-pages',
 			'Logout'
