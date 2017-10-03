@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
             jQuery("label:contains('Username or E-mail')").text('Pseudonyme ou Courriel');
             jQuery(".userpro-field-user_pass_confirm label:contains('Password')").text('Confirmer mot de passe');
             jQuery("label:contains('Antispam Question')").text('Question Antispam');
+            jQuery("label:contains('Password')").text('Mot de Passe');
             jQuery("label:contains('Username')").text('Pseudonyme');
             jQuery("label:contains('E-mail Address')").text('Courriel');
             jQuery("label:contains('Profile Display Name')").text('Nom Tel Qu\'affiché');
