@@ -89,6 +89,11 @@ if ( ! isset( $_COOKIE[APDD_COOKIE_LANGUAGE] ) || ! in_array( $_COOKIE[APDD_COOK
 	define( 'APDD_CURRENT_LANGUAGE', $_COOKIE[APDD_COOKIE_LANGUAGE] );
 }
 
+if ( isset( $_GET['APDD_CURRENT_LANGUAGE'] ) && 'mettre_a_jour_la_langue_v2' === $_GET['APDD_CURRENT_LANGUAGE'] ) {
+	define( 'APDD_DEBUG_MODE', true );
+} else {
+	define( 'APDD_DEBUG_MODE', false );
+}
 
 // Shortcuts
 // TODO: is it the right way to name them? Their name does not begin with the 

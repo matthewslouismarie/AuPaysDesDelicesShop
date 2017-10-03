@@ -10,7 +10,7 @@
  */
 function has_sub_title(): bool {
 	$sub_title = osetin_get_field( 'sub_title' );
-	if ( ! empty( $sub_title ) ) {
+	if ( ! empty( $sub_title ) && ! APDD_DEBUG_MODE ) {
 		return true;
 	} else {
 		return false;
