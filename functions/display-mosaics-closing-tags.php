@@ -1,6 +1,6 @@
 <?php
 
-function display_mosaics_closing_tags(): void {
+function display_mosaics_closing_tags() {
 ?>
 </div>
 <?php

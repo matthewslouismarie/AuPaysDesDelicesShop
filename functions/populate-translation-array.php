@@ -1,6 +1,6 @@
 <?php
 
-function populate_translation_array( & $array, string $language, string $domain ) : void {
+function populate_translation_array( & $array, string $language, string $domain ) {
 
 	if ( 'fr_FR' === $language ) {
 		if ( 'default' === $domain ) {
