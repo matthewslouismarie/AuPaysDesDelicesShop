@@ -1,0 +1,22 @@
+.top-navbar-container {
+  @media (min-width: $screen-md-min) {
+    > .wrapper {
+      text-align: right;
+      margin-bottom: 2rem;      
+    }
+    > .wrapper > .top-navbar {
+      display: inline-block;   
+    }
+  }
+
+  @media (min-width: $os-container-width) {
+    > .wrapper {
+      top: -60px;
+      max-width: $os-container-width;
+      margin-bottom: 0;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+    }
+  }
+}

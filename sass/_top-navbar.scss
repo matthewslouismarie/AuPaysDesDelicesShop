@@ -1,0 +1,49 @@
+.top-navbar {
+  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 0;
+  text-align: center;
+
+
+  > .item {
+    display: inline-block;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+  }
+
+  > .item:first-child {
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  > .item > .link,
+  > .item > .popup-login,
+  > .item > .text {
+    color: #fff;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+  }
+
+  > .item > .link:hover,
+  > .item > .popup-login:hover {
+    text-decoration: underline;
+  }
+
+  @media (min-width: $screen-md-min) {
+    border-radius: 0 0 6px 6px;
+    padding: 0.5rem 1rem;
+    text-align: right;
+
+    > .item {
+      margin-left: 1rem;
+      padding-left: 1rem;
+      border-left: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    > .item:first-child {
+      margin-left: 0;
+      padding-left: 0;
+      border-left: 0;
+    }
+  }
+}

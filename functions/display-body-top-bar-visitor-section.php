@@ -4,7 +4,7 @@ function display_body_top_bar_visitor_section() {
 ?>
 
 <li class="item">
-	<a class="link" href="#" class="popup-login">
+	<a class="popup-login" href="#">
 		<?php _e('Login', 'osetin'); ?>
 	</a>
 </li>

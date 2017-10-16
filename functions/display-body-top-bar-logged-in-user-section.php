@@ -12,7 +12,7 @@ function display_body_top_bar_logged_in_user_section() {
 	?>
 
 	<li class="item">
-		<span>
+		<span class="text">
 			<?= __("Logged in as", 'osetin'); ?> <strong><?= $os_current_user->display_name; ?></strong>
 		</span>
 	</li>

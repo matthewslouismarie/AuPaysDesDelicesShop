@@ -2,6 +2,7 @@
   "name": "apdd-shop",
   "version": "1.0.0",
   "devDependencies": {
+    "bootstrap-sass": "^3.3.7",
     "grunt": "^0.4.5",
     "grunt-contrib-sass": "^1.0.0"
   }

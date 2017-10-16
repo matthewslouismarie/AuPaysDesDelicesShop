@@ -147,10 +147,10 @@ function my_acf_json_load_point( $paths ) {
 }
 
 // Netpune Style
-wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
+wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css', array('osetin-main'), null );
 
 // apdd-shop's style
-wp_enqueue_style( 'apdd-shop', get_stylesheet_directory_uri() . '/apdd-shop.min.css' );
+wp_enqueue_style( 'apdd-shop', get_stylesheet_directory_uri() . '/apdd-shop.min.css', array('osetin-main'), null );
 
 function register_localised_index_sidebars() {
 	register_sidebar(
