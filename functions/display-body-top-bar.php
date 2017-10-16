@@ -13,7 +13,7 @@ function display_body_top_bar() {
 	<div class="os-container top-profile-links-box-container">
 		<div class="top-profile-links-box-w">
 			<div class="top-profile-links-box" style="<?= $top_profile_links_box_style ?>">
-				<ul>
+				<ul class="horizontal-link-list">
 					<?php
 					display_language_icons();
 
