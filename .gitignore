@@ -1,4 +1,6 @@
-.vscode/*
+.sass-cache
+.vscode
 .DS_Store
-vendor/*
-phpunit.phar
+node_modules
+apdd-shop.min.css
+apdd-shop.min.css.map
