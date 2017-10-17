@@ -14,5 +14,5 @@ function display_language_icons() {
     <a class="link" href="<?= get_page_url_by_slug( SWITCH_TO_EN_UK_SLUG ) ?>">EN</a>
   </li>
 <?php endif ?>
-<?
+<?php
 }
