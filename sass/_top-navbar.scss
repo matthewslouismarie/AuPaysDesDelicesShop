@@ -29,6 +29,10 @@
     text-decoration: underline;
   }
 
+  > .item > .text.-currentstate {
+    font-weight: 700;
+  }
+
   @media (min-width: $screen-md-min) {
     border-radius: 0 0 6px 6px;
     padding: 0.5rem 1rem;
