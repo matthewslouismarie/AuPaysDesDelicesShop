@@ -3,7 +3,6 @@
  * Template Name: Submit Recipe
  */
 
-require_once( APDD_FUNCTIONS_PATH . 'functions.php' );
 require_once( APDD_FUNCTIONS_PATH . 'display-top-bar.php' );
 require_once( APDD_FUNCTIONS_PATH . 'display-main-container-opening-tags.php' );
 require_once( APDD_FUNCTIONS_PATH . 'display-main-container-closing-tags.php' );

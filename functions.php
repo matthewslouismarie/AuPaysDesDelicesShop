@@ -117,6 +117,9 @@ define( 'RECIPES_SLUG', APDD_RECIPES_SLUG[APDD_CURRENT_LANGUAGE] );
 define( 'STORIES_SLUG', APDD_STORIES_SLUG[APDD_CURRENT_LANGUAGE] );
 define( 'LIFESTYLE_SLUG', APDD_LIFESTYLE_SLUG[APDD_CURRENT_LANGUAGE] );
 
+// Functions
+require_once( APDD_FUNCTIONS_PATH . 'functions.php' );
+
 // Localisation
 require_once( APDD_FUNCTIONS_PATH . 'restrict-query-to-user-language.php' );
 add_action( 'pre_get_posts', 'restrict_query_to_user_language', 10, 1 );
@@ -141,16 +144,11 @@ function my_acf_json_load_point( $paths ) {
     	$paths[0] = $current_language_json_folder;
 	}
     
-    
     // return
     return $paths;
 }
-
-// Netpune Style
-wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css', array('osetin-main'), null );
-
 // apdd-shop's style
-wp_enqueue_style( 'apdd-shop', get_stylesheet_directory_uri() . '/apdd-shop.min.css', array('osetin-main'), null );
+apdd_enqueue_style( 'apdd-shop', 'apdd-shop.min.css', array('osetin-main') );
 
 function register_localised_index_sidebars() {
 	register_sidebar(
